@@ -43,3 +43,7 @@ cdef extern from "amgx_c.h":
     AMGX_RC AMGX_finalize_plugins()
 
     AMGX_RC AMGX_config_create_from_file(AMGX_config_handle *cfg, const char *param_file)
+    AMGX_RC AMGX_config_destroy(AMGX_config_handle)
+
+    AMGX_RC AMGX_resources_create_simple(AMGX_resources_handle *rsc, AMGX_config_handle cfg)
+    AMGX_RC AMGX_resources_destroy(AMGX_resources_handle rsc)
