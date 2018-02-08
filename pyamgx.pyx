@@ -6,80 +6,82 @@ from libc.stdint cimport uintptr_t
 def initialize():
     return AMGX_initialize()
 
-def config_create_from_file(param_file):
+cdef class Config:
+
     cdef AMGX_config_handle cfg
-    err = AMGX_config_create_from_file(&cfg, param_file.encode())
-    return <uintptr_t> cfg
 
-def config_destroy(cfg):
-    err = AMGX_config_destroy(<AMGX_config_handle> <uintptr_t> cfg)
-    return err
+    def create_from_file(self, param_file):
+        err = AMGX_config_create_from_file(&self.cfg, param_file.encode())
+        return self
 
-def resources_create_simple(cfg):
+    def destroy(self):
+        err = AMGX_config_destroy(self.cfg)
+
+cdef class Resources:
+
     cdef AMGX_resources_handle rsrc
-    err = AMGX_resources_create_simple(&rsrc, <AMGX_config_handle> <uintptr_t> cfg)
-    return <uintptr_t> rsrc
 
-def resources_destroy(rsrc):
-    err = AMGX_resources_destroy(<AMGX_resources_handle> <uintptr_t> rsrc)
-    return err
+    def create_simple(self, Config cfg):
+        err = AMGX_resources_create_simple(&self.rsrc, cfg.cfg)
+        return self
 
-def matrix_create(rsrc, mode):
-    cdef AMGX_matrix_handle A
-    err = AMGX_matrix_create(&A, <AMGX_resources_handle> <uintptr_t> rsrc, asMode(mode))
-    return <uintptr_t> A
+    def destroy(self):
+        err = AMGX_resources_destroy(self.rsrc)
 
-def matrix_destroy(A):
-    err = AMGX_matrix_destroy(<AMGX_matrix_handle> <uintptr_t> A)
-    return err
+cdef class Matrix:
 
-def matrix_get_size(A):
-    cdef int n, bx, by
-    err = AMGX_matrix_get_size(<AMGX_matrix_handle> <uintptr_t> A,
-        &n, &bx, &by)
-    return n, [bx, by]
+    cdef AMGX_matrix_handle mtx
 
-def vector_create(rsrc, mode):
+    def create(self, Resources rsrc, mode):
+        err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
+        return self
+
+    def get_size(self):
+        cdef int n, bx, by
+        err = AMGX_matrix_get_size(self.mtx,
+            &n, &bx, &by)
+        return n, [bx, by]
+    
+    def destroy(self):
+        err = AMGX_matrix_destroy(self.mtx)
+
+cdef class Vector:
+
     cdef AMGX_vector_handle vec
-    err = AMGX_vector_create(&vec, <AMGX_resources_handle> <uintptr_t> rsrc, asMode(mode))
-    return <uintptr_t> vec
 
-def vector_destroy(vec):
-    err = AMGX_vector_destroy(<AMGX_vector_handle> <uintptr_t> vec)
-    return err
+    def create(self, Resources rsrc, mode):
+        err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
+        return self
 
-def solver_create(rsrc, mode, cfg):
+    def destroy(self):
+        err = AMGX_vector_destroy(self.vec)
+
+cdef class Solver:
+
     cdef AMGX_solver_handle slv
-    err = AMGX_solver_create(&slv,
-        <AMGX_resources_handle> <uintptr_t> rsrc,
-        asMode(mode),
-        <AMGX_config_handle> <uintptr_t> cfg)
-    return <uintptr_t> slv
 
-def solver_destroy(slv):
-    err = AMGX_solver_destroy(<AMGX_solver_handle> <uintptr_t> slv)
-    return err
+    def create(self, Resources rsrc, mode, Config cfg):
+        err = AMGX_solver_create(&self.slv, rsrc.rsrc, asMode(mode),
+            cfg.cfg)
+        return self
 
-def solver_setup(slv, A):
-    err = AMGX_solver_setup(
-        <AMGX_solver_handle> <uintptr_t> slv,
-        <AMGX_matrix_handle> <uintptr_t> A)
-    return err
+    def destroy(self):
+        err = AMGX_solver_destroy(self.slv)
 
-def solver_solve(slv, rhs, sol):
-    err = AMGX_solver_solve(
-        <AMGX_solver_handle> <uintptr_t> slv,
-        <AMGX_vector_handle> <uintptr_t> rhs,
-        <AMGX_vector_handle> <uintptr_t> sol)
-    return err
+    def setup(self, Matrix A):
+        err = AMGX_solver_setup(
+            self.slv,
+            A.mtx)
 
-def read_system(A, rhs, sol, fname):
+    def solve(self, Vector rhs, Vector sol):
+        err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
+
+def read_system(Matrix A, Vector rhs, Vector sol, fname):
     err = AMGX_read_system(
-        <AMGX_matrix_handle> <uintptr_t> A,
-        <AMGX_vector_handle> <uintptr_t> rhs,
-        <AMGX_vector_handle> <uintptr_t> sol,
+        A.mtx,
+        rhs.vec,
+        sol.vec,
         fname.encode())
-    return err
 
 def finalize():
     return AMGX_finalize()
