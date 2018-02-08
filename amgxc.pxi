@@ -1,4 +1,6 @@
 cdef extern from "amgx_c.h":
+
+    # Return codes
     ctypedef enum AMGX_RC:
         AMGX_RC_OK = 0
         AMGX_RC_BAD_PARAMETERS = 1
@@ -17,6 +19,7 @@ cdef extern from "amgx_c.h":
         AMGX_RC_LICENSE_NOT_FOUND = 14
         AMGX_RC_INTERNAL = 15
 
+    # Forward (opaque) handle declaration:
     ctypedef struct AMGX_config_handle_struct:
         char AMGX_config_handle_dummy
     ctypedef AMGX_config_handle_struct *AMGX_config_handle
@@ -37,16 +40,47 @@ cdef extern from "amgx_c.h":
         char AMGX_solver_handle_dummy
     ctypedef AMGX_solver_handle_struct *AMGX_solver_handle
 
+    # Init & Shutdown:
     AMGX_RC AMGX_initialize()
     AMGX_RC AMGX_initialize_plugins()
     AMGX_RC AMGX_finalize()
     AMGX_RC AMGX_finalize_plugins()
 
+    # Config:
     AMGX_RC AMGX_config_create_from_file(AMGX_config_handle *cfg, const char *param_file)
     AMGX_RC AMGX_config_destroy(AMGX_config_handle)
 
+    # Resources:
     AMGX_RC AMGX_resources_create_simple(AMGX_resources_handle *rsc, AMGX_config_handle cfg)
     AMGX_RC AMGX_resources_destroy(AMGX_resources_handle rsc)
 
+    # Matrix:
     AMGX_RC AMGX_matrix_create(AMGX_matrix_handle *mtx, AMGX_resources_handle rsc, AMGX_Mode mode)
     AMGX_RC AMGX_matrix_destroy(AMGX_matrix_handle mtx)
+
+    AMGX_RC AMGX_matrix_get_size(const AMGX_matrix_handle mtx, int *n, int *block_dimx,
+        int *block_dimy)
+
+    # Vector:
+    AMGX_RC AMGX_vector_create(AMGX_vector_handle *vec, AMGX_resources_handle rsc, AMGX_Mode mode)
+    AMGX_RC AMGX_vector_destroy(AMGX_vector_handle vec)
+
+    # Solver:
+    AMGX_RC AMGX_solver_create(AMGX_solver_handle *slv,
+        AMGX_resources_handle rsc,
+        AMGX_Mode mode,
+        const AMGX_config_handle cfg_solver)
+
+    AMGX_RC AMGX_solver_destroy(AMGX_solver_handle slv)
+
+    AMGX_RC AMGX_solver_setup(AMGX_solver_handle slv,
+        AMGX_matrix_handle mtx)
+
+    AMGX_RC AMGX_solver_solve(AMGX_solver_handle slv,
+        AMGX_vector_handle rhs,
+        AMGX_vector_handle sol)
+
+    # Utilities:
+    AMGX_RC AMGX_read_system(AMGX_matrix_handle mtx, AMGX_vector_handle rhs, AMGX_vector_handle sol,
+        const char *filename)
+
