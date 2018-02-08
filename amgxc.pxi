@@ -47,3 +47,6 @@ cdef extern from "amgx_c.h":
 
     AMGX_RC AMGX_resources_create_simple(AMGX_resources_handle *rsc, AMGX_config_handle cfg)
     AMGX_RC AMGX_resources_destroy(AMGX_resources_handle rsc)
+
+    AMGX_RC AMGX_matrix_create(AMGX_matrix_handle *mtx, AMGX_resources_handle rsc, AMGX_Mode mode)
+    AMGX_RC AMGX_matrix_destroy(AMGX_matrix_handle mtx)
