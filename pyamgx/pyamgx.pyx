@@ -2,6 +2,7 @@ include "amgxc.pxi"
 include "amgxconfig.pxi"
 
 from libc.stdint cimport uintptr_t
+cimport numpy as np
 
 def initialize():
     return AMGX_initialize()
@@ -35,6 +36,22 @@ cdef class Matrix:
     def create(self, Resources rsrc, mode):
         err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
         return self
+
+    def upload(self, int n, int nnz,
+            np.ndarray[int, ndim=1, mode="c"] row_ptrs,
+            np.ndarray[int, ndim=1, mode="c"] col_indices,
+            np.ndarray[double, ndim=1, mode="c"] data,
+            block_sizes=[1, 1]):
+
+        cdef int block_dimx, block_dimy
+
+        block_dimx = block_sizes[0]
+        block_dimy = block_sizes[1]
+
+        err = AMGX_matrix_upload_all(self.mtx,
+                n, nnz, block_dimx, block_dimy,
+                &row_ptrs[0], &col_indices[0],
+                &data[0], NULL)
 
     def get_size(self):
         cdef int n, bx, by

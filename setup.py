@@ -14,6 +14,7 @@ from os.path import join as pjoin
 from setuptools import setup, Extension
 from Cython.Distutils import build_ext
 import subprocess
+import numpy
 
 def find_in_path(name, path):
     "Find a file in a search path"
@@ -113,7 +114,7 @@ ext = Extension('pyamgx',
                 # the implementation of this trick is in customize_compiler() below
                 extra_compile_args={'gcc': [],
                                     'nvcc': ['-arch=sm_30', '--ptxas-options=-v', '-c', '--compiler-options', "'-fPIC'"]},
-                include_dirs = [CUDA['include'], 'src'])
+                include_dirs = [CUDA['include'], 'src']+[numpy.get_include()])
 
 setup(name='pyamgx',
       # random metadata. there's more you can supploy

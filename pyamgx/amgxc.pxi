@@ -61,9 +61,16 @@ cdef extern from "amgx_c.h":
     AMGX_RC AMGX_matrix_get_size(const AMGX_matrix_handle mtx, int *n, int *block_dimx,
         int *block_dimy)
 
+    AMGX_RC AMGX_matrix_upload_all(AMGX_matrix_handle mtx, int n, int nnz,
+        int block_dimx, int block_dimy, const int *row_ptrs, const int *col_indices,
+        const void *data, const void *diag_data)
+
     # Vector:
     AMGX_RC AMGX_vector_create(AMGX_vector_handle *vec, AMGX_resources_handle rsc, AMGX_Mode mode)
     AMGX_RC AMGX_vector_destroy(AMGX_vector_handle vec)
+
+    AMGX_RC AMGX_vector_upload(AMGX_vector_handle vec, int n, int block_dim,
+        const void *data);
 
     # Solver:
     AMGX_RC AMGX_solver_create(AMGX_solver_handle *slv,
