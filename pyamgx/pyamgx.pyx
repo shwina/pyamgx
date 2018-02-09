@@ -37,21 +37,27 @@ cdef class Matrix:
         err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self, int n, int nnz,
+    def upload(self, n, int nnz,
             np.ndarray[int, ndim=1, mode="c"] row_ptrs,
             np.ndarray[int, ndim=1, mode="c"] col_indices,
             np.ndarray[double, ndim=1, mode="c"] data,
-            block_sizes=[1, 1]):
+            block_dims=[1, 1]):
 
         cdef int block_dimx, block_dimy
 
-        block_dimx = block_sizes[0]
-        block_dimy = block_sizes[1]
+        block_dimx = block_dims[0]
+        block_dimy = block_dims[1]
 
         err = AMGX_matrix_upload_all(self.mtx,
                 n, nnz, block_dimx, block_dimy,
                 &row_ptrs[0], &col_indices[0],
                 &data[0], NULL)
+
+    def download(self, np.ndarray[int, ndim=1, mode="c"] row_ptrs,
+            np.ndarray[int, ndim=1, mode="c"] col_indices,
+            np.ndarray[double, ndim=1, mode="c"] data):
+        err = AMGX_matrix_download_all(self.mtx,
+            &row_ptrs[0], &col_indices[0], &data[0], NULL)
 
     def get_size(self):
         cdef int n, bx, by
@@ -69,6 +75,13 @@ cdef class Vector:
     def create(self, Resources rsrc, mode):
         err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
         return self
+
+    def upload(self, n, np.ndarray[double, ndim=1, mode="c"] data, block_dim=1):
+        err = AMGX_vector_upload(self.vec, n, block_dim,
+            &data[0])
+    
+    def download(self, np.ndarray[double, ndim=1, mode="c"] data):
+        err = AMGX_vector_download(self.vec, &data[0])
 
     def destroy(self):
         err = AMGX_vector_destroy(self.vec)
