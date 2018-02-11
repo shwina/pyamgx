@@ -22,5 +22,3 @@ cdef class Resources:
 
     def destroy(self):
         self._err = AMGX_resources_destroy(self.rsrc)
-
-

@@ -10,7 +10,7 @@ cdef class Config:
         """
         cfg.create(options)
 
-        Create configuration from options string
+        Create configuration from options string.
 
         Parameters:
 
@@ -26,7 +26,7 @@ cdef class Config:
         """
         cfg.create_from_file(param_file)
 
-        Create configuration from config file
+        Create configuration from config file.
 
         Parameters:
         ----------
@@ -37,9 +37,7 @@ cdef class Config:
         if not isinstance(param_file, bytes):
             param_file = param_file.encode()
         self._err = AMGX_config_create_from_file(&self.cfg, param_file)
-        print(self._err)
         return self
 
     def destroy(self):
         self._err = AMGX_config_destroy(self.cfg)
-
