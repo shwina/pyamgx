@@ -7,6 +7,7 @@ import numpy
 
 ext = Extension('pyamgx',
                 sources=['pyamgx/pyamgx.pyx'],
+                depends=['pyamgx/*.pyx, pyamgx/*.pxi'],
                 libraries=['amgxsh'],
                 language='c',
                 include_dirs = [numpy.get_include()])

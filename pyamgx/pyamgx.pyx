@@ -1,22 +1,13 @@
+cimport numpy as np
+
 include "amgxc.pxi"
 include "amgxconfig.pxi"
 
-from libc.stdint cimport uintptr_t
-cimport numpy as np
+include "RC.pyx"
+include "Config.pyx"
 
 def initialize():
     return AMGX_initialize()
-
-cdef class Config:
-
-    cdef AMGX_config_handle cfg
-
-    def create_from_file(self, param_file):
-        err = AMGX_config_create_from_file(&self.cfg, param_file.encode())
-        return self
-
-    def destroy(self):
-        err = AMGX_config_destroy(self.cfg)
 
 cdef class Resources:
 
