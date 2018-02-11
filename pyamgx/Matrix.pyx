@@ -29,7 +29,7 @@ cdef class Matrix:
             np.ndarray[double, ndim=1, mode="c"] data,
             block_dims=[1, 1]):
         """
-        M.upload(n, nnz, row_ptrs, col_indices, data, block_dims)
+        M.upload(n, nnz, row_ptrs, col_indices, data, block_dims=[1, 1])
 
         Copy data from a numpy.ndarray
 
