@@ -1,7 +1,7 @@
 
 cdef class Config:
     """
-    Config: Class for storing parsed representations of parameter strings.
+    Config: Class for creating and handling AMGX Config objects
     """
     cdef AMGX_config_handle cfg
     cdef public AMGX_RC _err

@@ -14,7 +14,7 @@ x = pyamgx.Vector().create(rsc, mode)
 b = pyamgx.Vector().create(rsc, mode)
 
 # Create solver:
-slv = pyamgx.Solver().create(rsc, mode, cfg)
+slv = pyamgx.Solver().create(rsc, cfg, mode)
 
 # Read system from file
 pyamgx.read_system(A, b, x, os.environ['AMGX_DIR']+'/examples/matrix.mtx')
