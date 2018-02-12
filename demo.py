@@ -3,18 +3,17 @@ import os
 
 pyamgx.initialize()
 
-# Initialize config, resources and mode:
+# Initialize config and resources:
 cfg = pyamgx.Config().create_from_file(os.environ['AMGX_DIR']+'/core/configs/FGMRES_AGGREGATION.json')
-
 rsc = pyamgx.Resources().create_simple(cfg)
-mode = 'dDDI'
+
 # Create matrices and vectors:
-A = pyamgx.Matrix().create(rsc, mode)
-x = pyamgx.Vector().create(rsc, mode)
-b = pyamgx.Vector().create(rsc, mode)
+A = pyamgx.Matrix().create(rsc)
+x = pyamgx.Vector().create(rsc)
+b = pyamgx.Vector().create(rsc)
 
 # Create solver:
-slv = pyamgx.Solver().create(rsc, cfg, mode)
+solver = pyamgx.Solver().create(rsc, cfg)
 
 # Upload system:
 import numpy as np
@@ -30,8 +29,8 @@ b.upload(rhs.size, rhs)
 x.upload(sol.size, sol)
 
 # Setup and solve system:
-slv.setup(A)
-slv.solve(b, x)
+solver.setup(A)
+solver.solve(b, x)
 
 # Download solution
 x.download(sol)
@@ -42,7 +41,7 @@ print("scipy solution: ", splinalg.spsolve(M, rhs))
 A.destroy()
 x.destroy()
 b.destroy()
-slv.destroy()
+solver.destroy()
 rsc.destroy()
 cfg.destroy()
 
