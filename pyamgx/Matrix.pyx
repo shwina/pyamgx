@@ -1,6 +1,6 @@
 cdef class Matrix:
     """
-    Matrix: Class for creating and handling AMGX Resources objects.
+    Matrix: Class for creating and handling AMGX Matrix objects.
     """
     cdef AMGX_matrix_handle mtx
     cdef public AMGX_RC _err
