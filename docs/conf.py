@@ -22,17 +22,23 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 # http://docs.readthedocs.io/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
+import os
 import sys
 from unittest.mock import MagicMock
+
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 class Mock(MagicMock):
     @classmethod
     def __getattr__(cls, name):
             return MagicMock()
 
-MOCK_MODULES = ['pyamgx', 'numpy']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+MOCK_MODULES =[]
 
+if on_rtd:
+    MOCK_MODULES += ['pyamgx']
+
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # -- General configuration ------------------------------------------------
 
@@ -44,6 +50,7 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
@@ -86,7 +93,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'static_build']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -186,7 +193,13 @@ texinfo_documents = [
 ]
 
 
-
-
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+# -- Hack for copying manually built pages to _build
+# https://groups.google.com/forum/#!topic/cython-users/OF4TnbrsnNo
+html_extra_path = []
+if on_rtd:
+    # on RTD, we just overwrite the built documentation with the content of static_build :)
+    print("RTD: configuring html_extra_path")
+    html_extra_path.append('static_build/html')
