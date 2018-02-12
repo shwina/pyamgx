@@ -60,6 +60,19 @@ cdef class Matrix:
                 &row_ptrs[0], &col_indices[0],
                 &data[0], NULL)
 
+    def upload_CSR(self, csr):
+        """
+        M.upload(csr)
+
+        Copy data from a scipy.sparse.csr_matrix
+        """
+        n = csr.shape[0]
+        nnz = csr.nnz
+        row_ptrs = csr.indptr
+        col_indices = csr.indices
+        data = csr.data
+        self.upload(n, nnz, row_ptrs, col_indices, data)
+
     def get_size(self):
         cdef int n, bx, by
         self._err = AMGX_matrix_get_size(self.mtx,
