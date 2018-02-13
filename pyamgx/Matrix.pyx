@@ -1,6 +1,16 @@
 cdef class Matrix:
     """
     `Matrix` : Class for creating and handling AMGX Matrix objects.
+
+    Examples
+    --------
+
+    Uploading the matrix ``[[1, 2], [3, 4]]`` using the `upload` method:
+
+    >>> M = pyamgx.Matrix().create(rsrc)
+    >>> M.upload(indptr=np.array([0, 2, 4], dtype=np.int32,
+    ... indices=np.array([0, 1, 0, 1], dtype=np.int32),
+    ... data=np.array([1., 2., 3., 4.], dtype=np.float64))
     """
     cdef AMGX_matrix_handle mtx
     cdef public AMGX_RC _err
@@ -9,15 +19,19 @@ cdef class Matrix:
         """
         M.create(Resources rsrc, mode='dDDI')
         
-        Create Matrix object.
+        Create the underlying AMGX Matrix object.
 
         Parameters
         ----------
-        rsrc : `pyamgx.Resources`
-            Resources object
+        rsrc : Resources
 
-        mode : str
-            String representing data modes
+        mode : str, optional
+            String representing data modes to use.
+
+        Returns
+        -------
+
+        self : Matrix
         """
         self._err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
         return self
@@ -28,20 +42,20 @@ cdef class Matrix:
             np.ndarray[double, ndim=1, mode="c"] data,
             block_dims=[1, 1]):
         """
-        M.upload(n, nnz, row_ptrs, col_indices, data, block_dims=[1, 1])
+        M.upload(row_ptrs, col_indices, data, block_dims=[1, 1])
 
-        Copy data from arrays describing the sparse matrix.
+        Copy data from arrays describing the sparse matrix to the Matrix object.
 
         Parameters
         ----------
-        row_ptrs : (N,) array
-            Array (one-dimensional) of row pointers. 
-            For an explanation of the arrays `row_ptrs`, `col_indices` and `data`,
-            please see `<https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)>`_.
-        col_indices : (N,) ndarray
-            Array (one-dimensional) of column indices
-        data : (N,) ndarray
-            Array (one-dimensional) of matrix data
+        row_ptrs : ndarray[double, ndim=1, mode="c"]
+            Array of row pointers. For a description of the arrays
+            `row_ptrs`, `col_indices` and `data`,
+            see `here <https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)>`_.
+        col_indices : ndarray[double, ndim=1, mode="c"]
+            Array of column indices.
+        data : ndarray[double, ndim=1, mode="c"]
+            Array of matrix data.
         block_dims : tuple_like, optional
             Dimensions of block in x- and y- directions. Currently
             only square blocks are supported.
@@ -63,13 +77,11 @@ cdef class Matrix:
         """
         M.upload(csr)
 
-        Copy data from a `scipy.sparse.csr_matrix`.
+        Copy data from a `scipy.sparse.csr_matrix` to the Matrix object.
 
         Parameters
         ----------
-        csr : sparse matrix
-            A `scipy.sparse.csr_matrix`.
-            
+        csr : scipy.sparse.csr_matrix
         """
         n = csr.shape[0]
         nnz = csr.nnz
@@ -85,4 +97,9 @@ cdef class Matrix:
         return n, [bx, by]
     
     def destroy(self):
+        """
+        M.destroy()
+
+        Destroy the underlying AMGX Matrix object.
+        """
         self._err = AMGX_matrix_destroy(self.mtx)

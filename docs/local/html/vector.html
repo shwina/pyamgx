@@ -166,23 +166,35 @@
 <dt id="pyamgx.Vector">
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Vector</code><a class="headerlink" href="#pyamgx.Vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vector: Class for creating and handling AMGX Vector objects.</p>
-<p class="rubric">Methods</p>
+<p class="rubric">Examples</p>
+<p>Creating a vector, uploading values from a numpy array, and downloading values
+back to a numpy array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">array([1., 2., 3.])</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="pyamgx.Vector.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create Vector object.</p>
+<dd><p>Create the underlying AMGX Vector object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rsrc</strong> : Resources</p>
-<blockquote>
-<div><p><cite>Resources</cite> object</p>
-</div></blockquote>
-<p><strong>mode</strong> : str</p>
-<blockquote class="last">
-<div><p>String representing data modes</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector">Vector</a></p>
 </td>
 </tr>
 </tbody>
@@ -190,27 +202,37 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="pyamgx.Vector.download">
-<code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data to a <cite>numpy.ndarray</cite>. See <cite>Vector.upload</cite></p>
+<dt id="pyamgx.Vector.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Vector object.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyamgx.Vector.upload">
-<code class="descname">upload</code><span class="sig-paren">(</span><em>n</em>, <em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from a <cite>numpy.ndarray</cite></p>
+<dt id="pyamgx.Vector.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from the Vector to a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : (N,) array</p>
-<blockquote>
-<div><p>Array (one-dimensional) of vector data</p>
-</div></blockquote>
-<p><strong>block_dim</strong> : int</p>
-<blockquote class="last">
-<div><p>Number of values per block</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data to the Vector from a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data from.</li>
+<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
+</ul>
 </td>
 </tr>
 </tbody>

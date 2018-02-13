@@ -166,23 +166,32 @@
 <dt id="pyamgx.Matrix">
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Matrix</code><a class="headerlink" href="#pyamgx.Matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>Matrix</cite> : Class for creating and handling AMGX Matrix objects.</p>
-<p class="rubric">Methods</p>
+<p class="rubric">Examples</p>
+<p>Uploading the matrix <code class="docutils literal"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">indptr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="pyamgx.Matrix.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create Matrix object.</p>
+<dd><p>Create the underlying AMGX Matrix object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rsrc</strong> : <cite>pyamgx.Resources</cite></p>
-<blockquote>
-<div><p>Resources object</p>
-</div></blockquote>
-<p><strong>mode</strong> : str</p>
-<blockquote class="last">
-<div><p>String representing data modes</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix">Matrix</a></p>
 </td>
 </tr>
 </tbody>
@@ -190,32 +199,28 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="pyamgx.Matrix.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Matrix object.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyamgx.Matrix.upload">
-<code class="descname">upload</code><span class="sig-paren">(</span><em>n, nnz, row_ptrs, col_indices, data, block_dims=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from arrays describing the sparse matrix.</p>
+<code class="descname">upload</code><span class="sig-paren">(</span><em>row_ptrs, col_indices, data, block_dims=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from arrays describing the sparse matrix to the Matrix object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>row_ptrs</strong> : (N,) array</p>
-<blockquote>
-<div><p>Array (one-dimensional) of row pointers. 
-For an explanation of the arrays <cite>row_ptrs</cite>, <cite>col_indices</cite> and <cite>data</cite>,
-please see <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)">https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)</a>.</p>
-</div></blockquote>
-<p><strong>col_indices</strong> : (N,) ndarray</p>
-<blockquote>
-<div><p>Array (one-dimensional) of column indices</p>
-</div></blockquote>
-<p><strong>data</strong> : (N,) ndarray</p>
-<blockquote>
-<div><p>Array (one-dimensional) of matrix data</p>
-</div></blockquote>
-<p><strong>block_dims</strong> : tuple_like, optional</p>
-<blockquote class="last">
-<div><p>Dimensions of block in x- and y- directions. Currently
-only square blocks are supported.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row_ptrs</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array of row pointers. For a description of the arrays
+<cite>row_ptrs</cite>, <cite>col_indices</cite> and <cite>data</cite>,
+see <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)">here</a>.</li>
+<li><strong>col_indices</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array of column indices.</li>
+<li><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array of matrix data.</li>
+<li><strong>block_dims</strong> (<em>tuple_like</em><em>, </em><em>optional</em>) – Dimensions of block in x- and y- directions. Currently
+only square blocks are supported.</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -224,17 +229,14 @@ only square blocks are supported.</p>
 
 <dl class="method">
 <dt id="pyamgx.Matrix.upload_CSR">
-<code class="descname">upload_CSR</code><span class="sig-paren">(</span><em>csr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from a <cite>scipy.sparse.csr_matrix</cite>.</p>
+<code class="descname">upload_CSR</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
+<dd><p>M.upload(csr)</p>
+<p>Copy data from a <cite>scipy.sparse.csr_matrix</cite> to the Matrix object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>csr</strong> : sparse matrix</p>
-<blockquote class="last">
-<div><p>A <cite>scipy.sparse.csr_matrix</cite>.</p>
-</div></blockquote>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>csr</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.0.0)"><em>scipy.sparse.csr_matrix</em></a>) – </td>
 </tr>
 </tbody>
 </table>

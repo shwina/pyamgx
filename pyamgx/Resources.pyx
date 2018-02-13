@@ -9,16 +9,23 @@ cdef class Resources:
         """ 
         rsc.create_simple(cfg)
 
-        Create a Resources object in a single-threaded application.
+        Create the underlying AMGX Resources object in a single-threaded application.
 
         Parameters
         ----------
+        cfg : Config
 
-        cfg: `pyamgx.Config`
-            Config object
+        Returns
+        -------
+        self : Resources
         """
         self._err = AMGX_resources_create_simple(&self.rsrc, cfg.cfg)
         return self
 
     def destroy(self):
+        """
+        rsc.destroy()
+
+        Destroy the underlying AMGX Resources object.
+        """
         self._err = AMGX_resources_destroy(self.rsrc)

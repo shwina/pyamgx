@@ -9,18 +9,14 @@ cdef class Solver:
         """
         solver.create(Resources rsrc, Config cfg, mode='dDDI')
 
-        Create Solver object
+        Create the underlying AMGX Solver object
 
         Parameters
         ----------
         rsrc : Resources
-            `Resources` object
-
         cfg: Config
-            `Config` object
-
         mode : str, optional
-            String representing data modes
+            String representing data modes to use.
         """
         self._err = AMGX_solver_create(&self.slv, rsrc.rsrc, asMode(mode),
             cfg.cfg)
@@ -35,14 +31,14 @@ cdef class Solver:
         Parameters
         ----------
         A : Matrix
-            `Matrix` object that was previously created using
-            the `create` method.
+            The `Matrix` representing the coefficient matrix of the equation
+            to be solved.
         """
         self._err = AMGX_solver_setup(
             self.slv,
             A.mtx)
 
-    def solve(self, Vector rhs, Vector sol):
+    def solve(self, Vector rhs, Vector sol, zero_initial_guess=False):
         """
         solver.solve(Vector rhs, Vector sol)
 
@@ -51,16 +47,23 @@ cdef class Solver:
         Parameters
         ----------
         rhs : Vector
-            `Vector` object that was previously created using
-            the `create` method. The vector
-            represents the right-hand side of the equation to
-            be solved.
-
+            The `Vector` representing the right-hand side of the equation
+            to be solved.
         sol : Vector
-            `Vector` object that was previously created
-            and initialized.
+            The `Vector` representing the solution vector of the equation
+            to be solved. If `zero_initial_guess` is unspecified,
+            the values in `sol` are used as the initial guess for iterative
+            algorithms.
+        zero_initial_guess : bool, optional
+            If `True`, use an initial guess of zero for the solution,
+            regardless of the values in `sol`.
         """
         self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
 
     def destroy(self):
+        """
+        solver.destroy()
+        
+        Destroy the underlying AMGX Matrix object.
+        """
         self._err = AMGX_solver_destroy(self.slv)

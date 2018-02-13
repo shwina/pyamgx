@@ -1,4 +1,3 @@
-
 cdef class Config:
     """
     Config: Class for creating and handling AMGX Config objects
@@ -13,17 +12,16 @@ cdef class Config:
         """
         cfg.create(options)
 
-        Create configuration from options string.
+        Create the underlying AMGX Config object from a configuration string.
 
         Parameters
         ----------
         options : str or bytes_like
-            Options string
+            AMGX configuration string.
 
         Returns
         -------
-
-        self : `pyamgx.Config`
+        self : Config
         """
         if not isinstance(options, bytes):
             options = options.encode()
@@ -34,12 +32,12 @@ cdef class Config:
         """
         cfg.create_from_file(param_file)
 
-        Create configuration from an AMGX config file.
+        Create the underlying AMGX Config object from a configuration file.
 
         Parameters
         ----------
         param_file : str or bytes_like
-            Path to configuration file
+            Path to configuration file.
         """
         if not isinstance(param_file, bytes):
             param_file = param_file.encode()
@@ -47,4 +45,9 @@ cdef class Config:
         return self
 
     def destroy(self):
+        """
+        cfg.destroy()
+
+        Destroy the underlying AMGX Config object.
+        """
         self._err = AMGX_config_destroy(self.cfg)

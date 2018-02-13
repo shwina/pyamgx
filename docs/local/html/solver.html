@@ -165,31 +165,29 @@
 <dt id="pyamgx.Solver">
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Solver</code><a class="headerlink" href="#pyamgx.Solver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solver: Class for creating and handling AMGX Solver objects.</p>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyamgx.Solver.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>Config cfg</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create Solver object</p>
+<dd><p>Create the underlying AMGX Solver object</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rsrc</strong> : Resources</p>
-<blockquote>
-<div><p><cite>Resources</cite> object</p>
-</div></blockquote>
-<p><strong>cfg: Config</strong></p>
-<blockquote>
-<div><p><cite>Config</cite> object</p>
-</div></blockquote>
-<p><strong>mode</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>String representing data modes</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>cfg</strong> (<a class="reference internal" href="config.html#pyamgx.Config" title="pyamgx.Config"><em>Config</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Solver.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Matrix object.</p>
 </dd></dl>
 
 <dl class="method">
@@ -200,12 +198,8 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>A</strong> : Matrix</p>
-<blockquote class="last">
-<div><p><cite>Matrix</cite> object that was previously created using
-the <cite>create</cite> method.</p>
-</div></blockquote>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>A</strong> (<a class="reference internal" href="matrix.html#pyamgx.Matrix" title="pyamgx.Matrix"><em>Matrix</em></a>) – The <cite>Matrix</cite> representing the coefficient matrix of the equation
+to be solved.</td>
 </tr>
 </tbody>
 </table>
@@ -219,18 +213,16 @@ the <cite>create</cite> method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rhs</strong> : Vector</p>
-<blockquote>
-<div><p><cite>Vector</cite> object that was previously created using
-the <cite>create</cite> method. The vector
-represents the right-hand side of the equation to
-be solved.</p>
-</div></blockquote>
-<p><strong>sol</strong> : Vector</p>
-<blockquote class="last">
-<div><p><cite>Vector</cite> object that was previously created
-and initialized.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rhs</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the right-hand side of the equation
+to be solved.</li>
+<li><strong>sol</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the solution vector of the equation
+to be solved. If <cite>zero_initial_guess</cite> is unspecified,
+the values in <cite>sol</cite> are used as the initial guess for iterative
+algorithms.</li>
+<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
+regardless of the values in <cite>sol</cite>.</li>
+</ul>
 </td>
 </tr>
 </tbody>

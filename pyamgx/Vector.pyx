@@ -1,6 +1,20 @@
 cdef class Vector:
     """
     Vector: Class for creating and handling AMGX Vector objects.
+
+    Examples
+    --------
+    
+    Creating a vector, uploading values from a numpy array, and downloading values
+    back to a numpy array:
+
+    >>> v = pyamgx.Vector().create(rsrc)
+    >>> v.upload(np.array([1., 2., 3.,], dtype=np.float64))
+    >>> a = np.zeros([0., 0., 0.])
+    >>> v.download(a)
+    >>> print(a)
+    array([1., 2., 3.])
+
     """
     cdef AMGX_vector_handle vec
     cdef public AMGX_RC _err
@@ -9,33 +23,40 @@ cdef class Vector:
         """
         v.create(Resources rsrc, mode='dDDI')
 
-        Create Vector object.
+        Create the underlying AMGX Vector object.
 
         Parameters
         ----------
         rsrc : Resources
-            `Resources` object
+        mode : str, optional
+            String representing data modes to use.
 
-        mode : str
-            String representing data modes
+        Returns
+        -------
+        self : Vector
         """
         self._err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self, np.ndarray[double, ndim=1, mode="c"] data, block_dim=1):
+    def upload(self, np.ndarray[double, ndim=1, mode="c"] data, n=None, block_dim=1):
         """
-        v.upload(n, data, block_dim=1)
+        v.upload(data, block_dim=1)
 
-        Copy data from a `numpy.ndarray`
+        Copy data to the Vector from a :class:`numpy.ndarray`.
 
         Parameters
         ----------
-        data : (N,) array
-            Array (one-dimensional) of vector data
-        block_dim : int
-            Number of values per block
+        data : ndarray[double, ndim=1, mode="c"]
+            Array to copy data from.
+        block_dim : int, optional
+            Number of values per block.
         """
-        n = len(data)
+
+        if block_dim == 1:
+            n = len(data)
+        else:
+            n = len(data)/block_dim
+
         self._err = AMGX_vector_upload(self.vec, n, block_dim,
             &data[0])
     
@@ -43,9 +64,20 @@ cdef class Vector:
         """
         v.download(data)
 
-        Copy data to a `numpy.ndarray`. See `Vector.upload`
+        Copy data from the Vector to a :class:`numpy.ndarray`.
+
+        Parameters
+        ----------
+
+        data : ndarray[double, ndim=1, mode="c"]
+            Array to copy data to.
         """
         self._err = AMGX_vector_download(self.vec, &data[0])
 
     def destroy(self):
+        """
+        v.destroy()
+
+        Destroy the underlying AMGX Vector object.
+        """
         self._err = AMGX_vector_destroy(self.vec)
