@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Config &mdash; pyamgx 0.1 documentation</title>
+  <title>Matrix &mdash; pyamgx 0.1 documentation</title>
   
 
   
@@ -35,8 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/>
-        <link rel="prev" title="Welcome to pyamgx’s documentation!" href="index.html"/> 
+    <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,11 +90,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>Config</cite></a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="config.html"><cite>Config</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html"><cite>Resources</cite></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>Matrix</cite></a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html"><cite>Resources</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="matrix.html"><cite>Matrix</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector.html"><cite>Vector</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="solver.html"><cite>Solver</cite></a></li>
 </ul>
@@ -142,13 +141,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li><cite>Config</cite></li>
+      <li><cite>Matrix</cite></li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/config.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/matrix.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -161,12 +160,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="config">
-<h1><cite>Config</cite><a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="matrix">
+<h1><cite>Matrix</cite><a class="headerlink" href="#matrix" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="pyamgx.Config">
-<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Config</code><a class="headerlink" href="#pyamgx.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Config: Class for creating and handling AMGX Config objects</p>
+<dt id="pyamgx.Matrix">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Matrix</code><a class="headerlink" href="#pyamgx.Matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>Matrix</cite> : Class for creating and handling AMGX Matrix objects.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -177,29 +176,36 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">create</span></code></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">create_from_file</span></code></td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">destroy</span></code></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">destroy</span></code></td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_size</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">upload</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">upload_CSR</span></code></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="pyamgx.Config.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create configuration from options string.</p>
+<dt id="pyamgx.Matrix.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Matrix object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>options</strong> : str or bytes_like</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rsrc</strong> : <cite>pyamgx.Resources</cite></p>
 <blockquote>
-<div><p>Options string</p>
+<div><p>Resources object</p>
 </div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>self</strong> : <cite>pyamgx.Config</cite></p>
+<p><strong>mode</strong> : str</p>
+<blockquote class="last">
+<div><p>String representing data modes</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -207,16 +213,55 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="pyamgx.Config.create_from_file">
-<code class="descname">create_from_file</code><span class="sig-paren">(</span><em>param_file</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create_from_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create configuration from an AMGX config file.</p>
+<dt id="pyamgx.Matrix.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>n, nnz, row_ptrs, col_indices, data, block_dims=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from arrays describing the sparse matrix.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>param_file</strong> : str or bytes_like</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<blockquote>
+<div><p>Number of columns (and rows) of the matrix in terms of block units</p>
+</div></blockquote>
+<p><strong>nnz</strong> : int</p>
+<blockquote>
+<div><p>Number of nonzeros in the matrix in terms of block units</p>
+</div></blockquote>
+<p><strong>row_ptrs</strong> : (N,) array</p>
+<blockquote>
+<div><p>Array of row pointers</p>
+</div></blockquote>
+<p><strong>col_indices</strong> : (N,) ndarray</p>
+<blockquote>
+<div><p>Array of column pointers</p>
+</div></blockquote>
+<p><strong>data</strong> : (N,) ndarray</p>
+<blockquote>
+<div><p>Array of matrix data</p>
+</div></blockquote>
+<p><strong>block_dims</strong> : tuple_like, optional</p>
 <blockquote class="last">
-<div><p>Path to configuration file</p>
+<div><p>Dimensions of block in x- and y- directions. Currently
+only square blocks are supported.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.upload_CSR">
+<code class="descname">upload_CSR</code><span class="sig-paren">(</span><em>csr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from a scipy.sparse.csr_matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>csr</strong> : sparse matrix</p>
+<blockquote class="last">
+<div><p>A <code class="docutils literal"><span class="pre">scipy.sparse.csr_matrix</span></code>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -235,13 +280,6 @@
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="Welcome to pyamgx’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
