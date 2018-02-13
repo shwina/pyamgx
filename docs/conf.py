@@ -92,7 +92,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'static_build']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'local']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -199,6 +199,6 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 # https://groups.google.com/forum/#!topic/cython-users/OF4TnbrsnNo
 html_extra_path = []
 if on_rtd:
-    # on RTD, we just overwrite the built documentation with the content of static_build :)
+    # on RTD, we just overwrite the built documentation with the content of local:)
     print("RTD: configuring html_extra_path")
-    html_extra_path.append('static_build/html')
+    html_extra_path.append('local/html')
