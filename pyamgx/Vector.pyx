@@ -11,7 +11,7 @@ cdef class Vector:
 
         Create Vector object.
 
-        Parameters:
+        Parameters
         ----------
         rsrc : Resources
             `Resources` object
@@ -28,7 +28,7 @@ cdef class Vector:
 
         Copy data from a `numpy.ndarray`
 
-        Parameters:
+        Parameters
         ----------
         data : (N,) array
             Array (one-dimensional) of vector data
