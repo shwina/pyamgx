@@ -26,9 +26,7 @@ class TestVector:
     def test_upload_download(self):
         v = pyamgx.Vector().create(self.rsrc)
 
-        v.upload(
-               3,
-                np.array([1, 2, 3.], dtype=np.float64))
+        v.upload(np.array([1, 2, 3.], dtype=np.float64))
         assert (v._err == RC.OK)
 
         a = np.zeros(3, dtype=np.float64)

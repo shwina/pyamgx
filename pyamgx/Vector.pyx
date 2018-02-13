@@ -13,33 +13,29 @@ cdef class Vector:
 
         Parameters:
         ----------
+        rsrc : Resources
+            `Resources` object
 
-        rsrc: pyamgx.Resources
-            Resources object
-
-        mode: str
+        mode : str
             String representing data modes
         """
         self._err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self, int n, np.ndarray[double, ndim=1, mode="c"] data, block_dim=1):
+    def upload(self, np.ndarray[double, ndim=1, mode="c"] data, block_dim=1):
         """
         v.upload(n, data, block_dim=1)
 
-        Copy data from a numpy.ndarray
+        Copy data from a `numpy.ndarray`
 
         Parameters:
         ----------
-
-        n: int
-            Number of entries to be copied, in block units
-        data: np.ndarray[double, ndim=1, mode="c"]
-            Array of vector data
-        block_dim: int
+        data : (N,) array
+            Array (one-dimensional) of vector data
+        block_dim : int
             Number of values per block
         """
-
+        n = len(data)
         self._err = AMGX_vector_upload(self.vec, n, block_dim,
             &data[0])
     
@@ -47,7 +43,7 @@ cdef class Vector:
         """
         v.download(data)
 
-        Copy data to a numpy.ndarray. See pyamgx.Vector.upload
+        Copy data to a `numpy.ndarray`. See `Vector.upload`
         """
         self._err = AMGX_vector_download(self.vec, &data[0])
 
