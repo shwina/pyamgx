@@ -88,7 +88,7 @@ cdef class Matrix:
         row_ptrs = csr.indptr
         col_indices = csr.indices
         data = csr.data
-        self.upload(n, nnz, row_ptrs, col_indices, data)
+        self.upload(row_ptrs, col_indices, data)
 
     def get_size(self):
         cdef int n, bx, by
