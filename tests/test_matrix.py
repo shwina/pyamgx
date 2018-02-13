@@ -27,8 +27,6 @@ class TestMatrix:
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         M.upload(
-                2,
-                3,
                 np.array([0, 1, 3], dtype=np.intc),
                 np.array([1, 0, 1], dtype=np.intc),
                 np.array([1, 2, 3], dtype=np.float64))

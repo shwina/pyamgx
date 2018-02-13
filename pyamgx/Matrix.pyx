@@ -22,7 +22,7 @@ cdef class Matrix:
         self._err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self, n, int nnz,
+    def upload(self,
             np.ndarray[int, ndim=1, mode="c"] row_ptrs,
             np.ndarray[int, ndim=1, mode="c"] col_indices,
             np.ndarray[double, ndim=1, mode="c"] data,
@@ -34,16 +34,14 @@ cdef class Matrix:
 
         Parameters
         ----------
-        n : int
-            Number of columns (and rows) of the matrix in terms of block units
-        nnz : int
-            Number of nonzeros in the matrix in terms of block units
         row_ptrs : (N,) array
-            Array of row pointers
+            Array (one-dimensional) of row pointers. 
+            For an explanation of the arrays `row_ptrs`, `col_indices` and `data`,
+            please see `<https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)>`_.
         col_indices : (N,) ndarray
-            Array of column pointers
+            Array (one-dimensional) of column indices
         data : (N,) ndarray
-            Array of matrix data
+            Array (one-dimensional) of matrix data
         block_dims : tuple_like, optional
             Dimensions of block in x- and y- directions. Currently
             only square blocks are supported.
@@ -52,6 +50,9 @@ cdef class Matrix:
 
         block_dimx = block_dims[0]
         block_dimy = block_dims[1]
+
+        n = len(row_ptrs) - 1
+        nnz = len(data)
 
         self._err = AMGX_matrix_upload_all(self.mtx,
                 n, nnz, block_dimx, block_dimy,
@@ -62,12 +63,12 @@ cdef class Matrix:
         """
         M.upload(csr)
 
-        Copy data from a scipy.sparse.csr_matrix
+        Copy data from a `scipy.sparse.csr_matrix`.
 
         Parameters
         ----------
         csr : sparse matrix
-            A ``scipy.sparse.csr_matrix``.
+            A `scipy.sparse.csr_matrix`.
             
         """
         n = csr.shape[0]
