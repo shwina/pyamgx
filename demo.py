@@ -25,8 +25,8 @@ rhs = np.random.rand(5)
 sol = np.zeros(5, dtype=np.float64)
 
 A.upload_CSR(M)
-b.upload(rhs.size, rhs)
-x.upload(sol.size, sol)
+b.upload(rhs)
+x.upload(sol)
 
 # Setup and solve system:
 solver.setup(A)

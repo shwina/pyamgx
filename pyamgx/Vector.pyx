@@ -38,7 +38,7 @@ cdef class Vector:
         self._err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self, np.ndarray[double, ndim=1, mode="c"] data, n=None, block_dim=1):
+    def upload(self, np.ndarray[double, ndim=1, mode="c"] data, block_dim=1):
         """
         v.upload(data, block_dim=1)
 
