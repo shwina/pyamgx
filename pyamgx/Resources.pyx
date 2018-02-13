@@ -14,7 +14,7 @@ cdef class Resources:
         Parameters
         ----------
 
-        cfg: pyamgx.Config
+        cfg: `pyamgx.Config`
             Config object
         """
         self._err = AMGX_resources_create_simple(&self.rsrc, cfg.cfg)

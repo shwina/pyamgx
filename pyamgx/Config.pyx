@@ -6,16 +6,24 @@ cdef class Config:
     cdef AMGX_config_handle cfg
     cdef public AMGX_RC _err
 
+    def __init__(self):
+        pass
+
     def create(self, options):
         """
         cfg.create(options)
 
         Create configuration from options string.
 
-        Parameters:
-
-        options: str or bytes_like
+        Parameters
+        ----------
+        options : str or bytes_like
             Options string
+
+        Returns
+        -------
+
+        self : `pyamgx.Config`
         """
         if not isinstance(options, bytes):
             options = options.encode()
@@ -26,12 +34,11 @@ cdef class Config:
         """
         cfg.create_from_file(param_file)
 
-        Create configuration from config file.
+        Create configuration from an AMGX config file.
 
-        Parameters:
+        Parameters
         ----------
-
-        param_file: str or bytes_like
+        param_file : str or bytes_like
             Path to configuration file
         """
         if not isinstance(param_file, bytes):

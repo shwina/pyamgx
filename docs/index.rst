@@ -12,6 +12,9 @@ Welcome to pyamgx's documentation!
    
    config
    resources
+   matrix
+   vector
+   solver
 
 Indices and tables
 ==================

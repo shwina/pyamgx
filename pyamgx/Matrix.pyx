@@ -1,6 +1,6 @@
 cdef class Matrix:
     """
-    Matrix: Class for creating and handling AMGX Matrix objects.
+    `Matrix` : Class for creating and handling AMGX Matrix objects.
     """
     cdef AMGX_matrix_handle mtx
     cdef public AMGX_RC _err
@@ -11,13 +11,12 @@ cdef class Matrix:
         
         Create Matrix object.
 
-        Parameters:
+        Parameters
         ----------
-
-        rsrc: pyamgx.Resources
+        rsrc : `pyamgx.Resources`
             Resources object
 
-        mode: str
+        mode : str
             String representing data modes
         """
         self._err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
@@ -31,22 +30,21 @@ cdef class Matrix:
         """
         M.upload(n, nnz, row_ptrs, col_indices, data, block_dims=[1, 1])
 
-        Copy data from a numpy.ndarray
+        Copy data from arrays describing the sparse matrix.
 
-        Parameters:
+        Parameters
         ----------
-
-        n: int
+        n : int
             Number of columns (and rows) of the matrix in terms of block units
-        nnz: int
+        nnz : int
             Number of nonzeros in the matrix in terms of block units
-        row_ptrs: np.ndarray[int, ndim=1, mode="c"]
+        row_ptrs : (N,) array
             Array of row pointers
-        col_indices: np.ndarray[int, ndim=1, mode="c"]
+        col_indices : (N,) ndarray
             Array of column pointers
-        data: np.ndarray[double, ndim=1, mode="c"]
+        data : (N,) ndarray
             Array of matrix data
-        block_dims: tuple_like
+        block_dims : tuple_like, optional
             Dimensions of block in x- and y- directions. Currently
             only square blocks are supported.
         """
@@ -65,6 +63,12 @@ cdef class Matrix:
         M.upload(csr)
 
         Copy data from a scipy.sparse.csr_matrix
+
+        Parameters
+        ----------
+        csr : sparse matrix
+            A ``scipy.sparse.csr_matrix``.
+            
         """
         n = csr.shape[0]
         nnz = csr.nnz
