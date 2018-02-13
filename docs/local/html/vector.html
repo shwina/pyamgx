@@ -172,9 +172,9 @@
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Vector object.</p>
 <dl class="docutils">
-<dt>rsrc: pyamgx.Resources</dt>
-<dd>Resources object</dd>
-<dt>mode: str</dt>
+<dt>rsrc <span class="classifier-delimiter">:</span> <span class="classifier">Resources</span></dt>
+<dd><cite>Resources</cite> object</dd>
+<dt>mode <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd>String representing data modes</dd>
 </dl>
 </dd></dl>
@@ -182,19 +182,17 @@
 <dl class="method">
 <dt id="pyamgx.Vector.download">
 <code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data to a numpy.ndarray. See pyamgx.Vector.upload</p>
+<dd><p>Copy data to a <cite>numpy.ndarray</cite>. See <cite>Vector.upload</cite></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyamgx.Vector.upload">
 <code class="descname">upload</code><span class="sig-paren">(</span><em>n</em>, <em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from a numpy.ndarray</p>
+<dd><p>Copy data from a <cite>numpy.ndarray</cite></p>
 <dl class="docutils">
-<dt>n: int</dt>
-<dd>Number of entries to be copied, in block units</dd>
-<dt>data: np.ndarray[double, ndim=1, mode=”c”]</dt>
-<dd>Array of vector data</dd>
-<dt>block_dim: int</dt>
+<dt>data <span class="classifier-delimiter">:</span> <span class="classifier">(N,) array</span></dt>
+<dd>Array (one-dimensional) of vector data</dd>
+<dt>block_dim <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
 <dd>Number of values per block</dd>
 </dl>
 </dd></dl>

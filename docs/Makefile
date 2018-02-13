@@ -19,5 +19,5 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-static_build: html
-	rsync -avx _build/ static_build
+local: html
+	rsync -avx _build/ local

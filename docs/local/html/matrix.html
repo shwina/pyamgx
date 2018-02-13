@@ -197,25 +197,19 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>row_ptrs</strong> : (N,) array</p>
 <blockquote>
-<div><p>Number of columns (and rows) of the matrix in terms of block units</p>
-</div></blockquote>
-<p><strong>nnz</strong> : int</p>
-<blockquote>
-<div><p>Number of nonzeros in the matrix in terms of block units</p>
-</div></blockquote>
-<p><strong>row_ptrs</strong> : (N,) array</p>
-<blockquote>
-<div><p>Array of row pointers</p>
+<div><p>Array (one-dimensional) of row pointers. 
+For an explanation of the arrays <cite>row_ptrs</cite>, <cite>col_indices</cite> and <cite>data</cite>,
+please see <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)">https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)</a>.</p>
 </div></blockquote>
 <p><strong>col_indices</strong> : (N,) ndarray</p>
 <blockquote>
-<div><p>Array of column pointers</p>
+<div><p>Array (one-dimensional) of column indices</p>
 </div></blockquote>
 <p><strong>data</strong> : (N,) ndarray</p>
 <blockquote>
-<div><p>Array of matrix data</p>
+<div><p>Array (one-dimensional) of matrix data</p>
 </div></blockquote>
 <p><strong>block_dims</strong> : tuple_like, optional</p>
 <blockquote class="last">
@@ -231,14 +225,14 @@ only square blocks are supported.</p>
 <dl class="method">
 <dt id="pyamgx.Matrix.upload_CSR">
 <code class="descname">upload_CSR</code><span class="sig-paren">(</span><em>csr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from a scipy.sparse.csr_matrix</p>
+<dd><p>Copy data from a <cite>scipy.sparse.csr_matrix</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>csr</strong> : sparse matrix</p>
 <blockquote class="last">
-<div><p>A <code class="docutils literal"><span class="pre">scipy.sparse.csr_matrix</span></code>.</p>
+<div><p>A <cite>scipy.sparse.csr_matrix</cite>.</p>
 </div></blockquote>
 </td>
 </tr>
