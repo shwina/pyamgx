@@ -170,39 +170,71 @@
 <dt id="pyamgx.Solver.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>Config cfg</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Solver object</p>
-<dl class="docutils">
-<dt>rsrc: pyamgx.Resources</dt>
-<dd>Resources object</dd>
-<dt>cfg: pyamgx.Config</dt>
-<dd>Config object</dd>
-<dt>mode: str</dt>
-<dd>String representing data modes</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rsrc</strong> : Resources</p>
+<blockquote>
+<div><p><cite>Resources</cite> object</p>
+</div></blockquote>
+<p><strong>cfg: Config</strong></p>
+<blockquote>
+<div><p><cite>Config</cite> object</p>
+</div></blockquote>
+<p><strong>mode</strong> : str, optional</p>
+<blockquote class="last">
+<div><p>String representing data modes</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyamgx.Solver.setup">
 <code class="descname">setup</code><span class="sig-paren">(</span><em>Matrix A</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke the set up phase.</p>
-<dl class="docutils">
-<dt>A: pyamgx.Matrix</dt>
-<dd>Matrix object that was previously created</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>A</strong> : Matrix</p>
+<blockquote class="last">
+<div><p><cite>Matrix</cite> object that was previously created using
+the <cite>create</cite> method.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyamgx.Solver.solve">
 <code class="descname">solve</code><span class="sig-paren">(</span><em>Vector rhs</em>, <em>Vector sol</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.solve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke the solve phase.</p>
-<dl class="docutils">
-<dt>rhs: pyamgx.Vector</dt>
-<dd>Vector object that was previously created. The vector
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>rhs</strong> : Vector</p>
+<blockquote>
+<div><p><cite>Vector</cite> object that was previously created using
+the <cite>create</cite> method. The vector
 represents the right-hand side of the equation to
-be solved.</dd>
-<dt>sol: pyamgx.Vector</dt>
-<dd>Vector object that was previously created
-and initialized.</dd>
-</dl>
+be solved.</p>
+</div></blockquote>
+<p><strong>sol</strong> : Vector</p>
+<blockquote class="last">
+<div><p><cite>Vector</cite> object that was previously created
+and initialized.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
