@@ -94,6 +94,10 @@ cdef extern from "amgx_c.h":
         AMGX_vector_handle rhs,
         AMGX_vector_handle sol)
 
+    AMGX_RC AMGX_solver_solve_with_0_initial_guess(AMGX_solver_handle slv,
+        AMGX_vector_handle rhs,
+        AMGX_vector_handle sol)
+
     # Utilities:
     AMGX_RC AMGX_read_system(AMGX_matrix_handle mtx, AMGX_vector_handle rhs, AMGX_vector_handle sol,
         const char *filename)

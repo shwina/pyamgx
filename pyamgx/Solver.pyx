@@ -58,7 +58,10 @@ cdef class Solver:
             If `True`, use an initial guess of zero for the solution,
             regardless of the values in `sol`.
         """
-        self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
+        if zero_initial_guess:
+            self._err = AMGX_solver_solve_with_0_initial_guess(self.slv, rhs.vec, sol.vec)
+        else:
+            self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
 
     def destroy(self):
         """

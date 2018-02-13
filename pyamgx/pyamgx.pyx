@@ -1,4 +1,5 @@
 cimport numpy as np
+from cpython cimport bool
 
 include "amgxc.pxi"
 include "amgxconfig.pxi"
