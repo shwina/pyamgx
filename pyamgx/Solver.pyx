@@ -3,6 +3,7 @@ cdef class Solver:
     Solver: Class for creating and handling AMGX Solver objects.
     """
     cdef AMGX_solver_handle slv
+    cdef public AMGX_RC _err
 
     def create(self, Resources rsrc, Config cfg, mode='dDDI'):
         """
@@ -10,19 +11,18 @@ cdef class Solver:
 
         Create Solver object
 
-        Parameters:
+        Parameters
         ----------
+        rsrc : Resources
+            `Resources` object
 
-        rsrc: pyamgx.Resources
-            Resources object
+        cfg: Config
+            `Config` object
 
-        cfg: pyamgx.Config
-            Config object
-
-        mode: str
+        mode : str, optional
             String representing data modes
         """
-        err = AMGX_solver_create(&self.slv, rsrc.rsrc, asMode(mode),
+        self._err = AMGX_solver_create(&self.slv, rsrc.rsrc, asMode(mode),
             cfg.cfg)
         return self
 
@@ -32,13 +32,13 @@ cdef class Solver:
 
         Invoke the set up phase.
 
-        Parameters:
+        Parameters
         ----------
-        
-        A: pyamgx.Matrix
-            Matrix object that was previously created
+        A : Matrix
+            `Matrix` object that was previously created using
+            the `create` method.
         """
-        err = AMGX_solver_setup(
+        self._err = AMGX_solver_setup(
             self.slv,
             A.mtx)
 
@@ -48,19 +48,19 @@ cdef class Solver:
 
         Invoke the solve phase.
 
-        Parameters:
+        Parameters
         ----------
-
-        rhs: pyamgx.Vector
-            Vector object that was previously created. The vector
+        rhs : Vector
+            `Vector` object that was previously created using
+            the `create` method. The vector
             represents the right-hand side of the equation to
             be solved.
 
-        sol: pyamgx.Vector
-            Vector object that was previously created
+        sol : Vector
+            `Vector` object that was previously created
             and initialized.
         """
-        err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
+        self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
 
     def destroy(self):
-        err = AMGX_solver_destroy(self.slv)
+        self._err = AMGX_solver_destroy(self.slv)
