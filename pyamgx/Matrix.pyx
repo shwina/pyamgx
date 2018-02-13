@@ -75,9 +75,9 @@ cdef class Matrix:
 
     def upload_CSR(self, csr):
         """
-        M.upload(csr)
+        M.upload_CSR(csr)
 
-        Copy data from a `scipy.sparse.csr_matrix` to the Matrix object.
+        Copy data from a :class:`scipy.sparse.csr_matrix` to the Matrix object.
 
         Parameters
         ----------
