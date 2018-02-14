@@ -4,9 +4,9 @@ cdef class Vector:
 
     Examples
     --------
-    
-    Creating a vector, uploading values from a numpy array, and downloading values
-    back to a numpy array:
+
+    Creating a vector, uploading values from a numpy array,
+    and downloading values back to a numpy array:
 
     >>> v = pyamgx.Vector().create(rsrc)
     >>> v.upload(np.array([1., 2., 3.,], dtype=np.float64))
@@ -57,9 +57,10 @@ cdef class Vector:
         else:
             n = len(data)/block_dim
 
-        self._err = AMGX_vector_upload(self.vec, n, block_dim,
+        self._err = AMGX_vector_upload(
+            self.vec, n, block_dim,
             &data[0])
-    
+
     def download(self, np.ndarray[double, ndim=1, mode="c"] data):
         """
         v.download(data)

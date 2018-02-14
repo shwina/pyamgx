@@ -18,7 +18,7 @@ cdef class Matrix:
     def create(self, Resources rsrc, mode='dDDI'):
         """
         M.create(Resources rsrc, mode='dDDI')
-        
+
         Create the underlying AMGX Matrix object.
 
         Parameters
@@ -36,25 +36,23 @@ cdef class Matrix:
         self._err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
         return self
 
-    def upload(self,
-            np.ndarray[int, ndim=1, mode="c"] row_ptrs,
-            np.ndarray[int, ndim=1, mode="c"] col_indices,
-            np.ndarray[double, ndim=1, mode="c"] data,
-            block_dims=[1, 1]):
+    def upload(self, int[:] row_ptrs, int[:] col_indices,
+               double[:] data, block_dims=[1, 1]):
         """
         M.upload(row_ptrs, col_indices, data, block_dims=[1, 1])
 
-        Copy data from arrays describing the sparse matrix to the Matrix object.
+        Copy data from arrays describing the sparse matrix to
+        the Matrix object.
 
         Parameters
         ----------
-        row_ptrs : ndarray[double, ndim=1, mode="c"]
+        row_ptrs : array_like
             Array of row pointers. For a description of the arrays
             `row_ptrs`, `col_indices` and `data`,
             see `here <https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)>`_.
-        col_indices : ndarray[double, ndim=1, mode="c"]
+        col_indices : array_like
             Array of column indices.
-        data : ndarray[double, ndim=1, mode="c"]
+        data : array_like
             Array of matrix data.
         block_dims : tuple_like, optional
             Dimensions of block in x- and y- directions. Currently
@@ -68,10 +66,11 @@ cdef class Matrix:
         n = len(row_ptrs) - 1
         nnz = len(data)
 
-        self._err = AMGX_matrix_upload_all(self.mtx,
-                n, nnz, block_dimx, block_dimy,
-                &row_ptrs[0], &col_indices[0],
-                &data[0], NULL)
+        self._err = AMGX_matrix_upload_all(
+            self.mtx,
+            n, nnz, block_dimx, block_dimy,
+            &row_ptrs[0], &col_indices[0],
+            &data[0], NULL)
 
     def upload_CSR(self, csr):
         """
@@ -92,10 +91,11 @@ cdef class Matrix:
 
     def get_size(self):
         cdef int n, bx, by
-        self._err = AMGX_matrix_get_size(self.mtx,
+        self._err = AMGX_matrix_get_size(
+            self.mtx,
             &n, &bx, &by)
         return n, [bx, by]
-    
+
     def destroy(self):
         """
         M.destroy()
