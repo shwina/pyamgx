@@ -1,6 +1,7 @@
 .PHONY:clean
+.PHONY:test
 
-pyamgx:
+pyamgx: pyamgx/*.pyx pyamgx/*.pxi
 	python setup.py build_ext
 	pip install -e . --user
 
@@ -12,3 +13,6 @@ clean:
 .PHONY:allclean
 allclean: clean
 	rm -f -r *.egg-info
+
+test: pyamgx
+	pytest

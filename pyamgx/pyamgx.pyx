@@ -1,4 +1,3 @@
-cimport numpy as np
 from cpython cimport bool
 
 include "amgxc.pxi"
@@ -11,8 +10,10 @@ include "Matrix.pyx"
 include "Vector.pyx"
 include "Solver.pyx"
 
+
 def initialize():
     return AMGX_initialize()
+
 
 def read_system(Matrix A, Vector rhs, Vector sol, fname):
     err = AMGX_read_system(
@@ -20,6 +21,7 @@ def read_system(Matrix A, Vector rhs, Vector sol, fname):
         rhs.vec,
         sol.vec,
         fname.encode())
+
 
 def finalize():
     return AMGX_finalize()

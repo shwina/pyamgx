@@ -48,57 +48,71 @@ cdef extern from "amgx_c.h":
 
     # Config:
     AMGX_RC AMGX_config_create(AMGX_config_handle *cfg, const char *options)
-    AMGX_RC AMGX_config_create_from_file(AMGX_config_handle *cfg, const char *param_file)
+    AMGX_RC AMGX_config_create_from_file(
+        AMGX_config_handle *cfg, const char *param_file)
     AMGX_RC AMGX_config_destroy(AMGX_config_handle)
 
     # Resources:
-    AMGX_RC AMGX_resources_create_simple(AMGX_resources_handle *rsc, AMGX_config_handle cfg)
+    AMGX_RC AMGX_resources_create_simple(
+        AMGX_resources_handle *rsc, AMGX_config_handle cfg)
     AMGX_RC AMGX_resources_destroy(AMGX_resources_handle rsc)
 
     # Matrix:
-    AMGX_RC AMGX_matrix_create(AMGX_matrix_handle *mtx, AMGX_resources_handle rsc, AMGX_Mode mode)
+    AMGX_RC AMGX_matrix_create(
+        AMGX_matrix_handle *mtx, AMGX_resources_handle rsc, AMGX_Mode mode)
     AMGX_RC AMGX_matrix_destroy(AMGX_matrix_handle mtx)
 
-    AMGX_RC AMGX_matrix_get_size(const AMGX_matrix_handle mtx, int *n, int *block_dimx,
+    AMGX_RC AMGX_matrix_get_size(
+        const AMGX_matrix_handle mtx, int *n, int *block_dimx,
         int *block_dimy)
 
-    AMGX_RC AMGX_matrix_upload_all(AMGX_matrix_handle mtx, int n, int nnz,
-        int block_dimx, int block_dimy, const int *row_ptrs, const int *col_indices,
+    AMGX_RC AMGX_matrix_upload_all(
+        AMGX_matrix_handle mtx, int n, int nnz,
+        int block_dimx, int block_dimy,
+        const int *row_ptrs, const int *col_indices,
         const void *data, const void *diag_data)
 
-    AMGX_RC AMGX_matrix_download_all(const AMGX_matrix_handle mtx,
+    AMGX_RC AMGX_matrix_download_all(
+        const AMGX_matrix_handle mtx,
         int *row_ptrs, int *col_indices, void *data, void **diag_data)
 
     # Vector:
-    AMGX_RC AMGX_vector_create(AMGX_vector_handle *vec, AMGX_resources_handle rsc, AMGX_Mode mode)
+    AMGX_RC AMGX_vector_create(
+        AMGX_vector_handle *vec, AMGX_resources_handle rsc, AMGX_Mode mode)
     AMGX_RC AMGX_vector_destroy(AMGX_vector_handle vec)
 
-    AMGX_RC AMGX_vector_upload(AMGX_vector_handle vec, int n, int block_dim,
-        const void *data);
+    AMGX_RC AMGX_vector_upload(
+        AMGX_vector_handle vec, int n, int block_dim,
+        const void *data)
 
-    AMGX_RC AMGX_vector_download(const AMGX_vector_handle vec,
-        void *data);
+    AMGX_RC AMGX_vector_download(
+        const AMGX_vector_handle vec,
+        void *data)
 
     # Solver:
-    AMGX_RC AMGX_solver_create(AMGX_solver_handle *slv,
+    AMGX_RC AMGX_solver_create(
+        AMGX_solver_handle *slv,
         AMGX_resources_handle rsc,
         AMGX_Mode mode,
         const AMGX_config_handle cfg_solver)
 
     AMGX_RC AMGX_solver_destroy(AMGX_solver_handle slv)
 
-    AMGX_RC AMGX_solver_setup(AMGX_solver_handle slv,
+    AMGX_RC AMGX_solver_setup(
+        AMGX_solver_handle slv,
         AMGX_matrix_handle mtx)
 
-    AMGX_RC AMGX_solver_solve(AMGX_solver_handle slv,
+    AMGX_RC AMGX_solver_solve(
+        AMGX_solver_handle slv,
         AMGX_vector_handle rhs,
         AMGX_vector_handle sol)
 
-    AMGX_RC AMGX_solver_solve_with_0_initial_guess(AMGX_solver_handle slv,
+    AMGX_RC AMGX_solver_solve_with_0_initial_guess(
+        AMGX_solver_handle slv,
         AMGX_vector_handle rhs,
         AMGX_vector_handle sol)
 
     # Utilities:
-    AMGX_RC AMGX_read_system(AMGX_matrix_handle mtx, AMGX_vector_handle rhs, AMGX_vector_handle sol,
-        const char *filename)
-
+    AMGX_RC AMGX_read_system(
+        AMGX_matrix_handle mtx, AMGX_vector_handle rhs,
+        AMGX_vector_handle sol, const char *filename)

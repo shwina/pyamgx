@@ -18,7 +18,8 @@ cdef class Solver:
         mode : str, optional
             String representing data modes to use.
         """
-        self._err = AMGX_solver_create(&self.slv, rsrc.rsrc, asMode(mode),
+        self._err = AMGX_solver_create(
+            &self.slv, rsrc.rsrc, asMode(mode),
             cfg.cfg)
         return self
 
@@ -59,14 +60,15 @@ cdef class Solver:
             regardless of the values in `sol`.
         """
         if zero_initial_guess:
-            self._err = AMGX_solver_solve_with_0_initial_guess(self.slv, rhs.vec, sol.vec)
+            self._err = AMGX_solver_solve_with_0_initial_guess(
+                self.slv, rhs.vec, sol.vec)
         else:
             self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
 
     def destroy(self):
         """
         solver.destroy()
-        
+
         Destroy the underlying AMGX Matrix object.
         """
         self._err = AMGX_solver_destroy(self.slv)

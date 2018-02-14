@@ -6,10 +6,11 @@ cdef class Resources:
     cdef public AMGX_RC _err
 
     def create_simple(self, Config cfg):
-        """ 
+        """
         rsc.create_simple(cfg)
 
-        Create the underlying AMGX Resources object in a single-threaded application.
+        Create the underlying AMGX Resources object in a
+        single-threaded application.
 
         Parameters
         ----------
