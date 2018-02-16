@@ -175,6 +175,55 @@
 </pre></div>
 </div>
 <dl class="method">
+<dt id="pyamgx.Matrix.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Matrix object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix">Matrix</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Matrix object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.get_size">
+<code class="descname">get_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the matrix size (in block units), and the block dimensions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>n</strong> (<em>int</em>) – The matrix size (number of rows/columns) in block units.</li>
+<li><strong>block_dims</strong> (<em>tuple</em>) – A tuple (<cite>bx</cite>, <cite>by</cite>) representing the size of the
+blocks in the x- and y- dimensions.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyamgx.Matrix.upload">
 <code class="descname">upload</code><span class="sig-paren">(</span><em>row_ptrs, col_indices, data, block_dims=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy data from arrays describing the sparse matrix to
@@ -190,7 +239,8 @@ see <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_mat
 <li><strong>col_indices</strong> (<em>array_like</em>) – Array of column indices.</li>
 <li><strong>data</strong> (<em>array_like</em>) – Array of matrix data.</li>
 <li><strong>block_dims</strong> (<em>tuple_like</em><em>, </em><em>optional</em>) – Dimensions of block in x- and y- directions. Currently
-only square blocks are supported.</li>
+only square blocks are supported, so block_dims[0] should be
+equal to block_dims[1].</li>
 </ul>
 </td>
 </tr>
