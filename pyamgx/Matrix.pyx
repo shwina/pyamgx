@@ -56,7 +56,8 @@ cdef class Matrix:
             Array of matrix data.
         block_dims : tuple_like, optional
             Dimensions of block in x- and y- directions. Currently
-            only square blocks are supported.
+            only square blocks are supported, so block_dims[0] should be
+            equal to block_dims[1].
         """
         cdef int block_dimx, block_dimy
 
@@ -90,11 +91,25 @@ cdef class Matrix:
         self.upload(row_ptrs, col_indices, data)
 
     def get_size(self):
+        """
+        M.get_size()
+
+        Get the matrix size (in block units), and the block dimensions.
+
+        Returns
+        -------
+
+        n : int
+            The matrix size (number of rows/columns) in block units.
+        block_dims : tuple
+            A tuple (`bx`, `by`) representing the size of the
+            blocks in the x- and y- dimensions.
+        """
         cdef int n, bx, by
         self._err = AMGX_matrix_get_size(
             self.mtx,
             &n, &bx, &by)
-        return n, [bx, by]
+        return n, (bx, by)
 
     def destroy(self):
         """

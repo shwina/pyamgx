@@ -3,14 +3,15 @@ from pyamgx import RC
 import numpy as np
 from numpy.testing import assert_equal
 
+
 class TestVector:
-    
+
     @classmethod
     def setup_class(self):
         pyamgx.initialize()
         self.cfg = pyamgx.Config().create("")
         self.rsrc = pyamgx.Resources().create_simple(self.cfg)
-    
+
     @classmethod
     def teardown_class(self):
         self.rsrc.destroy()
@@ -32,7 +33,6 @@ class TestVector:
         a = np.zeros(3, dtype=np.float64)
         v.download(a)
         assert(v._err == RC.OK)
-        assert_equal(a,
-               np.array([1, 2, 3], dtype=np.float64))
+        assert_equal(a, np.array([1, 2, 3], dtype=np.float64))
 
         v.destroy()
