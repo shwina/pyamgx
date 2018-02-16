@@ -167,8 +167,8 @@
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Vector</code><a class="headerlink" href="#pyamgx.Vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vector: Class for creating and handling AMGX Vector objects.</p>
 <p class="rubric">Examples</p>
-<p>Creating a vector, uploading values from a numpy array, and downloading values
-back to a numpy array:</p>
+<p>Creating a vector, uploading values from a numpy array,
+and downloading values back to a numpy array:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
