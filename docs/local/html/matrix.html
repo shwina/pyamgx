@@ -167,13 +167,20 @@
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Matrix</code><a class="headerlink" href="#pyamgx.Matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>Matrix</cite> : Class for creating and handling AMGX Matrix objects.</p>
 <p class="rubric">Examples</p>
-<p>Uploading the matrix <code class="docutils literal"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">indptr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
-<span class="gp">... </span><span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-<span class="gp">... </span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
-</pre></div>
-</div>
+<p>Uploading the matrix <code class="docutils literal"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:
+&gt;&gt;&gt; import pyamgx, numpy as np
+&gt;&gt;&gt; pyamgx.initialize()
+&gt;&gt;&gt; cfg = pyamgx.Config().create(“”)
+&gt;&gt;&gt; rsrc = pyamgx.Resources().create_simple(cfg)
+&gt;&gt;&gt; M = pyamgx.Matrix().create(rsrc)
+&gt;&gt;&gt; M.upload(row_ptrs=np.array([0, 2, 4], dtype=np.int32),
+… col_indices=np.array([0, 1, 0, 1], dtype=np.int32),
+… data=np.array([1., 2., 3., 4.], dtype=np.float64))
+&gt;&gt;&gt; M.destroy()
+&gt;&gt;&gt; rsrc.destroy()
+&gt;&gt;&gt; cfg.destroy()
+&gt;&gt;&gt; pyamgx.finalize()
+&gt;&gt;&gt;</p>
 <dl class="method">
 <dt id="pyamgx.Matrix.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
