@@ -7,12 +7,18 @@ cdef class Matrix:
 
     Uploading the matrix ``[[1, 2], [3, 4]]`` using the `upload` method:
     >>> import pyamgx, numpy as np
-    >>> cfg = pyamgx.Config().create(""); rsrc = pyamgx.Resources().create_simple(cfg)
+    >>> pyamgx.initialize()
+    >>> cfg = pyamgx.Config().create("")
+    >>> rsrc = pyamgx.Resources().create_simple(cfg)
     >>> M = pyamgx.Matrix().create(rsrc)
     >>> M.upload(row_ptrs=np.array([0, 2, 4], dtype=np.int32),
     ... col_indices=np.array([0, 1, 0, 1], dtype=np.int32),
     ... data=np.array([1., 2., 3., 4.], dtype=np.float64))
-    >>> 
+    >>> M.destroy()
+    >>> rsrc.destroy()
+    >>> cfg.destroy()
+    >>> pyamgx.finalize()
+    >>>
     """
     cdef AMGX_matrix_handle mtx
     cdef public AMGX_RC _err
