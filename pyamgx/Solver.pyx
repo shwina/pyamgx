@@ -14,7 +14,7 @@ cdef class Solver:
         Parameters
         ----------
         rsrc : Resources
-        cfg: Config
+        cfg : Config
         mode : str, optional
             String representing data modes to use.
         """

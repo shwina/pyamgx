@@ -6,13 +6,12 @@ class TestConfig:
 
     def setup(self):
         pyamgx.initialize()
-        self.cfg = pyamgx.Config()
 
     def teardown(self):
-        self.cfg.destroy()
         pyamgx.finalize()
 
-    def test_create(self):
+    def test_create_and_destroy(self):
+        self.cfg = pyamgx.Config()
         self.cfg.create("")
         assert (self.cfg._err == RC.OK)
         self.cfg.create("max_levels=10")
@@ -20,8 +19,10 @@ class TestConfig:
         self.cfg.create("    max_levels = 10 \n max_iters \t= 10\n")
         assert (self.cfg._err == RC.BAD_CONFIGURATION)
         self.cfg.destroy()
+        assert (self.cfg._err == RC.OK)
 
     def test_create_from_file(self):
+        self.cfg = pyamgx.Config()
         fp = tempfile.NamedTemporaryFile()
         fp.write(b"max_levels=10")
         fp.seek(0)
@@ -35,5 +36,3 @@ class TestConfig:
         self.cfg.create_from_file(fp.name)
         assert(self.cfg._err == RC.BAD_CONFIGURATION)
         fp.close()
-
-
