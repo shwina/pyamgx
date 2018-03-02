@@ -40,6 +40,18 @@ cdef extern from "amgx_c.h":
         char AMGX_solver_handle_dummy
     ctypedef AMGX_solver_handle_struct *AMGX_solver_handle
 
+    # Build:
+    AMGX_RC AMGX_get_api_version(int *major,
+        int *minor)
+
+    AMGX_RC AMGX_get_build_info_strings(char **version,
+        char **date,
+        char **time)
+
+    AMGX_RC AMGX_get_error_string(AMGX_RC err,
+        char *buf,
+        int buf_len)
+
     # Init & Shutdown:
     AMGX_RC AMGX_initialize()
     AMGX_RC AMGX_initialize_plugins()
