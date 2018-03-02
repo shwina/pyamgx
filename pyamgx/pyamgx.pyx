@@ -13,6 +13,7 @@ include "Solver.pyx"
 
 def initialize():
     AMGX_initialize()
+    AMGX_initialize_plugins()
 
 
 def read_system(Matrix A, Vector rhs, Vector sol, fname):
@@ -24,4 +25,5 @@ def read_system(Matrix A, Vector rhs, Vector sol, fname):
 
 
 def finalize():
+    AMGX_finalize_plugins()
     AMGX_finalize()
