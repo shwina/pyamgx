@@ -101,6 +101,10 @@ cdef extern from "amgx_c.h":
         const AMGX_vector_handle vec,
         void *data)
 
+    AMGX_RC AMGX_vector_get_size(const AMGX_vector_handle vec,
+        int *n,
+        int *block_dim)
+
     # Solver:
     AMGX_RC AMGX_solver_create(
         AMGX_solver_handle *slv,

@@ -74,6 +74,26 @@ cdef class Vector:
         """
         check_error(AMGX_vector_download(self.vec, &data[0]))
 
+    def get_size(self):
+        """
+        v.get_size()
+
+        Get the size of the vector (in block units), and the
+        block size.
+
+        Returns
+        -------
+        n : int
+            The size of the vector in block units.
+        block_dim : int
+            The block size.
+        """
+        cdef int n, block_dim
+        check_error(AMGX_vector_get_size(
+            self.vec,
+            &n, &block_dim))
+        return n, block_dim
+
     def destroy(self):
         """
         v.destroy()
@@ -81,3 +101,4 @@ cdef class Vector:
         Destroy the underlying AMGX Vector object.
         """
         check_error(AMGX_vector_destroy(self.vec))
+
