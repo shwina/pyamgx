@@ -3,7 +3,6 @@ cdef class Resources:
     Resources: Class for creating and freeing AMGX Resources objects.
     """
     cdef AMGX_resources_handle rsrc
-    cdef public AMGX_RC _err
 
     def create_simple(self, Config cfg):
         """
@@ -20,7 +19,7 @@ cdef class Resources:
         -------
         self : Resources
         """
-        self._err = AMGX_resources_create_simple(&self.rsrc, cfg.cfg)
+        check_error(AMGX_resources_create_simple(&self.rsrc, cfg.cfg))
         return self
 
     def destroy(self):
@@ -29,4 +28,4 @@ cdef class Resources:
 
         Destroy the underlying AMGX Resources object.
         """
-        self._err = AMGX_resources_destroy(self.rsrc)
+        check_error(AMGX_resources_destroy(self.rsrc))

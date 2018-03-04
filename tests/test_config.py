@@ -1,6 +1,8 @@
-import pyamgx
-from pyamgx import RC
 import tempfile
+
+import pytest
+
+import pyamgx
 
 class TestConfig:
 
@@ -13,13 +15,13 @@ class TestConfig:
     def test_create_and_destroy(self):
         self.cfg = pyamgx.Config()
         self.cfg.create("")
-        assert (self.cfg._err == RC.OK)
         self.cfg.create("max_levels=10")
-        assert (self.cfg._err == RC.OK)
-        self.cfg.create("    max_levels = 10 \n max_iters \t= 10\n")
-        assert (self.cfg._err == RC.BAD_CONFIGURATION)
+        self.cfg.create("    max_levels = 10; max_iters \t= 10\n")
+        with pytest.raises(pyamgx.AMGXError) as excinfo:
+            # newline is not delimiter
+            self.cfg.create("    max_levels = 10 \n max_iters \t= 10\n")
+        assert('amgx configuration' in str(excinfo.value))
         self.cfg.destroy()
-        assert (self.cfg._err == RC.OK)
 
     def test_create_from_file(self):
         self.cfg = pyamgx.Config()
@@ -27,12 +29,12 @@ class TestConfig:
         fp.write(b"max_levels=10")
         fp.seek(0)
         self.cfg.create_from_file(fp.name)
-        assert(self.cfg._err == RC.OK)
         fp.close()
 
         fp = tempfile.NamedTemporaryFile()
-        fp.write(b"    max_lovels = \n max_iters \t= 10\n")
+        fp.write(b"    max_lovels = 10 \n max_iters \t= 10\n") #typo
         fp.seek(0)
-        self.cfg.create_from_file(fp.name)
-        assert(self.cfg._err == RC.BAD_CONFIGURATION)
+        with pytest.raises(pyamgx.AMGXError) as excinfo:
+            self.cfg.create_from_file(fp.name)
+        assert('amgx configuration' in str(excinfo.value))
         fp.close()

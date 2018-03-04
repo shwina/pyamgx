@@ -3,7 +3,6 @@ cdef class Solver:
     Solver: Class for creating and handling AMGX Solver objects.
     """
     cdef AMGX_solver_handle slv
-    cdef public AMGX_RC _err
 
     def create(self, Resources rsrc, Config cfg, mode='dDDI'):
         """
@@ -18,9 +17,9 @@ cdef class Solver:
         mode : str, optional
             String representing data modes to use.
         """
-        self._err = AMGX_solver_create(
+        check_error(AMGX_solver_create(
             &self.slv, rsrc.rsrc, asMode(mode),
-            cfg.cfg)
+            cfg.cfg))
         return self
 
     def setup(self, Matrix A):
@@ -35,9 +34,9 @@ cdef class Solver:
             The `Matrix` representing the coefficient matrix of the equation
             to be solved.
         """
-        self._err = AMGX_solver_setup(
+        check_error(AMGX_solver_setup(
             self.slv,
-            A.mtx)
+            A.mtx))
 
     def solve(self, Vector rhs, Vector sol, zero_initial_guess=False):
         """
@@ -60,10 +59,10 @@ cdef class Solver:
             regardless of the values in `sol`.
         """
         if zero_initial_guess:
-            self._err = AMGX_solver_solve_with_0_initial_guess(
-                self.slv, rhs.vec, sol.vec)
+            check_error(AMGX_solver_solve_with_0_initial_guess(
+                self.slv, rhs.vec, sol.vec))
         else:
-            self._err = AMGX_solver_solve(self.slv, rhs.vec, sol.vec)
+            check_error(AMGX_solver_solve(self.slv, rhs.vec, sol.vec))
 
     def destroy(self):
         """
@@ -71,4 +70,4 @@ cdef class Solver:
 
         Destroy the underlying AMGX Matrix object.
         """
-        self._err = AMGX_solver_destroy(self.slv)
+        check_error(AMGX_solver_destroy(self.slv))

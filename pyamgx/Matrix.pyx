@@ -21,7 +21,6 @@ cdef class Matrix:
     >>>
     """
     cdef AMGX_matrix_handle mtx
-    cdef public AMGX_RC _err
 
     def create(self, Resources rsrc, mode='dDDI'):
         """
@@ -41,7 +40,7 @@ cdef class Matrix:
 
         self : Matrix
         """
-        self._err = AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode))
+        check_error(AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode)))
         return self
 
     def upload(self, int[:] row_ptrs, int[:] col_indices,
@@ -75,11 +74,11 @@ cdef class Matrix:
         n = len(row_ptrs) - 1
         nnz = len(data)
 
-        self._err = AMGX_matrix_upload_all(
+        check_error(AMGX_matrix_upload_all(
             self.mtx,
             n, nnz, block_dimx, block_dimy,
             &row_ptrs[0], &col_indices[0],
-            &data[0], NULL)
+            &data[0], NULL))
 
     def upload_CSR(self, csr):
         """
@@ -114,9 +113,9 @@ cdef class Matrix:
             blocks in the x- and y- dimensions.
         """
         cdef int n, bx, by
-        self._err = AMGX_matrix_get_size(
+        check_error(AMGX_matrix_get_size(
             self.mtx,
-            &n, &bx, &by)
+            &n, &bx, &by))
         return n, (bx, by)
 
     def destroy(self):
@@ -125,4 +124,4 @@ cdef class Matrix:
 
         Destroy the underlying AMGX Matrix object.
         """
-        self._err = AMGX_matrix_destroy(self.mtx)
+        check_error(AMGX_matrix_destroy(self.mtx))

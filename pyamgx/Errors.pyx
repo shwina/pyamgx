@@ -15,3 +15,35 @@ class RC:
     NOT_IMPLEMENTED = AMGX_RC_NOT_IMPLEMENTED
     LICENSE_NOT_FOUND = AMGX_RC_LICENSE_NOT_FOUND
     INTERNAL = AMGX_RC_INTERNAL
+
+
+class AMGXError(Exception):
+    pass
+
+
+def get_error_string(err_code):
+    """
+    pyamgx.get_error_string(err_code)
+
+    Return a human-readable error string corresponding to an error code.
+
+    Parameters
+    ----------
+    err_code : RC
+        Error code returned from call to an AMGX routine.
+
+    Returns
+    -------
+    err_str : str
+        Human-readable error string.
+    """
+    cdef char buff[1024]
+    err = AMGX_get_error_string(
+        err_code,
+        buff, 1024)
+    return buff.decode()
+
+
+def check_error(err_code):
+    if err_code is not RC.OK:
+        raise AMGXError(get_error_string(err_code))

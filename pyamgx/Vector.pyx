@@ -17,7 +17,6 @@ cdef class Vector:
 
     """
     cdef AMGX_vector_handle vec
-    cdef public AMGX_RC _err
 
     def create(self, Resources rsrc, mode='dDDI'):
         """
@@ -35,7 +34,7 @@ cdef class Vector:
         -------
         self : Vector
         """
-        self._err = AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode))
+        check_error(AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode)))
         return self
 
     def upload(self, double[:] data, block_dim=1):
@@ -57,9 +56,9 @@ cdef class Vector:
         else:
             n = len(data)/block_dim
 
-        self._err = AMGX_vector_upload(
+        check_error(AMGX_vector_upload(
             self.vec, n, block_dim,
-            &data[0])
+            &data[0]))
 
     def download(self, double[:] data):
         """
@@ -73,7 +72,7 @@ cdef class Vector:
         data : ndarray[double, ndim=1, mode="c"]
             Array to copy data to.
         """
-        self._err = AMGX_vector_download(self.vec, &data[0])
+        check_error(AMGX_vector_download(self.vec, &data[0]))
 
     def destroy(self):
         """
@@ -81,4 +80,4 @@ cdef class Vector:
 
         Destroy the underlying AMGX Vector object.
         """
-        self._err = AMGX_vector_destroy(self.vec)
+        check_error(AMGX_vector_destroy(self.vec))

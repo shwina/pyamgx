@@ -3,7 +3,7 @@ from cpython cimport bool
 include "amgxc.pxi"
 include "amgxconfig.pxi"
 
-include "RC.pyx"
+include "Errors.pyx"
 include "Config.pyx"
 include "Resources.pyx"
 include "Matrix.pyx"
@@ -29,32 +29,11 @@ def get_api_version():
     """
     cdef int major, minor
     err = AMGX_get_api_version(
-            &major,
-            &minor)
+        &major,
+        &minor)
     version = '{}.{}'.format(major, minor)
     return version
 
-
-def get_error_string(err_code):
-    """
-    pyamgx.get_error_string(err_code)
-
-    Return a human-readable error string corresponding to an error code.
-
-    Parameters
-    ----------
-    err_code : RC
-        Error code returned from call to an AMGX routine.
-    
-    Returns
-    -------
-    err_str : str
-        Human-readable error string.
-    """
-    cdef char buff[1024]
-    err = AMGX_get_error_string(err_code,
-            buff, 1024)
-    return buff.decode()
 
 
 def read_system(Matrix A, Vector rhs, Vector sol, fname):

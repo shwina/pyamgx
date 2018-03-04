@@ -1,5 +1,4 @@
 import pyamgx
-from pyamgx import RC
 import numpy as np
 from numpy.testing import assert_allclose
 
@@ -18,9 +17,7 @@ class TestSolver:
 
     def test_create_and_destroy(self):
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
-        assert (solver._err == RC.OK)
         solver.destroy()
-        assert (solver._err == RC.OK)
 
     def test_solve_defaults(self):
         M = pyamgx.Matrix().create(self.rsrc)
