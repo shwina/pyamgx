@@ -2,6 +2,7 @@ include "amgxc.pxi"
 include "amgxconfig.pxi"
 
 include "Errors.pyx"
+include "System.pyx"
 include "Config.pyx"
 include "Resources.pyx"
 include "Matrix.pyx"

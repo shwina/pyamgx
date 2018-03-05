@@ -52,11 +52,22 @@ cdef extern from "amgx_c.h":
         char *buf,
         int buf_len)
 
+
     # Init & Shutdown:
     AMGX_RC AMGX_initialize()
     AMGX_RC AMGX_initialize_plugins()
     AMGX_RC AMGX_finalize()
     AMGX_RC AMGX_finalize_plugins()
+
+    # System:
+    AMGX_RC AMGX_pin_memory(void *ptr,
+        unsigned int bytes)
+
+    AMGX_RC AMGX_unpin_memory(void *ptr)
+
+    AMGX_RC AMGX_install_signal_handler()
+
+    AMGX_RC AMGX_reset_signal_handler()
 
     # Config:
     AMGX_RC AMGX_config_create(AMGX_config_handle *cfg, const char *options)
