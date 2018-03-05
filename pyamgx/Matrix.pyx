@@ -71,12 +71,16 @@ cdef class Matrix:
         block_dimx = block_dims[0]
         block_dimy = block_dims[1]
 
-        n = len(row_ptrs) - 1
+        nrows = len(row_ptrs) - 1
+        ncols = max(col_indices) + 1
         nnz = len(data)
+
+        if nrows != ncols:
+            raise ValueError, "Matrix is not square, has shape ({}, {})".format(nrows, ncols)
 
         check_error(AMGX_matrix_upload_all(
             self.mtx,
-            n, nnz, block_dimx, block_dimy,
+            nrows, nnz, block_dimx, block_dimy,
             &row_ptrs[0], &col_indices[0],
             &data[0], NULL))
 
@@ -90,8 +94,12 @@ cdef class Matrix:
         ----------
         csr : scipy.sparse.csr_matrix
         """
-        n = csr.shape[0]
-        nnz = csr.nnz
+        nrows = csr.shape[0]
+        ncols = csr.shape[1]
+
+        if nrows != ncols:
+            raise ValueError, "Matrix is not square, has shape ({}, {})".format(nrows, ncols)
+
         row_ptrs = csr.indptr
         col_indices = csr.indices
         data = csr.data
