@@ -18,6 +18,9 @@ class RC:
 
 
 class AMGXError(Exception):
+    """
+    Exception class for errors returned from calls to AMGX routines.
+    """
     pass
 
 
@@ -45,5 +48,15 @@ def get_error_string(err_code):
 
 
 def check_error(err_code):
+    """
+    pyamgx.check_error(err_code)
+
+    Raise `AMGXError` for non-zero values of `err_code`.
+
+    Parameters
+    ----------
+    err_code : RC
+        Error code returned from call to an AMGX routine.
+    """
     if err_code is not RC.OK:
         raise AMGXError(get_error_string(err_code))
