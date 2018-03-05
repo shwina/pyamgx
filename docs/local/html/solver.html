@@ -176,7 +176,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
 <li><strong>cfg</strong> (<a class="reference internal" href="config.html#pyamgx.Config" title="pyamgx.Config"><em>Config</em></a>) – </li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
 </ul>
 </td>
 </tr>
@@ -192,7 +192,7 @@
 
 <dl class="method">
 <dt id="pyamgx.Solver.setup">
-<code class="descname">setup</code><span class="sig-paren">(</span><em>Matrix A</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.setup" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setup</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke the set up phase.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -214,14 +214,14 @@ to be solved.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>rhs</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the right-hand side of the equation
+<li><strong>b</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the right-hand side of the equation
 to be solved.</li>
-<li><strong>sol</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the solution vector of the equation
+<li><strong>x</strong> (<a class="reference internal" href="vector.html#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the solution vector of the equation
 to be solved. If <cite>zero_initial_guess</cite> is unspecified,
-the values in <cite>sol</cite> are used as the initial guess for iterative
+the values in <cite>x</cite> are used as the initial guess for iterative
 algorithms.</li>
-<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
-regardless of the values in <cite>sol</cite>.</li>
+<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
+regardless of the values in <cite>x</cite>.</li>
 </ul>
 </td>
 </tr>

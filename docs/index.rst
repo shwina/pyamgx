@@ -9,12 +9,13 @@ Welcome to pyamgx's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
+ 
    config
    resources
    matrix
    vector
    solver
+   errors
 
 Indices and tables
 ==================
