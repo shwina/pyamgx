@@ -3,6 +3,7 @@ cdef class Solver:
     Solver: Class for creating and handling AMGX Solver objects.
     """
     cdef AMGX_solver_handle slv
+    cdef Matrix A
 
     def create(self, Resources rsrc, Config cfg, mode='dDDI'):
         """
@@ -24,7 +25,7 @@ cdef class Solver:
 
     def setup(self, Matrix A):
         """
-        solver.setup(Matrix A)
+        solver.setup(A)
 
         Invoke the set up phase.
 
@@ -34,11 +35,12 @@ cdef class Solver:
             The `Matrix` representing the coefficient matrix of the equation
             to be solved.
         """
+        self.A = A
         check_error(AMGX_solver_setup(
             self.slv,
             A.mtx))
 
-    def solve(self, Vector rhs, Vector sol, zero_initial_guess=False):
+    def solve(self, Vector b, Vector x, zero_initial_guess=False):
         """
         solver.solve(Vector rhs, Vector sol)
 
@@ -46,23 +48,37 @@ cdef class Solver:
 
         Parameters
         ----------
-        rhs : Vector
+        b: Vector
             The `Vector` representing the right-hand side of the equation
             to be solved.
-        sol : Vector
+        x: Vector
             The `Vector` representing the solution vector of the equation
             to be solved. If `zero_initial_guess` is unspecified,
-            the values in `sol` are used as the initial guess for iterative
+            the values in `x` are used as the initial guess for iterative
             algorithms.
         zero_initial_guess : bool, optional
             If `True`, use an initial guess of zero for the solution,
-            regardless of the values in `sol`.
+            regardless of the values in `x`.
         """
+        if self.A is None:
+            raise RuntimeError, "solve() cannot be called before setup()"
+
+        A_size, _ = self.A.get_size()
+        b_size, _ = b.get_size()
+        x_size, _ = x.get_size()
+
+        if A_size != b_size:
+            raise ValueError, "Matrix - RHS dimension mismatch: {} != {}".format(
+                A_size, b_size)
+        if b_size != x_size:
+            raise ValueError, "RHS - solution dimension mismatch: {} != {}".format(
+                b_size, x_size)
+ 
         if zero_initial_guess:
-            check_error(AMGX_solver_solve_with_0_initial_guess(
-                self.slv, rhs.vec, sol.vec))
+             check_error(AMGX_solver_solve_with_0_initial_guess(
+                self.slv, b.vec, x.vec))
         else:
-            check_error(AMGX_solver_solve(self.slv, rhs.vec, sol.vec))
+            check_error(AMGX_solver_solve(self.slv, b.vec, x.vec))
 
     def destroy(self):
         """
