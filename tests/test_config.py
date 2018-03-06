@@ -15,6 +15,7 @@ class TestConfig:
         pyamgx.finalize()
 
     def test_create_and_destroy(self):
+        self.cfg.create("")
         self.cfg.create("max_levels=10")
         self.cfg.create("    max_levels = 10; max_iters \t= 10\n")
         with pytest.raises(pyamgx.AMGXError) as excinfo:
