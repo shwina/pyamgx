@@ -139,6 +139,20 @@ cdef extern from "amgx_c.h":
         AMGX_vector_handle rhs,
         AMGX_vector_handle sol)
 
+    AMGX_RC AMGX_solver_get_iterations_number(
+        AMGX_solver_handle slv,
+        int *n)
+
+    AMGX_RC AMGX_solver_get_iteration_residual(
+        AMGX_solver_handle slv,
+        int it,
+        int idx,
+        double *res)
+
+    AMGX_RC AMGX_solver_get_status(
+        AMGX_solver_handle slv,
+        AMGX_SOLVE_STATUS *st)
+
     # Utilities:
     AMGX_RC AMGX_read_system(
         AMGX_matrix_handle mtx, AMGX_vector_handle rhs,

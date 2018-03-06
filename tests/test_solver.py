@@ -32,7 +32,7 @@ class TestSolver:
             np.array([1., 1., 1.]))
         x.upload(np.zeros(3, dtype=np.float64))
         b.upload(np.array([1., 2., 4.], dtype=np.float64))
-        
+
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x)
@@ -88,7 +88,7 @@ class TestSolver:
         M.destroy()
         x.destroy()
         b.destroy()
-        
+
     def test_solve_no_setup(self):
         x = pyamgx.Vector().create(self.rsrc)
         b = pyamgx.Vector().create(self.rsrc)
@@ -114,7 +114,7 @@ class TestSolver:
             np.array([1., 1., 1.]))
         x.upload(np.zeros(3, dtype=np.float64))
         b.upload(np.array([1., 2., 4.], dtype=np.float64))
-        
+
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
@@ -122,6 +122,35 @@ class TestSolver:
         sol = np.zeros(3, dtype=np.float64)
         x.download(sol)
         assert_allclose(sol, np.array([1., 2., 4.]))
+
+        solver.destroy()
+        M.destroy()
+        x.destroy()
+        b.destroy()
+
+    def test_get_status(self):
+        M = pyamgx.Matrix().create(self.rsrc)
+        x = pyamgx.Vector().create(self.rsrc)
+        b = pyamgx.Vector().create(self.rsrc)
+        M.upload(
+            np.array([0, 1, 2, 3], dtype=np.int32),
+            np.array([0, 1, 2], dtype=np.int32),
+            np.array([1., 1., 1.]))
+        x.upload(np.zeros(3, dtype=np.float64))
+        b.upload(np.array([1., 2., 4.], dtype=np.float64))
+
+        solver = pyamgx.Solver().create(self.rsrc, self.cfg)
+        solver.setup(M)
+        solver.solve(b, x, zero_initial_guess=True)
+        assert(solver.get_status() == 'success')
+        solver.destroy()
+
+        self.cfg.create_from_dict({'monitor_residual': 1, 'max_iters': 0})
+        solver = pyamgx.Solver().create(self.rsrc, self.cfg)
+        solver.setup(M)
+        solver.solve(b, x, zero_initial_guess=True)
+
+        assert(solver.get_status() == 'diverged')
 
         solver.destroy()
         M.destroy()
