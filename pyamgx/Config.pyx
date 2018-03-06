@@ -1,3 +1,6 @@
+import json
+import tempfile
+
 cdef class Config:
     """
     Config: Class for creating and handling AMGX Config objects
@@ -41,6 +44,23 @@ cdef class Config:
         if not isinstance(param_file, bytes):
             param_file = param_file.encode()
         check_error(AMGX_config_create_from_file(&self.cfg, param_file))
+        return self
+
+    def create_from_dict(self, params):
+        """
+        cfg.create_from_dict(param_file)
+
+        Create the underlying AMGX Config object from a dictionary.
+
+        Parameters
+        ----------
+        params : dict
+            Dictionary with configuration options.
+        """
+        with tempfile.NamedTemporaryFile(mode='r+') as fp:
+            json.dump(params, fp)
+            fp.seek(0)
+            self.create_from_file(fp.name.encode())
         return self
 
     def destroy(self):

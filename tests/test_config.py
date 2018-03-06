@@ -7,21 +7,20 @@ import pyamgx
 class TestConfig:
 
     def setup(self):
+        self.cfg = pyamgx.Config()
         pyamgx.initialize()
 
     def teardown(self):
+        self.cfg.destroy()
         pyamgx.finalize()
 
     def test_create_and_destroy(self):
-        self.cfg = pyamgx.Config()
-        self.cfg.create("")
         self.cfg.create("max_levels=10")
         self.cfg.create("    max_levels = 10; max_iters \t= 10\n")
         with pytest.raises(pyamgx.AMGXError) as excinfo:
             # newline is not delimiter
             self.cfg.create("    max_levels = 10 \n max_iters \t= 10\n")
         assert('amgx configuration' in str(excinfo.value))
-        self.cfg.destroy()
 
     def test_create_from_file(self):
         self.cfg = pyamgx.Config()
@@ -38,3 +37,9 @@ class TestConfig:
             self.cfg.create_from_file(fp.name)
         assert('amgx configuration' in str(excinfo.value))
         fp.close()
+
+    def test_create_from_dict(self):
+        self.cfg = pyamgx.Config()
+        self.cfg.create_from_dict({"max_levels": 10})
+        with pytest.raises(pyamgx.AMGXError):
+            self.cfg.create_from_dict({"max_lovels": 10})
