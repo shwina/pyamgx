@@ -8,12 +8,21 @@ cdef class Vector:
     Creating a vector, uploading values from a numpy array,
     and downloading values back to a numpy array:
 
+    >>> import pyamgx, numpy as np
+    >>> pyamgx.initialize()
+    >>> cfg = pyamgx.Config().create("")
+    >>> rsrc = pyamgx.Resources().create_simple(cfg)
     >>> v = pyamgx.Vector().create(rsrc)
     >>> v.upload(np.array([1., 2., 3.,], dtype=np.float64))
-    >>> a = np.zeros([0., 0., 0.])
+    >>> a = np.zeros(3, dtype=np.float64)
     >>> v.download(a)
     >>> print(a)
-    array([1., 2., 3.])
+    [1. 2. 3.]
+    >>> v.destroy()
+    >>> rsrc.destroy()
+    >>> cfg.destroy()
+    >>> pyamgx.finalize()
+
 
     """
     cdef AMGX_vector_handle vec
