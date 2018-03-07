@@ -142,7 +142,7 @@ class TestSolver:
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
-        assert(solver.get_status() == 'success')
+        assert(solver.status == 'success')
         solver.destroy()
 
         self.cfg.create_from_dict({'monitor_residual': 1, 'max_iters': 0})
@@ -150,7 +150,7 @@ class TestSolver:
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
 
-        assert(solver.get_status() == 'diverged')
+        assert(solver.status == 'diverged')
 
         solver.destroy()
         M.destroy()

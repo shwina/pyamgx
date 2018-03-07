@@ -87,25 +87,20 @@ cdef class Solver:
         else:
             check_error(AMGX_solver_solve(self.slv, b.vec, x.vec))
 
-    def get_status(self):
+    @property
+    def status(self):
         """
-        solver.get_status()
+        solver.status
 
-        Retrieve the status from the last solve phase.
-
-        Returns
-        -------
-        status : {'success' , 'failed' , 'diverged'}
-            String describing the result of the previous
-            call to `solve()`.
+        The status from the last solve phase.
         """
-        cdef AMGX_SOLVE_STATUS status
-        check_error(AMGX_solver_get_status(self.slv, &status))
-        if status is AMGX_SOLVE_SUCCESS:
+        cdef AMGX_SOLVE_STATUS stat
+        check_error(AMGX_solver_get_status(self.slv, &stat))
+        if stat is AMGX_SOLVE_SUCCESS:
             return 'success'
-        elif status == AMGX_SOLVE_FAILED:
+        elif stat == AMGX_SOLVE_FAILED:
             return 'failed'
-        elif status == AMGX_SOLVE_DIVERGED:
+        elif stat == AMGX_SOLVE_DIVERGED:
             return 'diverged'
         else:
             raise ValueError, 'Invalid solver status returned.'
