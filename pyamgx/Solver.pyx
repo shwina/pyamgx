@@ -105,6 +105,12 @@ cdef class Solver:
         else:
             raise ValueError, 'Invalid solver status returned.'
 
+    @property
+    def iterations_number(self):
+        cdef int niter
+        check_error(AMGX_solver_get_iterations_number(self.slv, &niter))
+        return niter
+
     def destroy(self):
         """
         solver.destroy()
