@@ -171,15 +171,39 @@ class TestSolver:
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
-        # for some reason iterations_number is 1+(number of iterations)
-        assert (solver.iterations_number == 1)
+        assert (solver.iterations_number == 0)
         solver.destroy()
 
         self.cfg.create_from_dict({'max_iters': 1})
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
-        solver.solve(b, x, zero_initial_guess=True)
-        assert (solver.iterations_number == 2)
+        solver.solve(b, x)
+        assert (solver.iterations_number == 1)
+        solver.destroy()
+
+        M.destroy()
+        x.destroy()
+        b.destroy()
+
+    def test_get_residual(self):
+        M = pyamgx.Matrix().create(self.rsrc)
+        x = pyamgx.Vector().create(self.rsrc)
+        b = pyamgx.Vector().create(self.rsrc)
+        M.upload(
+            np.array([0, 1, 2, 3], dtype=np.int32),
+            np.array([0, 1, 2], dtype=np.int32),
+            np.array([1., 1., 1.]))
+        x.upload(np.zeros(3, dtype=np.float64))
+        b.upload(np.array([1., 2., 4.], dtype=np.float64))
+
+        self.cfg.create_from_dict({'monitor_residual': 1, 'store_res_history': 1,
+            'tolerance': 1e-14})
+        solver = pyamgx.Solver().create(self.rsrc, self.cfg)
+        solver.setup(M)
+        solver.solve(b, x)
+        assert (solver.get_residual() <= 1e-14)
+        niter = solver.iterations_number
+        assert (solver.get_residual() == solver.get_residual(niter))
         solver.destroy()
 
         M.destroy()

@@ -1,4 +1,4 @@
-cdef extern from "amgx_c.h":
+def extern from "amgx_c.h":
     ctypedef enum  AMGX_SOLVE_STATUS:
         AMGX_SOLVE_SUCCESS = 0
         AMGX_SOLVE_FAILED = 1
@@ -107,9 +107,45 @@ cdef class Solver:
 
     @property
     def iterations_number(self):
+        """
+        solver.iterations_number
+
+        The number of iterations that were executed during the last
+        solve phase.
+        """
         cdef int niter
         check_error(AMGX_solver_get_iterations_number(self.slv, &niter))
-        return niter
+        # for some reason AMGX returns 1+(number of iterations).
+        return niter-1
+
+    def get_residual(self, int iteration=-1, int block_idx=0):
+        """
+        solver.get_residual(iteration, block_idx)
+
+        Get the value of the residual for a given iteration from the
+        last solve phase.
+
+        Parameters
+        ----------
+        iteration : int, optional
+            The iteration at which to inspect the residual. If
+            not provided, return the residual after
+            the last iteration.
+
+        block_idx : int, optional
+            The index of the entry in the block of the residual
+            to retrieve.
+        Returns
+        -------
+        res : float
+            Value of residual at specified iteration.
+        """
+        cdef double res
+        if iteration == - 1:
+            iteration = self.iterations_number
+        check_error(AMGX_solver_get_iteration_residual(self.slv,
+            iteration, block_idx, &res))
+        return res
 
     def destroy(self):
         """
