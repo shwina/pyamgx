@@ -35,9 +35,14 @@ class TestVector:
     def test_get_size(self):
         v = pyamgx.Vector().create(self.rsrc)
 
+        n, block_dim = v.get_size()
+        assert(n == 0)
+        assert(block_dim == 1)
+
         v.upload(np.array([1, 2, 3.], dtype=np.float64))
         
         n, block_dim = v.get_size()
-
         assert(n == 3)
         assert(block_dim == 1)
+
+        v.destroy()
