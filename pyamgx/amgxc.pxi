@@ -89,6 +89,10 @@ cdef extern from "amgx_c.h":
         const AMGX_matrix_handle mtx, int *n, int *block_dimx,
         int *block_dimy)
 
+    AMGX_RC AMGX_matrix_get_nnz(
+        const AMGX_matrix_handle mtx,
+        int *nnz)
+
     AMGX_RC AMGX_matrix_upload_all(
         AMGX_matrix_handle mtx, int n, int nnz,
         int block_dimx, int block_dimy,
@@ -98,6 +102,9 @@ cdef extern from "amgx_c.h":
     AMGX_RC AMGX_matrix_download_all(
         const AMGX_matrix_handle mtx,
         int *row_ptrs, int *col_indices, void *data, void **diag_data)
+
+    AMGX_RC AMGX_matrix_replace_coefficients(AMGX_matrix_handle mtx,
+         int n, int nnz, const void *data, const void *diag_data)
 
     # Vector:
     AMGX_RC AMGX_vector_create(

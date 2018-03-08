@@ -23,7 +23,7 @@ cdef class Matrix:
 
     """
     cdef AMGX_matrix_handle mtx
-
+    
     def create(self, Resources rsrc, mode='dDDI'):
         """
         M.create(Resources rsrc, mode='dDDI')
@@ -128,6 +128,39 @@ cdef class Matrix:
             &n, &bx, &by))
         return n, (bx, by)
 
+    def get_nnz(self):
+        """
+        M.get_nnz()
+
+        Get the number of non-zero entries of the Matrix.
+
+        Returns
+        -------
+        nnz : int
+        """
+        cdef int nnz
+        check_error(AMGX_matrix_get_nnz(
+            self.mtx,
+            &nnz))
+        return nnz
+
+    def replace_coefficients(self, double[:] data):
+        """
+        M.replace_coefficients(data)
+        Replace matrix coefficients without changing the nonzero structure.
+
+        Parameters
+        ----------
+        data : array_like
+            Array of matrix data.
+        """
+        cdef int n, nnz
+        size, (bx, by) = self.get_size()
+        n = self.get_size()[0]
+        nnz = self.get_nnz()
+        check_error(AMGX_matrix_replace_coefficients(
+            self.mtx, n, nnz, &data[0], NULL))
+    
     def destroy(self):
         """
         M.destroy()
