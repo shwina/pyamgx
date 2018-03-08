@@ -1,4 +1,4 @@
-def extern from "amgx_c.h":
+cdef extern from "amgx_c.h":
     ctypedef enum  AMGX_SOLVE_STATUS:
         AMGX_SOLVE_SUCCESS = 0
         AMGX_SOLVE_FAILED = 1
