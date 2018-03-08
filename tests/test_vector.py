@@ -46,3 +46,16 @@ class TestVector:
         assert(block_dim == 1)
 
         v.destroy()
+
+    def test_set_zero(self):
+        v = pyamgx.Vector().create(self.rsrc)
+        v.set_zero(3, 1)
+        a = np.ones(3, dtype=np.float64)
+        v.download(a)
+        assert_equal(a, np.zeros(3, dtype=np.float64))
+        
+        v.upload(np.ones(3, dtype=np.float64))
+        v.set_zero()
+        v.download(a)
+        assert_equal(a, np.zeros(3, dtype=np.float64))
+        v.destroy()

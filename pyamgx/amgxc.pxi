@@ -116,6 +116,10 @@ cdef extern from "amgx_c.h":
         int *n,
         int *block_dim)
 
+    AMGX_RC AMGX_vector_set_zero(AMGX_vector_handle vec,
+         int n,
+         int block_dim)
+
     # Solver:
     AMGX_RC AMGX_solver_create(
         AMGX_solver_handle *slv,
