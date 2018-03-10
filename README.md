@@ -42,7 +42,7 @@ scipy solution:  [-0.52114365  0.72874012  0.17712795  1.37890116 -1.03672993]
 ### Requirements:
 
 1. [AMGX](https://github.com/NVIDIA/AMGX)
-2. [Cython](https://github.com/cython/cython)
+1. [SciPy](https://www.scipy.org/scipylib/download.html)
 
 
 ### Install:
@@ -60,6 +60,14 @@ $ git clone https://github.com/shwina/pyamgx
 ```bash
 $ cd pyamgx
 $ python setup.py build_ext
+$ pip install .
+```
+
+**Note:** If you do not have administrative priveleges
+and if you are *not* installing inside a virtualenv or conda environment,
+replace the last command above with:
+
+```bash
 $ pip install . --user
 ```
 
