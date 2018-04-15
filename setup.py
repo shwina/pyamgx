@@ -4,6 +4,8 @@ from setuptools import setup, Extension
 import subprocess
 import numpy
 
+amgx_dir = os.environ['AMGX_DIR']
+
 try:
     from Cython.Build import cythonize
     ext = cythonize([
@@ -13,8 +15,10 @@ try:
             depends=['pyamgx/*.pyx, pyamgx/*.pxi'],
             libraries=['amgxsh'],
             language='c',
-            include_dirs = [numpy.get_include()])
-        ])
+            include_dirs = [numpy.get_include(), amgx_dir+'/base/include', amgx_dir+'/core/include'],
+            library_dirs = [numpy.get_include(), amgx_dir+'/build'],
+            runtime_library_dirs = [numpy.get_include(), amgx_dir+'/build'],
+        )])
 except ImportError:
     ext = [
         Extension(
@@ -22,7 +26,9 @@ except ImportError:
             sources=['pyamgx/pyamgx.c'],
             libraries=['amgxsh'],
             language='c',
-            include_dirs = [numpy.get_include()]
+            include_dirs = [numpy.get_include(), amgx_dir+'/base/include', amgx_dir+'/core/include'],
+            library_dirs = [numpy.get_include(), amgx_dir+'/build'],
+            runtime_library_dirs = [numpy.get_include(), amgx_dir+'/build'],
         )]
 
 setup(name='pyamgx',
