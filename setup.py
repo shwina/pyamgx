@@ -4,7 +4,12 @@ from setuptools import setup, Extension
 import subprocess
 import numpy
 
-amgx_dir = os.environ['AMGX_DIR']
+try:
+    amgx_dir = os.environ['AMGX_DIR']
+except KeyError:
+    raise EnvironmentError("AMGX_DIR environment variable not set."
+            "Set AMGX_DIR to the "
+            "root directory of your AMGX installation.")
 
 try:
     from Cython.Build import cythonize
