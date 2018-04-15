@@ -15,7 +15,6 @@ Welcome to pyamgx's documentation!
    matrix
    vector
    solver
-   errors
 
 Indices and tables
 ==================

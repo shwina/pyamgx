@@ -36,6 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Errors" href="errors.html"/>
         <link rel="prev" title="Vector" href="vector.html"/> 
 
   
@@ -96,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="matrix.html"><cite>Matrix</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector.html"><cite>Vector</cite></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>Solver</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html"><cite>Errors</cite></a></li>
 </ul>
 
             
@@ -191,6 +193,41 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="pyamgx.Solver.get_residual">
+<code class="descname">get_residual</code><span class="sig-paren">(</span><em>iteration</em>, <em>block_idx</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.get_residual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of the residual for a given iteration from the
+last solve phase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>iteration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – The iteration at which to inspect the residual. If
+not provided, return the residual after
+the last iteration.</li>
+<li><strong>block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – The index of the entry in the block of the residual
+to retrieve.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> – Value of residual at specified iteration.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyamgx.Solver.iterations_number">
+<code class="descname">iterations_number</code><a class="headerlink" href="#pyamgx.Solver.iterations_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of iterations that were executed during the last
+solve phase.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyamgx.Solver.setup">
 <code class="descname">setup</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invoke the set up phase.</p>
@@ -229,6 +266,12 @@ regardless of the values in <cite>x</cite>.</li>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyamgx.Solver.status">
+<code class="descname">status</code><a class="headerlink" href="#pyamgx.Solver.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status from the last solve phase.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -242,6 +285,8 @@ regardless of the values in <cite>x</cite>.</li>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="errors.html" class="btn btn-neutral float-right" title="Errors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="vector.html" class="btn btn-neutral" title="Vector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

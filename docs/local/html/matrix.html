@@ -97,6 +97,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>Matrix</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector.html"><cite>Vector</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="solver.html"><cite>Solver</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html"><cite>Errors</cite></a></li>
 </ul>
 
             
@@ -167,20 +168,22 @@
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Matrix</code><a class="headerlink" href="#pyamgx.Matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>Matrix</cite> : Class for creating and handling AMGX Matrix objects.</p>
 <p class="rubric">Examples</p>
-<p>Uploading the matrix <code class="docutils literal"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:
-&gt;&gt;&gt; import pyamgx, numpy as np
-&gt;&gt;&gt; pyamgx.initialize()
-&gt;&gt;&gt; cfg = pyamgx.Config().create(“”)
-&gt;&gt;&gt; rsrc = pyamgx.Resources().create_simple(cfg)
-&gt;&gt;&gt; M = pyamgx.Matrix().create(rsrc)
-&gt;&gt;&gt; M.upload(row_ptrs=np.array([0, 2, 4], dtype=np.int32),
-… col_indices=np.array([0, 1, 0, 1], dtype=np.int32),
-… data=np.array([1., 2., 3., 4.], dtype=np.float64))
-&gt;&gt;&gt; M.destroy()
-&gt;&gt;&gt; rsrc.destroy()
-&gt;&gt;&gt; cfg.destroy()
-&gt;&gt;&gt; pyamgx.finalize()
-&gt;&gt;&gt;</p>
+<p>Uploading the matrix <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyamgx</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">row_ptrs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">col_indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="pyamgx.Matrix.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
@@ -212,6 +215,22 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="pyamgx.Matrix.get_nnz">
+<code class="descname">get_nnz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.get_nnz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of non-zero entries of the Matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>nnz</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyamgx.Matrix.get_size">
 <code class="descname">get_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.get_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the matrix size (in block units), and the block dimensions.</p>
@@ -225,6 +244,20 @@
 blocks in the x- and y- dimensions.</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.replace_coefficients">
+<code class="descname">replace_coefficients</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.replace_coefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace matrix coefficients without changing the nonzero structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>array_like</em>) – Array of matrix data.</td>
 </tr>
 </tbody>
 </table>
@@ -258,7 +291,7 @@ equal to block_dims[1].</li>
 <dl class="method">
 <dt id="pyamgx.Matrix.upload_CSR">
 <code class="descname">upload_CSR</code><span class="sig-paren">(</span><em>csr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.0.0)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.csr_matrix</span></code></a> to the Matrix object.</p>
+<dd><p>Copy data from a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.sparse.csr_matrix</span></code></a> to the Matrix object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

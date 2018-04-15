@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="matrix.html"><cite>Matrix</cite></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>Vector</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="solver.html"><cite>Solver</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="errors.html"><cite>Errors</cite></a></li>
 </ul>
 
             
@@ -169,12 +170,20 @@
 <p class="rubric">Examples</p>
 <p>Creating a vector, uploading values from a numpy array,
 and downloading values back to a numpy array:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyamgx</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="go">array([1., 2., 3.])</span>
+<span class="go">[1. 2. 3.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -210,7 +219,7 @@ and downloading values back to a numpy array:</p>
 <dl class="method">
 <dt id="pyamgx.Vector.download">
 <code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from the Vector to a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<dd><p>Copy data from the Vector to a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -241,9 +250,27 @@ block size.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyamgx.Vector.set_zero">
+<code class="descname">set_zero</code><span class="sig-paren">(</span><em>n=None</em>, <em>block_dim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.set_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate storage if needed and set all
+the values in the vector to zero.</p>
+<dl class="docutils">
+<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd>Number of entries in the vector, in block units.
+If not provided or <cite>None</cite>, then the values <em>must</em>
+have been previously initialized using e.g.,
+<cite>v.upload()</cite>.</dd>
+<dt>block_dim <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd>Number of values per block. If not provided
+or <cite>None</cite>, then the values <em>must</em> have been previously
+initialized using e.g., <cite>v.upload()</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyamgx.Vector.upload">
 <code class="descname">upload</code><span class="sig-paren">(</span><em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data to the Vector from a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<dd><p>Copy data to the Vector from a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
