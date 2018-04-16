@@ -151,6 +151,6 @@ cdef class Solver:
         """
         solver.destroy()
 
-        Destroy the underlying AMGX Matrix object.
+        Destroy the underlying AMGX Solver object.
         """
         check_error(AMGX_solver_destroy(self.slv))
