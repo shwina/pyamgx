@@ -1,5 +1,6 @@
 import json
 import tempfile
+import os
 
 cdef class Config:
     """
@@ -43,6 +44,8 @@ cdef class Config:
         """
         if not isinstance(param_file, bytes):
             param_file = param_file.encode()
+        if not os.path.isfile(param_file):
+            raise IOError('File {} not found.'.format(param_file))
         check_error(AMGX_config_create_from_file(&self.cfg, param_file))
         return self
 

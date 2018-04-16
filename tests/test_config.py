@@ -31,13 +31,18 @@ class TestConfig:
         self.cfg.create_from_file(fp.name)
         fp.close()
 
+        # typo in configuration file:
         fp = tempfile.NamedTemporaryFile()
-        fp.write(b"    max_lovels = 10 \n max_iters \t= 10\n") #typo
+        fp.write(b"    max_lovels = 10 \n max_iters \t= 10\n")
         fp.seek(0)
         with pytest.raises(pyamgx.AMGXError) as excinfo:
             self.cfg.create_from_file(fp.name)
         assert('amgx configuration' in str(excinfo.value))
         fp.close()
+        
+        # non-existent configuration file:
+        with pytest.raises(IOError):
+            self.cfg.create_from_file('idontexist.txt')
 
     def test_create_from_dict(self):
         self.cfg = pyamgx.Config()
