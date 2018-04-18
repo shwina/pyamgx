@@ -58,6 +58,10 @@ cdef class Vector:
             Array to copy data from.
         block_dim : int, optional
             Number of values per block.
+
+        Returns
+        -------
+        self : Vector
         """
 
         if block_dim == 1:

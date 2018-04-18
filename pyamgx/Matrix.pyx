@@ -39,7 +39,6 @@ cdef class Matrix:
 
         Returns
         -------
-
         self : Matrix
         """
         check_error(AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode)))
@@ -67,6 +66,10 @@ cdef class Matrix:
             Dimensions of block in x- and y- directions. Currently
             only square blocks are supported, so block_dims[0] should be
             equal to block_dims[1].
+
+        Returns
+        -------
+        self : Matrix
         """
         cdef int block_dimx, block_dimy
 
@@ -86,6 +89,8 @@ cdef class Matrix:
             &row_ptrs[0], &col_indices[0],
             &data[0], NULL))
 
+        return self
+
     def upload_CSR(self, csr):
         """
         M.upload_CSR(csr)
@@ -95,6 +100,10 @@ cdef class Matrix:
         Parameters
         ----------
         csr : scipy.sparse.csr_matrix
+
+        Returns
+        -------
+        self : Matrix
         """
         nrows = csr.shape[0]
         ncols = csr.shape[1]
@@ -106,6 +115,7 @@ cdef class Matrix:
         col_indices = csr.indices
         data = csr.data
         self.upload(row_ptrs, col_indices, data)
+        return self
 
     def get_size(self):
         """
