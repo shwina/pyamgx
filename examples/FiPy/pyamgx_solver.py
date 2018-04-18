@@ -37,8 +37,6 @@ class PyAMGXSolver(Solver):
         self.solver.setup(self.A_gpu)
 
     def _solve_(self, L, x, b):
-        relres=[]
-        
         # transfer data from CPU to GPU
         self.x_gpu.upload(x)
         self.b_gpu.upload(b)
@@ -52,7 +50,6 @@ class PyAMGXSolver(Solver):
 
     def _solve(self):
         self._solve_(self.matrix, self.var.ravel(), numerix.array(self.RHSvector))
-        pass
             
     def _canSolveAssymetric(self):
         return False
