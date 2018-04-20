@@ -1,5 +1,5 @@
 from fipy import *
-nx = 2000
+nx = 1000
 ny = nx
 dx = 1.
 dy = dx
@@ -24,23 +24,32 @@ facesBottomRight = ((mesh.facesRight & (Y < L / 2))
 phi.constrain(valueTopLeft, facesTopLeft)
 phi.constrain(valueBottomRight, facesBottomRight)
 
-timeStepDuration = 10 * 0.9 * dx**2 / (2 * D)
-steps = 10
+import time
 
 """
+t1 = time.time()
 DiffusionTerm().solve(var=phi)
+t2 = time.time()
 """
-from pyamgx_solver import PyAMGXSolver
-
 import pyamgx
+import json
+import os
+
 pyamgx.initialize()
-solver = PyAMGXSolver()
 
+from pyamgx_solver import PyAMGXSolver
+with open (os.environ['AMGX_DIR']+'/core/configs/AMG_CLASSICAL_PMIS.json') as f:
+    cfg = json.load(f)
+
+cfg['solver']['max_iters'] = 1000
+cfg['solver']['print_solve_stats'] = 0
+solver = PyAMGXSolver(cfg)
+
+t1 = time.time()
 DiffusionTerm().solve(var=phi, solver=solver)
-
-print(numerix.allclose(phi(((L,), (0,))), valueBottomRight, atol = 1e-2))
-
+t2 = time.time()
 solver.destroy()
 pyamgx.finalize()
 
 print(phi(((nx/2,), (nx/2))))
+print("Time for solve: {} seconds.".format(t2-t1))

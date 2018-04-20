@@ -12,11 +12,18 @@ class PyAMGXSolver(Solver):
     The PyAMGXSolver class.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, config_dict, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        config_dict : dict
+            Dictionary specifying AMGX configuration options
+        """
+        self.config_dict = config_dict
         self.create()
 
     def create(self):
-        self.cfg = pyamgx.Config().create_from_file(os.environ["AMGX_DIR"]+"/core/configs/AMG_CLASSICAL_PMIS.json")
+        self.cfg = pyamgx.Config().create_from_dict(self.config_dict)
         self.resources = pyamgx.Resources().create_simple(self.cfg)
         self.x_gpu = pyamgx.Vector().create(self.resources)
         self.b_gpu = pyamgx.Vector().create(self.resources)
@@ -37,12 +44,12 @@ class PyAMGXSolver(Solver):
         self.solver.setup(self.A_gpu)
 
     def _solve_(self, L, x, b):
+
         # transfer data from CPU to GPU
         self.x_gpu.upload(x)
         self.b_gpu.upload(b)
-        
-        # solve system on GPU
 
+        # solve system on GPU
         self.solver.solve(self.b_gpu, self.x_gpu)
 
         # download values from GPU to CPU
@@ -51,7 +58,7 @@ class PyAMGXSolver(Solver):
     def _solve(self):
         self._solve_(self.matrix, self.var.ravel(), numerix.array(self.RHSvector))
             
-    def _canSolveAssymetric(self):
+    def _canSolveAsymmetric(self):
         return False
 
     def destroy(self):
