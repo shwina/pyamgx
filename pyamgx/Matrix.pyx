@@ -76,9 +76,9 @@ cdef class Matrix:
         block_dimx = block_dims[0]
         block_dimy = block_dims[1]
 
+        nnz = len(data)
         nrows = len(row_ptrs) - 1
         ncols = max(col_indices) + 1
-        nnz = len(data)
 
         if nrows != ncols:
             raise ValueError, "Matrix is not square, has shape ({}, {})".format(nrows, ncols)
@@ -114,6 +114,12 @@ cdef class Matrix:
         row_ptrs = csr.indptr
         col_indices = csr.indices
         data = csr.data
+
+        if len(col_indices) == 0:
+            # assume matrix of zeros
+            col_indices = np.array([ncols-1], dtype=np.int32)
+            data = np.array([0], dtype=np.float64)
+
         self.upload(row_ptrs, col_indices, data)
         return self
 

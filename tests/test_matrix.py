@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.sparse
 import pytest
 import pyamgx
 
@@ -41,7 +42,6 @@ class TestMatrix:
         M.destroy()
     
     def test_upload_CSR(self):
-        import scipy.sparse
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         M.upload_CSR(scipy.sparse.csr_matrix(
@@ -49,13 +49,19 @@ class TestMatrix:
         M.destroy()
 
     def test_upload_CSR_rectangular(self):
-        import scipy.sparse
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         with pytest.raises(ValueError):
             M.upload_CSR(scipy.sparse.csr_matrix(
                 np.array([[1., 2., 3.], [4., 5., 6.]])))
 
+        M.destroy()
+
+    def test_upload_CSR_zeros(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        M.upload_CSR(scipy.sparse.csr_matrix(
+            np.zeros([3, 3], dtype=np.float64)))
         M.destroy()
 
     def test_get_sizes(self):
