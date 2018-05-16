@@ -45,6 +45,7 @@ scipy solution:  [-0.52114365  0.72874012  0.17712795  1.37890116 -1.03672993]
 
 1. [AMGX](https://github.com/NVIDIA/AMGX)
 1. [SciPy](https://www.scipy.org/scipylib/download.html)
+1. [Cython](http://cython.org/)
 
 
 ### Install:
