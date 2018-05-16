@@ -11,8 +11,8 @@ include "Solver.pyx"
 
 
 def initialize():
-    AMGX_initialize()
-    AMGX_initialize_plugins()
+    check_error(AMGX_initialize())
+    check_error(AMGX_initialize_plugins())
 
 
 def get_api_version():
@@ -44,5 +44,5 @@ def read_system(Matrix A, Vector rhs, Vector sol, fname):
 
 
 def finalize():
-    AMGX_finalize_plugins()
-    AMGX_finalize()
+    check_error(AMGX_finalize_plugins())
+    check_error(AMGX_finalize())
