@@ -2,4 +2,4 @@ sudo: enabled
 language: python
 before_install:
     - sudo apt-get -qq update
-    - sudo apt-get install -y nvidia-cuda-toolkit openmpi
+    - sudo apt-get install -y nvidia-cuda-toolkit openmpi git
