@@ -44,6 +44,7 @@ cdef class Vector:
         self : Vector
         """
         check_error(AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode)))
+        return self
 
     def upload(self, double[:] data, block_dim=1):
         """
