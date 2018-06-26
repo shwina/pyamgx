@@ -111,9 +111,8 @@ cdef class Vector:
             if n_ == 0:
                 raise ValueError("set_zero() requires arguments 'n' and 'block_dim'"
                                  "for uninitialized vector")
-            else:
-                n = n_
-                block_dim = block_dim_
+        if n is None: n = n_
+        if block_dim is None: block_dim = block_dim_
 
         check_error(AMGX_vector_set_zero(
             self.vec, n, block_dim))
@@ -145,4 +144,3 @@ cdef class Vector:
         Destroy the underlying AMGX Vector object.
         """
         check_error(AMGX_vector_destroy(self.vec))
-
