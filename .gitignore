@@ -105,3 +105,6 @@ venv.bak/
 
 # AMGX stuff
 .logamgx
+
+# Ignore pyamgx.c
+*pyamgx.c
