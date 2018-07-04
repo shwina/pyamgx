@@ -176,7 +176,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
 <li><strong>cfg</strong> (<a class="reference internal" href="config.html#pyamgx.Config" title="pyamgx.Config"><em>Config</em></a>) – </li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
 </ul>
 </td>
 </tr>
@@ -187,7 +187,7 @@
 <dl class="method">
 <dt id="pyamgx.Solver.destroy">
 <code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.destroy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Destroy the underlying AMGX Matrix object.</p>
+<dd><p>Destroy the underlying AMGX Solver object.</p>
 </dd></dl>
 
 <dl class="method">
@@ -200,10 +200,10 @@ last solve phase.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>iteration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – The iteration at which to inspect the residual. If
+<li><strong>iteration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The iteration at which to inspect the residual. If
 not provided, return the residual after
 the last iteration.</li>
-<li><strong>block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – The index of the entry in the block of the residual
+<li><strong>block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The index of the entry in the block of the residual
 to retrieve.</li>
 </ul>
 </td>
@@ -211,7 +211,7 @@ to retrieve.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> – Value of residual at specified iteration.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)">float</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
 </td>
 </tr>
 </tbody>
@@ -255,7 +255,7 @@ to be solved.</li>
 to be solved. If <cite>zero_initial_guess</cite> is unspecified,
 the values in <cite>x</cite> are used as the initial guess for iterative
 algorithms.</li>
-<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
+<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
 regardless of the values in <cite>x</cite>.</li>
 </ul>
 </td>

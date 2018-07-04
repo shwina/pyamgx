@@ -195,7 +195,7 @@ and downloading values back to a numpy array:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>rsrc</strong> (<a class="reference internal" href="resources.html#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
 </ul>
 </td>
 </tr>
@@ -274,10 +274,16 @@ initialized using e.g., <cite>v.upload()</cite>.</dd>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data from.</li>
-<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
+<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector">Vector</a></p>
 </td>
 </tr>
 </tbody>

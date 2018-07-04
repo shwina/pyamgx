@@ -161,6 +161,21 @@
             
   <div class="section" id="welcome-to-pyamgx-s-documentation">
 <h1>Welcome to pyamgx’s documentation!<a class="headerlink" href="#welcome-to-pyamgx-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>pyamgx is a Python interface to the NVIDIA <a class="reference external" href="https://github.com/NVIDIA/AMGX">AMGX</a> library.
+pyamgx can be used to construct complex nested solvers and preconditioners
+to solve sparse sparse linear systems transparently on the GPU.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Provides a Pythonic interface to all AMGX C-API functions for solving linear systems on a single GPU</li>
+<li>Allows directly uploading SciPy sparse CSR matrices, NumPy arrays or Numba
+<a class="reference external" href="https://numba.pydata.org/numba-doc/dev/cuda/memory.html#device-arrays">DeviceArrays</a></li>
+<li>Solvers specification can be provided specified in JSON files or <code class="docutils literal notranslate"><span class="pre">dict</span></code></li>
+<li>Error checking and handling: AMGX errors are automatically converted into Python exceptions</li>
+</ul>
+</div>
+<div class="section" id="class-reference">
+<h2>Class reference<a class="headerlink" href="#class-reference" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -173,12 +188,13 @@
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
 </div>
 
 
