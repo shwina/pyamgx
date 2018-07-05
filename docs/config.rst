@@ -1,5 +1,0 @@
-`Config`
-========
-
-.. autoclass:: pyamgx.Config
-   :members:

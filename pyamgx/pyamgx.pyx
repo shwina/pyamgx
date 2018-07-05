@@ -11,6 +11,11 @@ include "Solver.pyx"
 
 
 def initialize():
+    """
+    pyamgx.initialize()
+
+    Initialize AMGX.
+    """
     check_error(AMGX_initialize())
     check_error(AMGX_initialize_plugins())
 
@@ -34,8 +39,19 @@ def get_api_version():
     return version
 
 
-
 def read_system(Matrix A, Vector rhs, Vector sol, fname):
+    """
+    Read linear system from a MatrixMarket file.
+
+    Parameters
+    ----------
+
+    A : :py:class:`~pyamgx.Matrix`
+    rhs : :py:class:`~pyamgx.Vector`
+    sol : :py:class:`~pyamgx.Vector`
+    fname : str
+        Path/name of MatrixMarket file.
+    """
     err = AMGX_read_system(
         A.mtx,
         rhs.vec,
@@ -44,5 +60,10 @@ def read_system(Matrix A, Vector rhs, Vector sol, fname):
 
 
 def finalize():
+    """
+    pyamgx.finalize()
+
+    Finalize AMGX.
+    """
     check_error(AMGX_finalize_plugins())
     check_error(AMGX_finalize())

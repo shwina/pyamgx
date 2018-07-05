@@ -23,7 +23,7 @@ cdef class Matrix:
 
     """
     cdef AMGX_matrix_handle mtx
-    
+
     def create(self, Resources rsrc, mode='dDDI'):
         """
         M.create(Resources rsrc, mode='dDDI')

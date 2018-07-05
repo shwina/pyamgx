@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyamgx Reference &mdash; pyamgx 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Quick start" href="quick-start.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyamgx
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyamgx Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyamgx</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>pyamgx Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyamgx">
+<span id="pyamgx-reference"></span><h1>pyamgx Reference<a class="headerlink" href="#module-pyamgx" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="pyamgx.AMGXError">
+<em class="property">exception </em><code class="descclassname">pyamgx.</code><code class="descname">AMGXError</code><a class="headerlink" href="#pyamgx.AMGXError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception class for errors returned from calls to AMGX routines.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyamgx.Config">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Config</code><a class="headerlink" href="#pyamgx.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Config: Class for creating and handling AMGX Config objects</p>
+<dl class="method">
+<dt id="pyamgx.Config.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Config object from a configuration string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>bytes_like</em>) – AMGX configuration string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>self</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyamgx.Config" title="pyamgx.Config">Config</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Config.create_from_dict">
+<code class="descname">create_from_dict</code><span class="sig-paren">(</span><em>param_file</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Config object from a dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary with configuration options.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Config.create_from_file">
+<code class="descname">create_from_file</code><span class="sig-paren">(</span><em>param_file</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Config object from a configuration file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>param_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>bytes_like</em>) – Path to configuration file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Config.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Config object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyamgx.Matrix">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Matrix</code><a class="headerlink" href="#pyamgx.Matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>Matrix</cite> : Class for creating and handling AMGX Matrix objects.</p>
+<p class="rubric">Examples</p>
+<p>Uploading the matrix <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">2],</span> <span class="pre">[3,</span> <span class="pre">4]]</span></code> using the <cite>upload</cite> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyamgx</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">row_ptrs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">col_indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyamgx.Matrix.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Matrix object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix">Matrix</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Matrix object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.get_nnz">
+<code class="descname">get_nnz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.get_nnz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of non-zero entries of the Matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>nnz</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.get_size">
+<code class="descname">get_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the matrix size (in block units), and the block dimensions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>n</strong> (<em>int</em>) – The matrix size (number of rows/columns) in block units.</li>
+<li><strong>block_dims</strong> (<em>tuple</em>) – A tuple (<cite>bx</cite>, <cite>by</cite>) representing the size of the
+blocks in the x- and y- dimensions.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.replace_coefficients">
+<code class="descname">replace_coefficients</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.replace_coefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace matrix coefficients without changing the nonzero structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>array_like</em>) – Array of matrix data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>row_ptrs, col_indices, data, block_dims=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from arrays describing the sparse matrix to
+the Matrix object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>row_ptrs</strong> (<em>array_like</em>) – Array of row pointers. For a description of the arrays
+<cite>row_ptrs</cite>, <cite>col_indices</cite> and <cite>data</cite>,
+see <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)">here</a>.</li>
+<li><strong>col_indices</strong> (<em>array_like</em>) – Array of column indices.</li>
+<li><strong>data</strong> (<em>array_like</em>) – Array of matrix data.</li>
+<li><strong>block_dims</strong> (<em>tuple_like</em><em>, </em><em>optional</em>) – Dimensions of block in x- and y- directions. Currently
+only square blocks are supported, so block_dims[0] should be
+equal to block_dims[1].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix">Matrix</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Matrix.upload_CSR">
+<code class="descname">upload_CSR</code><span class="sig-paren">(</span><em>csr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Matrix.upload_CSR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.sparse.csr_matrix</span></code></a> to the Matrix object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>csr</strong> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.1.0)"><em>scipy.sparse.csr_matrix</em></a>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>self</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix">Matrix</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyamgx.Resources">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Resources</code><a class="headerlink" href="#pyamgx.Resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resources: Class for creating and freeing AMGX Resources objects.</p>
+<dl class="method">
+<dt id="pyamgx.Resources.create_simple">
+<code class="descname">create_simple</code><span class="sig-paren">(</span><em>cfg</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Resources.create_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Resources object in a
+single-threaded application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cfg</strong> (<a class="reference internal" href="#pyamgx.Config" title="pyamgx.Config"><em>Config</em></a>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>self</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyamgx.Resources" title="pyamgx.Resources">Resources</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Resources.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Resources.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Resources object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyamgx.Solver">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Solver</code><a class="headerlink" href="#pyamgx.Solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solver: Class for creating and handling AMGX Solver objects.</p>
+<dl class="method">
+<dt id="pyamgx.Solver.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>Config cfg</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Solver object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>cfg</strong> (<a class="reference internal" href="#pyamgx.Config" title="pyamgx.Config"><em>Config</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Solver.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Solver object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Solver.get_residual">
+<code class="descname">get_residual</code><span class="sig-paren">(</span><em>iteration</em>, <em>block_idx</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.get_residual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of the residual for a given iteration from the
+last solve phase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>iteration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The iteration at which to inspect the residual. If
+not provided, return the residual after
+the last iteration.</li>
+<li><strong>block_idx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The index of the entry in the block of the residual
+to retrieve.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> – Value of residual at specified iteration.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyamgx.Solver.iterations_number">
+<code class="descname">iterations_number</code><a class="headerlink" href="#pyamgx.Solver.iterations_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of iterations that were executed during the last
+solve phase.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Solver.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke the set up phase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>A</strong> (<a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix"><em>Matrix</em></a>) – The <cite>Matrix</cite> representing the coefficient matrix of the equation
+to be solved.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Solver.solve">
+<code class="descname">solve</code><span class="sig-paren">(</span><em>Vector rhs</em>, <em>Vector sol</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Solver.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke the solve phase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>b</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the right-hand side of the equation
+to be solved.</li>
+<li><strong>x</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><em>Vector</em></a>) – The <cite>Vector</cite> representing the solution vector of the equation
+to be solved. If <cite>zero_initial_guess</cite> is unspecified,
+the values in <cite>x</cite> are used as the initial guess for iterative
+algorithms.</li>
+<li><strong>zero_initial_guess</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <cite>True</cite>, use an initial guess of zero for the solution,
+regardless of the values in <cite>x</cite>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyamgx.Solver.status">
+<code class="descname">status</code><a class="headerlink" href="#pyamgx.Solver.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status from the last solve phase.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyamgx.Vector">
+<em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Vector</code><a class="headerlink" href="#pyamgx.Vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vector: Class for creating and handling AMGX Vector objects.</p>
+<p class="rubric">Examples</p>
+<p>Creating a vector, uploading values from a numpy array,
+and downloading values back to a numpy array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyamgx</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[1. 2. 3.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pyamgx.Vector.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>Resources rsrc</em>, <em>mode='dDDI'</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the underlying AMGX Vector object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rsrc</strong> (<a class="reference internal" href="#pyamgx.Resources" title="pyamgx.Resources"><em>Resources</em></a>) – </li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – String representing data modes to use.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector">Vector</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the underlying AMGX Vector object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from the Vector to a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.get_size">
+<code class="descname">get_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the size of the vector (in block units), and the
+block size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>n</strong> (<em>int</em>) – The size of the vector in block units.</li>
+<li><strong>block_dim</strong> (<em>int</em>) – The block size.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.set_zero">
+<code class="descname">set_zero</code><span class="sig-paren">(</span><em>n=None</em>, <em>block_dim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.set_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate storage if needed and set all
+the values in the vector to zero.</p>
+<dl class="docutils">
+<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd>Number of entries in the vector, in block units.
+If not provided or <cite>None</cite>, then the values <em>must</em>
+have been previously initialized using e.g.,
+<cite>v.upload()</cite>.</dd>
+<dt>block_dim <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd>Number of values per block. If not provided
+or <cite>None</cite>, then the values <em>must</em> have been previously
+initialized using e.g., <cite>v.upload()</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data to the Vector from a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data from.</li>
+<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>self</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector">Vector</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.check_error">
+<code class="descclassname">pyamgx.</code><code class="descname">check_error</code><span class="sig-paren">(</span><em>err_code</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.check_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise <cite>AMGXError</cite> for non-zero values of <cite>err_code</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>err_code</strong> (<em>RC</em>) – Error code returned from call to an AMGX routine.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.finalize">
+<code class="descclassname">pyamgx.</code><code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize AMGX.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.get_api_version">
+<code class="descclassname">pyamgx.</code><code class="descname">get_api_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.get_api_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the API version of AMGX as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>version</strong> – String continaing major and minor API version information.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.get_error_string">
+<code class="descclassname">pyamgx.</code><code class="descname">get_error_string</code><span class="sig-paren">(</span><em>err_code</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.get_error_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a human-readable error string corresponding to an error code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>err_code</strong> (<em>RC</em>) – Error code returned from call to an AMGX routine.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>err_str</strong> – Human-readable error string.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.initialize">
+<code class="descclassname">pyamgx.</code><code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize AMGX.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.install_signal_handler">
+<code class="descclassname">pyamgx.</code><code class="descname">install_signal_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.install_signal_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cause AMGX to install its default signal handlers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.pin_memory">
+<code class="descclassname">pyamgx.</code><code class="descname">pin_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.pin_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify the operating system that the
+underlying buffer of <cite>data</cite> is to be
+pinned to reside in physical memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be pinned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.read_system">
+<code class="descclassname">pyamgx.</code><code class="descname">read_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.read_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read linear system from a MatrixMarket file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>A</strong> (<a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a>) – </li>
+<li><strong>rhs</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
+<li><strong>sol</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
+<li><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path/name of MatrixMarket file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.reset_signal_handler">
+<code class="descclassname">pyamgx.</code><code class="descname">reset_signal_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.reset_signal_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cause AMGX to restore previous signal handlers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.unpin_memory">
+<code class="descclassname">pyamgx.</code><code class="descname">unpin_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.unpin_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notify the operating system that the
+underlying buffer of <cite>data</cite> is to be
+unpinned</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be unpinned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="quick-start.html" class="btn btn-neutral" title="Quick start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Ashwin Srinath.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

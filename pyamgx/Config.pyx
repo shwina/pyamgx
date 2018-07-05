@@ -4,7 +4,7 @@ import os
 
 cdef class Config:
     """
-    Config: Class for creating and handling AMGX Config objects
+    Config: Class for creating and handling AMGX Config objects.
     """
     cdef AMGX_config_handle cfg
 

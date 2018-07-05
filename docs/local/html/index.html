@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to pyamgx’s documentation! &mdash; pyamgx 0.1 documentation</title>
+  <title>pyamgx - GPU accelerated multigrid library for Python &mdash; pyamgx 0.1 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pyamgx 0.1 documentation" href="#"/>
-        <link rel="next" title="Config" href="config.html"/> 
+        <link rel="next" title="Quick start" href="quick-start.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,13 +89,9 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="config.html"><cite>Config</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html"><cite>Resources</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="matrix.html"><cite>Matrix</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="vector.html"><cite>Vector</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="solver.html"><cite>Solver</cite></a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
 </ul>
 
             
@@ -140,7 +136,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to pyamgx’s documentation!</li>
+      <li>pyamgx - GPU accelerated multigrid library for Python</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,31 +155,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-pyamgx-s-documentation">
-<h1>Welcome to pyamgx’s documentation!<a class="headerlink" href="#welcome-to-pyamgx-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="pyamgx-gpu-accelerated-multigrid-library-for-python">
+<h1>pyamgx - GPU accelerated multigrid library for Python<a class="headerlink" href="#pyamgx-gpu-accelerated-multigrid-library-for-python" title="Permalink to this headline">¶</a></h1>
 <p>pyamgx is a Python interface to the NVIDIA <a class="reference external" href="https://github.com/NVIDIA/AMGX">AMGX</a> library.
-pyamgx can be used to construct complex nested solvers and preconditioners
-to solve sparse sparse linear systems transparently on the GPU.</p>
+pyamgx can be used to construct complex solvers and preconditioners
+to solve sparse sparse linear systems on the GPU.</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Provides a Pythonic interface to all AMGX C-API functions for solving linear systems on a single GPU</li>
-<li>Allows directly uploading SciPy sparse CSR matrices, NumPy arrays or Numba
-<a class="reference external" href="https://numba.pydata.org/numba-doc/dev/cuda/memory.html#device-arrays">DeviceArrays</a></li>
-<li>Solvers specification can be provided specified in JSON files or <code class="docutils literal notranslate"><span class="pre">dict</span></code></li>
-<li>Error checking and handling: AMGX errors are automatically converted into Python exceptions</li>
+<li>Allows directly uploading SciPy sparse CSR matrices, NumPy arrays or Numba.
+<a class="reference external" href="https://numba.pydata.org/numba-doc/dev/cuda/memory.html#device-arrays">DeviceArrays</a>
+to the GPU&gt;</li>
+<li>Solver settings can be provided in JSON files or as <code class="docutils literal notranslate"><span class="pre">dict</span></code> objects.</li>
+<li>Error checking and handling: AMGX errors are automatically converted into Python exceptions.</li>
 </ul>
 </div>
-<div class="section" id="class-reference">
-<h2>Class reference<a class="headerlink" href="#class-reference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="config.html"><cite>Config</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html"><cite>Resources</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="matrix.html"><cite>Matrix</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="vector.html"><cite>Vector</cite></a></li>
-<li class="toctree-l1"><a class="reference internal" href="solver.html"><cite>Solver</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#initializing-and-finalizing-pyamgx">Initializing and finalizing pyamgx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#config-objects">Config objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#resources-objects">Resources objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#vectors">Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#matrices">Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#solvers">Solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
 </ul>
 </div>
 </div>
@@ -207,7 +208,7 @@ to solve sparse sparse linear systems transparently on the GPU.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="config.html" class="btn btn-neutral float-right" title="Config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="quick-start.html" class="btn btn-neutral float-right" title="Quick start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
