@@ -69,8 +69,11 @@ Vectors
 
 :py:class:`~pyamgx.Vector` objects store vectors on
 either the host (CPU memory) or device (GPU memory).
-The value of the *mode* argument to the :py:meth:`~pyamgx.Vector.create` method
+
+The value of the optional *mode* argument to the :py:meth:`~pyamgx.Vector.create` method
 specifies whether the data resides on the host or device.
+If it is ``'dDDI'`` (default), the data resides on the device.
+If it is ``'hDDI'``, the data resides on the host.
 
 .. code-block:: python
 
@@ -78,10 +81,31 @@ specifies whether the data resides on the host or device.
    vec.create(resources, mode='dDDI')
 
 Values of :py:class:`~pyamgx.Vector` objects can be populated
-in two ways:
+in the following ways:
 
-1. From NumPy :py:class:`numpy.ndarray` using the :py:meth:`~pyamgx.Vector.upload` method.
-2. Using the :py:meth:`~pyamgx.Vector.set_zero` method.
+1. From an array using the :py:meth:`~pyamgx.Vector.upload` method
+
+   .. code-block:: python
+
+      vec.upload(np.array([1, 2, 3], dtype=np.float64))
+
+2. Using the :py:meth:`~pyamgx.Vector.set_zero` method
+
+   .. code-block:: python
+
+      vec.set_zero(5) # implicitly allocates storage for the vector
+
+3. From a raw pointer using the :py:meth:`~pyamgx.Vector.upload_raw` method.
+   This allows uploading values from arrays already on the GPU,
+   for instance from :py:class:`numba.cuda.device_array` objects.
+
+   .. code-block:: python
+
+      import numba.cuda
+
+      d_ary = numba.cuda.to_device(np.array([1, 2, 3], dtype=np.float64))
+
+      v.upload_raw(d_ary.device_ctypes_pointer.value, 3) # copies directly from GPU
 
 Matrices
 --------

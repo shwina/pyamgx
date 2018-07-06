@@ -527,10 +527,8 @@ and downloading values back to a numpy array:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsrc</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="go">[1. 2. 3.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+<span class="go">array([ 1.,  1.,  1.])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rsrc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
@@ -570,12 +568,28 @@ and downloading values back to a numpy array:</p>
 <dl class="method">
 <dt id="pyamgx.Vector.download">
 <code class="descname">download</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data from the Vector to a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<dd><p>Copy data from the Vector to an array.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>array</em><em>, </em><em>ndim=1</em>) – Array to copy data to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.download_raw">
+<code class="descname">download_raw</code><span class="sig-paren">(</span><em>ptr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.download_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data from the Vector to an array, given a raw pointer
+to the array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ptr</strong> (<em>pointer</em>) – An integer (or long integer, if required) that
+points to the array containing data</td>
 </tr>
 </tbody>
 </table>
@@ -612,22 +626,23 @@ If not provided or <cite>None</cite>, then the values <em>must</em>
 have been previously initialized using e.g.,
 <cite>v.upload()</cite>.</dd>
 <dt>block_dim <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
-<dd>Number of values per block. If not provided
-or <cite>None</cite>, then the values <em>must</em> have been previously
-initialized using e.g., <cite>v.upload()</cite>.</dd>
+<dd><p class="first">Number of values per block. If not provided
+or <cite>None</cite>, then the values <em>must</em> have been previously</p>
+<p class="last">initialized using e.g., <cite>v.upload()</cite>.</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyamgx.Vector.upload">
 <code class="descname">upload</code><span class="sig-paren">(</span><em>data</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy data to the Vector from a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
+<dd><p>Copy data to the Vector from an array.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>ndarray</em><em>[</em><em>double</em><em>, </em><em>ndim=1</em><em>, </em><em>mode=&quot;c&quot;</em><em>]</em>) – Array to copy data from.</li>
+<li><strong>data</strong> (<em>array_like</em><em>, </em><em>ndim=1</em>) – Array to copy data from.</li>
 <li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
 </ul>
 </td>
@@ -636,6 +651,27 @@ initialized using e.g., <cite>v.upload()</cite>.</dd>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector">Vector</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyamgx.Vector.upload_raw">
+<code class="descname">upload_raw</code><span class="sig-paren">(</span><em>ptr</em>, <em>n</em>, <em>block_dim=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.upload_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data to the Vector from an array, given a raw pointer
+to the array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ptr</strong> (<em>pointer</em>) – An integer (or long integer, if required) that
+points to the array containing data</li>
+<li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Size of the array</li>
+<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of values per block.</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -656,12 +692,6 @@ initialized using e.g., <cite>v.upload()</cite>.</dd>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyamgx.finalize">
-<code class="descclassname">pyamgx.</code><code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.finalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finalize AMGX.</p>
 </dd></dl>
 
 <dl class="function">
@@ -699,12 +729,6 @@ initialized using e.g., <cite>v.upload()</cite>.</dd>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyamgx.initialize">
-<code class="descclassname">pyamgx.</code><code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize AMGX.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyamgx.install_signal_handler">
 <code class="descclassname">pyamgx.</code><code class="descname">install_signal_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.install_signal_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cause AMGX to install its default signal handlers.</p>
@@ -721,26 +745,6 @@ pinned to reside in physical memory.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be pinned.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyamgx.read_system">
-<code class="descclassname">pyamgx.</code><code class="descname">read_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.read_system" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read linear system from a MatrixMarket file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>A</strong> (<a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a>) – </li>
-<li><strong>rhs</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
-<li><strong>sol</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
-<li><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path/name of MatrixMarket file.</li>
-</ul>
-</td>
 </tr>
 </tbody>
 </table>
