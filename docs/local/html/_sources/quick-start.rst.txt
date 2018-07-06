@@ -21,7 +21,8 @@ Config objects
 
 :py:class:`~pyamgx.Config` objects are used to store configurations
 for :py:class:`~pyamgx.Resource` and :py:class:`~pyamgx.Solver` objects.
-:py:class:`~pyamgx.Config` objects can be constructed from JSON files or :py:class:`dict` objects.
+:py:class:`~pyamgx.Config` objects can be constructed from
+JSON files or :py:class:`dict` objects.
 Example configurations can be found
 `here <https://github.com/NVIDIA/AMGX/tree/master/core/configs>`_.
 
@@ -51,7 +52,7 @@ created using the :py:meth:`~pyamgx.Resources.create_simple` method:
 .. code-block:: python
 
    resources = pyamgx.Resources()
-   resources.create_simple()
+   resources.create_simple(cfg)
 
 After use, :py:class:`~pyamgx.Resources` objects **must** be destroyed using the
 :py:meth:`~pyamgx.Resources.destroy` method **after** all
@@ -65,6 +66,22 @@ classes constructed from the :py:class:`~pyamgx.Resouces` object are destroyed.
 
 Vectors
 -------
+
+:py:class:`~pyamgx.Vector` objects store vectors on
+either the host (CPU memory) or device (GPU memory).
+The value of the *mode* argument to the :py:meth:`~pyamgx.Vector.create` method
+specifies whether the data resides on the host or device.
+
+.. code-block:: python
+
+   vec = pyamgx.Vector()
+   vec.create(resources, mode='dDDI')
+
+Values of :py:class:`~pyamgx.Vector` objects can be populated
+in two ways:
+
+1. From NumPy :py:class:`numpy.ndarray` using the :py:meth:`~pyamgx.Vector.upload` method.
+2. Using the :py:meth:`~pyamgx.Vector.set_zero` method.
 
 Matrices
 --------

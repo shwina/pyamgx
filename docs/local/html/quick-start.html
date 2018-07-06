@@ -183,7 +183,8 @@
 <h2>Config objects<a class="headerlink" href="#config-objects" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects are used to store configurations
 for <code class="xref py py-class docutils literal notranslate"><span class="pre">Resource</span></code> and <a class="reference internal" href="reference.html#pyamgx.Solver" title="pyamgx.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Solver</span></code></a> objects.
-<a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects can be constructed from JSON files or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> objects.
+<a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects can be constructed from
+JSON files or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> objects.
 Example configurations can be found
 <a class="reference external" href="https://github.com/NVIDIA/AMGX/tree/master/core/configs">here</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
@@ -206,7 +207,7 @@ Currently, pyamgx only supports “simple” <a class="reference internal" href=
 single threaded, single GPU applications.
 created using the <a class="reference internal" href="reference.html#pyamgx.Resources.create_simple" title="pyamgx.Resources.create_simple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_simple()</span></code></a> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resources</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span>
-<span class="n">resources</span><span class="o">.</span><span class="n">create_simple</span><span class="p">()</span>
+<span class="n">resources</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After use, <a class="reference internal" href="reference.html#pyamgx.Resources" title="pyamgx.Resources"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resources</span></code></a> objects <strong>must</strong> be destroyed using the
@@ -220,6 +221,20 @@ classes constructed from the <code class="xref py py-class docutils literal notr
 </div>
 <div class="section" id="vectors">
 <h2>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> objects store vectors on
+either the host (CPU memory) or device (GPU memory).
+The value of the <em>mode</em> argument to the <a class="reference internal" href="reference.html#pyamgx.Vector.create" title="pyamgx.Vector.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a> method
+specifies whether the data resides on the host or device.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vec</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span>
+<span class="n">vec</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;dDDI&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Values of <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> objects can be populated
+in two ways:</p>
+<ol class="arabic simple">
+<li>From NumPy <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> using the <a class="reference internal" href="reference.html#pyamgx.Vector.upload" title="pyamgx.Vector.upload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">upload()</span></code></a> method.</li>
+<li>Using the <a class="reference internal" href="reference.html#pyamgx.Vector.set_zero" title="pyamgx.Vector.set_zero"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_zero()</span></code></a> method.</li>
+</ol>
 </div>
 <div class="section" id="matrices">
 <h2>Matrices<a class="headerlink" href="#matrices" title="Permalink to this headline">¶</a></h2>
