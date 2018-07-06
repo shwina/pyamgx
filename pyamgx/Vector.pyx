@@ -1,3 +1,4 @@
+from libc.stdint cimport uintptr_t
 cdef class Vector:
     """
     Vector: Class for creating and handling AMGX Vector objects.
@@ -44,48 +45,66 @@ cdef class Vector:
         self : Vector
         """
         check_error(AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode)))
+        return self
 
-    def upload(self, double[:] data, block_dim=1):
+    def upload(self, data, block_dim=1):
         """
         v.upload(data, block_dim=1)
 
-        Copy data to the Vector from a :class:`numpy.ndarray`.
+        Copy data to the Vector from the host or device.
 
         Parameters
         ----------
-        data : ndarray[double, ndim=1, mode="c"]
-            Array to copy data from.
+        data : array, ndim=1
+            Array to copy data from. Can be :class:`numpy.ndarray`
+            or :class:`numba.cuda.cudadrv.devicearray.DeviceNDArray`.
+
         block_dim : int, optional
             Number of values per block.
 
         Returns
         -------
         self : Vector
+
+        Notes
+        -----
+        In the future, may support any object that supports the
+        NumPy array interface or
+        [CUDA array interface](https://numba.pydata.org/numba-doc/dev/cuda/cuda_array_interface.html).
         """
 
         if block_dim == 1:
-            n = len(data)
+            n = data.size
         else:
-            n = len(data)/block_dim
+            n = data.size/block_dim
+
+        ptr = _get_array_pointer(data)
 
         check_error(AMGX_vector_upload(
             self.vec, n, block_dim,
-            &data[0]))
+            ptr))
         return self
 
-    def download(self, double[:] data):
+    def download(self, data):
         """
         v.download(data)
 
-        Copy data from the Vector to a :class:`numpy.ndarray`.
+        Copy data from the Vector to the host or device.
 
         Parameters
         ----------
 
-        data : ndarray[double, ndim=1, mode="c"]
-            Array to copy data to.
+        data : array, ndim=1
+            Array to copy data to. Can be :class:`numpy.ndarray`
+            or :class:`numba.cuda.cudadrv.devicearray.DeviceNDArray`.
+
         """
-        check_error(AMGX_vector_download(self.vec, &data[0]))
+
+        ptr = _get_array_pointer(data)
+
+        check_error(AMGX_vector_download(
+            self.vec,
+            ptr))
 
     def set_zero(self, n=None, block_dim=None):
         """
@@ -103,6 +122,7 @@ cdef class Vector:
         block_dim : int, optional
             Number of values per block. If not provided
             or `None`, then the values *must* have been previously
+
             initialized using e.g., `v.upload()`.
         """
         n_, block_dim_ = self.get_size()
@@ -110,9 +130,8 @@ cdef class Vector:
             if n_ == 0:
                 raise ValueError("set_zero() requires arguments 'n' and 'block_dim'"
                                  "for uninitialized vector")
-            else:
-                n = n_
-                block_dim = block_dim_
+        if n is None: n = n_
+        if block_dim is None: block_dim = block_dim_
 
         check_error(AMGX_vector_set_zero(
             self.vec, n, block_dim))
@@ -145,3 +164,16 @@ cdef class Vector:
         """
         check_error(AMGX_vector_destroy(self.vec))
 
+cdef void * _get_array_pointer(array):
+    cdef size_t long_ptr
+    cdef void * ptr
+    if hasattr(array, "__array_interface__"):
+        long_ptr = <size_t> array.__array_interface__['data'][0]
+        ptr = <void *> long_ptr
+    elif hasattr(array, "device_ctypes_pointer"):
+        long_ptr = <size_t> array.device_ctypes_pointer.value
+        ptr = <void *> long_ptr
+    else:
+        raise TypeError("Expected numpy.ndarray or"
+                        "numba.cuda.cudadrv.devicearray.DeviceNDArray")
+    return ptr
