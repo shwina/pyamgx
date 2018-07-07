@@ -1,10 +1,10 @@
 Demo
 ====
 
-To give you an idea of pyamgx usage,
+To give you an idea of how pyamgx is used,
 here is a simple demo program that sets up and solves a linear system
 using pyamgx, and compares the result with
-:py:func:`scipy.sparse.linalg.spsolve`
+:py:func:`scipy.sparse.linalg.spsolve`.
 
 .. code-block:: python
 
@@ -71,6 +71,8 @@ using pyamgx, and compares the result with
     cfg.destroy()
 
     pyamgx.finalize()
+
+Output:
 
 ::
 

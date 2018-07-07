@@ -165,7 +165,7 @@ to solve sparse sparse linear systems on the GPU.</p>
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Provides a Pythonic interface to all AMGX C-API functions for solving linear systems on a single GPU</li>
-<li>Allows directly uploading data from
+<li>Allows directly uploading matrix and vector data from
 SciPy sparse CSR matrices, NumPy arrays and Numba
 <a class="reference external" href="http://numba.pydata.org/numba-doc/latest/cuda/memory.html#device-arrays">DeviceArrays</a>,
 among others</li>
@@ -175,6 +175,13 @@ among others</li>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This guide provides an overview of the pyamgx library, its classes and functions.
+It does not contain information about AMGX algorithms (solvers and preconditioners),
+and their configuration. For that, please refer to the
+<a class="reference external" href="https://github.com/NVIDIA/AMGX/blob/master/doc/AMGX_Reference.pdf">AMGX Reference Manual</a></p>
+</div>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
@@ -189,13 +196,6 @@ among others</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
 </ul>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This guide provides an overview of the pyamgx library, its classes and functions.
-It does not contain information about AMGX algorithms (solvers and preconditioners),
-and their configuration. For that, please refer to the
-<a class="reference external" href="https://github.com/NVIDIA/AMGX/blob/master/doc/AMGX_Reference.pdf">AMGX Reference Manual</a></p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
