@@ -196,7 +196,8 @@ intersphinx_mapping = {'https://docs.python.org/': None,
     'python': ('https://docs.python.org/dev', None),
     'numpy': ('https://docs.scipy.org/doc/numpy/', None),
     'scipy': ('https://docs.scipy.org/doc/scipy/reference', None),
-    'matplotlib': ('http://matplotlib.org', None)
+    'matplotlib': ('http://matplotlib.org', None),
+    'numba': ('http://numba.pydata.org/numba-doc/latest/', None)
 }
 
 # -- Hack for copying manually built pages to _build

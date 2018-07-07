@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic Usage &mdash; pyamgx 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/>
+        <link rel="next" title="pyamgx Reference" href="reference.html"/>
+        <link rel="prev" title="Demo" href="demo.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyamgx
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#initializing-and-finalizing-pyamgx">Initializing and finalizing pyamgx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-objects">Config objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resources-objects">Resources objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vectors">Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#matrices">Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solvers">Solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyamgx</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Basic Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/basic.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-usage">
+<h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="initializing-and-finalizing-pyamgx">
+<h2>Initializing and finalizing pyamgx<a class="headerlink" href="#initializing-and-finalizing-pyamgx" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">initialize()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">finalize()</span></code> functions
+<strong>must</strong> be called to initialize and finalize the library respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyamgx</span>
+<span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+<span class="c1"># use pyamgx</span>
+
+<span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="config-objects">
+<h2>Config objects<a class="headerlink" href="#config-objects" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects are used to store configuration settings
+for the linear solver used, including
+algorithm, preconditioner(s), smoother(s) and associated parameters.</p>
+<p><a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects can be constructed from
+JSON files or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> objects.</p>
+<p>As an example, the <a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> object below
+represents the configuration for a BICGSTAB solver
+without preconditioning, and is constructed using
+the <a class="reference internal" href="reference.html#pyamgx.Config.create_from_dict" title="pyamgx.Config.create_from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_dict()</span></code></a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">cfg</span><span class="o">.</span><span class="n">create_from_dict</span><span class="p">({</span>
+     <span class="s2">&quot;config_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+     <span class="s2">&quot;determinism_flag&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="s2">&quot;exception_handling&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;monitor_residual&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;BICGSTAB&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;convergence&quot;</span><span class="p">:</span> <span class="s2">&quot;RELATIVE_INI_CORE&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;preconditioner&quot;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;NOSOLVER&quot;</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+ <span class="p">})</span>
+</pre></div>
+</div>
+<p>Examples of more complex configurations can be found
+<a class="reference external" href="https://github.com/NVIDIA/AMGX/tree/master/core/configs">here</a>,
+and a description of all configuration settings can be found in the
+AMGX Reference Guide.</p>
+<p>The <a class="reference internal" href="reference.html#pyamgx.Config.create_from_file" title="pyamgx.Config.create_from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_file()</span></code></a> method can be used
+to read configuration settings from a JSON file instead:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">cfg</span><span class="o">.</span><span class="n">create_from_file</span><span class="p">(</span><span class="s1">&#39;/path/to/GMRES.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After use, <a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> objects <strong>must</strong> be destroyed using the
+<a class="reference internal" href="reference.html#pyamgx.Config.destroy" title="pyamgx.Config.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy()</span></code></a> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="resources-objects">
+<h2>Resources objects<a class="headerlink" href="#resources-objects" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="reference.html#pyamgx.Resources" title="pyamgx.Resources"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resources</span></code></a> objects are used to specify the resources
+(GPUs, MPI ranks) used by <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>, <a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a>
+and <a class="reference internal" href="reference.html#pyamgx.Solver" title="pyamgx.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Solver</span></code></a> objects.
+Currently, pyamgx only supports “simple” <a class="reference internal" href="reference.html#pyamgx.Resources" title="pyamgx.Resources"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resources</span></code></a> objects for
+single threaded, single GPU applications.
+created using the <a class="reference internal" href="reference.html#pyamgx.Resources.create_simple" title="pyamgx.Resources.create_simple"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_simple()</span></code></a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resources</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span>
+<span class="n">resources</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After use, <a class="reference internal" href="reference.html#pyamgx.Resources" title="pyamgx.Resources"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resources</span></code></a> objects <strong>must</strong> be destroyed using the
+<a class="reference internal" href="reference.html#pyamgx.Resources.destroy" title="pyamgx.Resources.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy()</span></code></a> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">resources</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">A <a class="reference internal" href="reference.html#pyamgx.Resources" title="pyamgx.Resources"><code class="xref py py-class docutils literal notranslate"><span class="pre">Resources</span></code></a> object should be destroyed only <strong>after</strong>
+all <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>, <a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a> and <a class="reference internal" href="reference.html#pyamgx.Solver" title="pyamgx.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Solver</span></code></a>
+objects constructed from it are destroyed.</p>
+</div>
+</div>
+<div class="section" id="vectors">
+<h2>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> objects store vectors on
+either the host (CPU memory) or device (GPU memory).</p>
+<p>The value of the optional <cite>mode</cite> argument to the <a class="reference internal" href="reference.html#pyamgx.Vector.create" title="pyamgx.Vector.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a> method
+specifies whether the data resides on the host or device.
+If it is <code class="docutils literal notranslate"><span class="pre">'dDDI'</span></code> (default), the data resides on the device.
+If it is <code class="docutils literal notranslate"><span class="pre">'hDDI'</span></code>, the data resides on the host.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vec</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span>
+<span class="n">vec</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;dDDI&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Values of <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> objects can be populated
+in the following ways:</p>
+<ol class="arabic">
+<li><p class="first">From an array using the <a class="reference internal" href="reference.html#pyamgx.Vector.upload" title="pyamgx.Vector.upload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">upload()</span></code></a> method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vec</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Using the <a class="reference internal" href="reference.html#pyamgx.Vector.set_zero" title="pyamgx.Vector.set_zero"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_zero()</span></code></a> method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vec</span><span class="o">.</span><span class="n">set_zero</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># implicitly allocates storage for the vector</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">From a raw pointer using the <a class="reference internal" href="reference.html#pyamgx.Vector.upload_raw" title="pyamgx.Vector.upload_raw"><code class="xref py py-meth docutils literal notranslate"><span class="pre">upload_raw()</span></code></a> method.
+This allows uploading values from arrays already on the GPU,
+for instance from <code class="xref py py-class docutils literal notranslate"><span class="pre">numba.cuda.device_array</span></code> objects.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numba.cuda</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">d_a</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+
+<span class="n">vec</span><span class="o">.</span><span class="n">upload_raw</span><span class="p">(</span><span class="n">d_a</span><span class="o">.</span><span class="n">device_ctypes_pointer</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># copies directly from GPU</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>After use, <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> objects <strong>must</strong> be destroyed using the
+<a class="reference internal" href="reference.html#pyamgx.Vector.destroy" title="pyamgx.Vector.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy()</span></code></a> method.</p>
+</div>
+<div class="section" id="matrices">
+<h2>Matrices<a class="headerlink" href="#matrices" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a> objects store sparse matrices on
+either the host (CPU memory) or device (GPU memory).</p>
+<p>The value of the optional <cite>mode</cite> argument to the <a class="reference internal" href="reference.html#pyamgx.Matrix.create" title="pyamgx.Matrix.create"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create()</span></code></a> method
+specifies whether the data resides on the host or device.
+If it is <code class="docutils literal notranslate"><span class="pre">'dDDI'</span></code> (default), the data resides on the device.
+If it is <code class="docutils literal notranslate"><span class="pre">'hDDI'</span></code>, the data resides on the host.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;dDDI&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a> objects store matrices
+in the <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)">CSR</a> sparse format.</p>
+<p>Matrix data can be copied into the <a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a>
+object in the following ways:</p>
+<ol class="arabic">
+<li><p class="first">From the arrays <em>row_ptrs</em>, <em>col_indices</em> and <em>data</em> that define
+the CSR matrix, using the <a class="reference internal" href="reference.html#pyamgx.Matrix.upload" title="pyamgx.Matrix.upload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">upload()</span></code></a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
+    <span class="n">row_ptrs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+    <span class="n">col_indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">From a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.sparse.csr_matrix</span></code></a>,
+using the <a class="reference internal" href="reference.html#pyamgx.Matrix.upload_CSR" title="pyamgx.Matrix.upload_CSR"><code class="xref py py-meth docutils literal notranslate"><span class="pre">upload_CSR()</span></code></a> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.sparse</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">mat</span><span class="o">.</span><span class="n">upload_CSR</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>After use, <a class="reference internal" href="reference.html#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a> objects <strong>must</strong> be destroyed using the
+<a class="reference internal" href="reference.html#pyamgx.Matrix.destroy" title="pyamgx.Matrix.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy()</span></code></a> method.</p>
+</div>
+<div class="section" id="solvers">
+<h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference internal" href="reference.html#pyamgx.Solver" title="pyamgx.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Solver</span></code></a> encapsulates the linear solver specified
+in the <a class="reference internal" href="reference.html#pyamgx.Config" title="pyamgx.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a> object.</p>
+<p>The <a class="reference internal" href="reference.html#pyamgx.Solver.setup" title="pyamgx.Solver.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a> method,
+must be called prior to solving a linear system;
+it sets the coefficient matrix of the linear system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">solver</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Solver</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+
+<span class="n">solver</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="reference.html#pyamgx.Solver.solve" title="pyamgx.Solver.solve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code></a> method solves the linear system.
+The two required parameters to <a class="reference internal" href="reference.html#pyamgx.Solver.solve" title="pyamgx.Solver.solve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code></a>
+the right hand side <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> <cite>b</cite> and
+the solution vector <a class="reference internal" href="reference.html#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a> <cite>x</cite>
+respectively.
+The optional argument <cite>zero_initial_guess</cite> can be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to specify
+that an initial guess of zero is to be used for the solution,
+regardless of the values in <cite>x</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">zero_initial_guess</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After use, <a class="reference internal" href="reference.html#pyamgx.Solver" title="pyamgx.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">Solver</span></code></a> objects <strong>must</strong> be destroyed using the
+<a class="reference internal" href="reference.html#pyamgx.Solver.destroy" title="pyamgx.Solver.destroy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">destroy()</span></code></a> method.</p>
+<p>Typically, the <a class="reference internal" href="reference.html#pyamgx.Solver.solve" title="pyamgx.Solver.solve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyamgx.Solver.solve()</span></code></a> method is called multiple times
+(e.g., in a time-stepping simulation loop).
+For the case in which the coefficient matrix remains fixed,
+the <a class="reference internal" href="reference.html#pyamgx.Solver.setup" title="pyamgx.Solver.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyamgx.Solver.setup()</span></code></a> method should only be called once
+(prior to iteration).</p>
+<p>If the coefficient matrix changes
+at each iteration (e.g., in a non-linear solver),
+the <a class="reference internal" href="reference.html#pyamgx.Solver.setup" title="pyamgx.Solver.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyamgx.Solver.setup()</span></code></a> method should be called every iteration.
+In this case, the <a class="reference internal" href="reference.html#pyamgx.Matrix.replace_coefficients" title="pyamgx.Matrix.replace_coefficients"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyamgx.Matrix.replace_coefficients()</span></code></a> method
+can be used to update the values of the coefficient matrix,
+as long as the location of non-zeros in the matrix remains the same.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference.html" class="btn btn-neutral float-right" title="pyamgx Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="demo.html" class="btn btn-neutral" title="Demo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Ashwin Srinath.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

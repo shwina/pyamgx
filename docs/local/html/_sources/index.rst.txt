@@ -10,16 +10,26 @@ Features
 ========
 
 * Provides a Pythonic interface to all AMGX C-API functions for solving linear systems on a single GPU
-* Allows directly uploading SciPy sparse CSR matrices, NumPy arrays or Numba.
-  `DeviceArrays <https://numba.pydata.org/numba-doc/dev/cuda/memory.html#device-arrays>`_
-  to the GPU>
-* Solver settings can be provided in JSON files or as ``dict`` objects.
-* Error checking and handling: AMGX errors are automatically converted into Python exceptions.
+* Allows directly uploading data from
+  SciPy sparse CSR matrices, NumPy arrays and Numba
+  `DeviceArrays <http://numba.pydata.org/numba-doc/latest/cuda/memory.html#device-arrays>`_,
+  among others
+* Solver settings can be provided in JSON files or as ``dict`` objects
+* Error checking and handling: AMGX errors are automatically converted into Python exceptions
 
 Contents
 ========
 
 .. include:: toctree.rst
+
+.. note::
+
+   This guide provides an overview of the pyamgx library, its classes and functions.
+   It does not contain information about AMGX algorithms (solvers and preconditioners),
+   and their configuration. For that, please refer to the
+   `AMGX Reference Manual`_
+
+.. _AMGX Reference Manual: https://github.com/NVIDIA/AMGX/blob/master/doc/AMGX_Reference.pdf
 
 Indices and tables
 ==================

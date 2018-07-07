@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Demo &mdash; pyamgx 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="pyamgx 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Basic Usage" href="basic.html"/>
+        <link rel="prev" title="pyamgx - GPU accelerated multigrid library for Python" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyamgx
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyamgx</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Demo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/demo.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="demo">
+<h1>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
+<p>To give you an idea of pyamgx usage,
+here is a simple demo program that sets up and solves a linear system
+using pyamgx, and compares the result with
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html#scipy.sparse.linalg.spsolve" title="(in SciPy v1.1.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.sparse.linalg.spsolve()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="kn">as</span> <span class="nn">sparse</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">as</span> <span class="nn">splinalg</span>
+
+<span class="kn">import</span> <span class="nn">pyamgx</span>
+
+<span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+<span class="c1"># Initialize config and resources:</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">create_from_dict</span><span class="p">({</span>
+   <span class="s2">&quot;config_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;determinism_flag&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;exception_handling&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;monitor_residual&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;BICGSTAB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;convergence&quot;</span><span class="p">:</span> <span class="s2">&quot;RELATIVE_INI_CORE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;preconditioner&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;NOSOLVER&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">rsc</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Resources</span><span class="p">()</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+
+<span class="c1"># Create matrices and vectors:</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Matrix</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsc</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsc</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Vector</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsc</span><span class="p">)</span>
+
+<span class="c1"># Create solver:</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">pyamgx</span><span class="o">.</span><span class="n">Solver</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">rsc</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+
+<span class="c1"># Upload system:</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="n">A</span><span class="o">.</span><span class="n">upload_CSR</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span>
+
+<span class="c1"># Setup and solve system:</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Download solution</span>
+<span class="n">x</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;pyamgx solution: &quot;</span><span class="p">,</span> <span class="n">sol</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;scipy solution: &quot;</span><span class="p">,</span> <span class="n">splinalg</span><span class="o">.</span><span class="n">spsolve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">rhs</span><span class="p">))</span>
+
+<span class="c1"># Clean up:</span>
+<span class="n">A</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="n">x</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="n">b</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="n">rsc</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+<span class="n">cfg</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+<span class="n">pyamgx</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AMGX</span> <span class="n">version</span> <span class="mf">2.0</span><span class="o">.</span><span class="mf">0.130</span><span class="o">-</span><span class="n">opensource</span>
+<span class="n">Built</span> <span class="n">on</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">12</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">15</span>
+<span class="n">Compiled</span> <span class="k">with</span> <span class="n">CUDA</span> <span class="n">Runtime</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">using</span> <span class="n">CUDA</span> <span class="n">driver</span> <span class="mf">9.2</span>
+<span class="n">pyamgx</span> <span class="n">solution</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="mf">0.90571145</span>  <span class="mf">0.85909259</span>  <span class="mf">0.54397665</span>  <span class="mf">2.02579923</span> <span class="o">-</span><span class="mf">0.94139638</span><span class="p">]</span>
+<span class="n">scipy</span> <span class="n">solution</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="mf">0.90571145</span>  <span class="mf">0.85909259</span>  <span class="mf">0.54397665</span>  <span class="mf">2.02579923</span> <span class="o">-</span><span class="mf">0.94139638</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basic.html" class="btn btn-neutral float-right" title="Basic Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="pyamgx - GPU accelerated multigrid library for Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Ashwin Srinath.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

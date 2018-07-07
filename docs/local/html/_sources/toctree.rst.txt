@@ -1,5 +1,6 @@
 .. toctree::
    :maxdepth: 2
 
-   quick-start
+   demo
+   basic
    reference

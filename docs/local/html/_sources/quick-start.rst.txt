@@ -55,14 +55,17 @@ created using the :py:meth:`~pyamgx.Resources.create_simple` method:
    resources.create_simple(cfg)
 
 After use, :py:class:`~pyamgx.Resources` objects **must** be destroyed using the
-:py:meth:`~pyamgx.Resources.destroy` method **after** all
-:py:class:`~pyamgx.Vector`, :py:class:`~pyamgx.Matrix` and :py:class:`~pyamgx.Solver`
-classes constructed from the :py:class:`~pyamgx.Resouces` object are destroyed.
+:py:meth:`~pyamgx.Resources.destroy` method.
 
 .. code-block:: python
 
-   # destroy Solver, Matrix and Vector objects first.
    resources.destroy()
+
+.. important::
+
+   A :py:class:`~pyamgx.Resources` object should be destroyed only **after**
+   all :py:class:`~pyamgx.Vector`, :py:class:`~pyamgx.Matrix` and :py:class:`~pyamgx.Solver`
+   classes constructed from it are destroyed.
 
 Vectors
 -------
@@ -103,12 +106,62 @@ in the following ways:
 
       import numba.cuda
 
-      d_ary = numba.cuda.to_device(np.array([1, 2, 3], dtype=np.float64))
+      a = np.array([1, 2, 3], dtype=np.float64)
+      d_a = numba.cuda.to_device(a, dtype=np.float64))
 
-      v.upload_raw(d_ary.device_ctypes_pointer.value, 3) # copies directly from GPU
+      vec.upload_raw(d_a.device_ctypes_pointer.value, 3) # copies directly from GPU
+
+After use, :py:class:`~pyamgx.Vector` objects **must** be destroyed using the
+:py:meth:`~pyamgx.Vector.destroy` method.
 
 Matrices
 --------
 
+:py:class:`~pyamgx.Matrix` objects store sparse matrices on
+either the host (CPU memory) or device (GPU memory).
+
+The value of the optional *mode* argument to the :py:meth:`~pyamgx.Matrix.create` method
+specifies whether the data resides on the host or device.
+If it is ``'dDDI'`` (default), the data resides on the device.
+If it is ``'hDDI'``, the data resides on the host.
+
+.. code-block:: python
+
+   mat = pyamgx.Matrix()
+   mat.create(resources, mode='dDDI')
+
+:py:class:`~pyamgx.Matrix` objects store matrices
+in the `CSR`_ sparse format.
+
+Matrix data can be copied into the :py:class:`~pyamgx.Matrix`
+object in the following ways:
+
+1. From the arrays *row_ptrs*, *col_indices* and *data* that define
+   the CSR matrix, using the :py:meth:`~pyamgx.Matrix.upload` method:
+
+   .. code-block:: python
+
+       M.upload(
+           row_ptrs=np.array([0, 2, 4], dtype=np.int32),
+           col_indices=np.array([0, 1, 0, 1], dtype=np.int32),
+           data=np.array([1., 2., 3., 4.], dtype=np.float64))
+
+2. From a :py:class:`scipy.sparse.csr_matrix`,
+   using the :py:meth:`~pyamgx.Matrix.upload_CSR` method:
+
+   .. code-block:: python
+
+      import scipy.sparse
+      M = scipy.sparse.csr_matrix(np.random.rand(5, 5))
+
+      M.upload_CSR(M)
+
+.. _CSR: https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)
+
+After use, :py:class:`~pyamgx.Matrix` objects **must** be destroyed using the
+:py:meth:`~pyamgx.Matrix.destroy` method.
+
 Solvers
 -------
+
+

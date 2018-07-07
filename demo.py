@@ -4,13 +4,26 @@ import os
 pyamgx.initialize()
 
 # Initialize config and resources:
-cfg = pyamgx.Config().create_from_file(os.environ['AMGX_DIR']+'/core/configs/FGMRES_AGGREGATION.json')
+cfg = pyamgx.Config().create_from_dict({
+   "config_version": 2,
+        "determinism_flag": 1,
+        "exception_handling" : 1,
+        "solver": {
+            "monitor_residual": 1,
+            "solver": "BICGSTAB",
+            "convergence": "RELATIVE_INI_CORE",
+            "preconditioner": {
+                "solver": "NOSOLVER"
+        }
+    }
+})
+
 rsc = pyamgx.Resources().create_simple(cfg)
 
 # Create matrices and vectors:
 A = pyamgx.Matrix().create(rsc)
-x = pyamgx.Vector().create(rsc)
 b = pyamgx.Vector().create(rsc)
+x = pyamgx.Vector().create(rsc)
 
 # Create solver:
 solver = pyamgx.Solver().create(rsc, cfg)

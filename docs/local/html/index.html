@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pyamgx 0.1 documentation" href="#"/>
-        <link rel="next" title="Quick start" href="quick-start.html"/> 
+        <link rel="next" title="Demo" href="demo.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -90,7 +90,8 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
 </ul>
 
@@ -164,28 +165,37 @@ to solve sparse sparse linear systems on the GPU.</p>
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Provides a Pythonic interface to all AMGX C-API functions for solving linear systems on a single GPU</li>
-<li>Allows directly uploading SciPy sparse CSR matrices, NumPy arrays or Numba.
-<a class="reference external" href="https://numba.pydata.org/numba-doc/dev/cuda/memory.html#device-arrays">DeviceArrays</a>
-to the GPU&gt;</li>
-<li>Solver settings can be provided in JSON files or as <code class="docutils literal notranslate"><span class="pre">dict</span></code> objects.</li>
-<li>Error checking and handling: AMGX errors are automatically converted into Python exceptions.</li>
+<li>Allows directly uploading data from
+SciPy sparse CSR matrices, NumPy arrays and Numba
+<a class="reference external" href="http://numba.pydata.org/numba-doc/latest/cuda/memory.html#device-arrays">DeviceArrays</a>,
+among others</li>
+<li>Solver settings can be provided in JSON files or as <code class="docutils literal notranslate"><span class="pre">dict</span></code> objects</li>
+<li>Error checking and handling: AMGX errors are automatically converted into Python exceptions</li>
 </ul>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#initializing-and-finalizing-pyamgx">Initializing and finalizing pyamgx</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#config-objects">Config objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#resources-objects">Resources objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#vectors">Vectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#matrices">Matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick-start.html#solvers">Solvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#initializing-and-finalizing-pyamgx">Initializing and finalizing pyamgx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#config-objects">Config objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#resources-objects">Resources objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#vectors">Vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#matrices">Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#solvers">Solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">pyamgx Reference</a></li>
 </ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This guide provides an overview of the pyamgx library, its classes and functions.
+It does not contain information about AMGX algorithms (solvers and preconditioners),
+and their configuration. For that, please refer to the
+<a class="reference external" href="https://github.com/NVIDIA/AMGX/blob/master/doc/AMGX_Reference.pdf">AMGX Reference Manual</a></p>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -208,7 +218,7 @@ to the GPU&gt;</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quick-start.html" class="btn btn-neutral float-right" title="Quick start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="demo.html" class="btn btn-neutral float-right" title="Demo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

@@ -176,7 +176,7 @@ cdef class Matrix:
         nnz = self.get_nnz()
         check_error(AMGX_matrix_replace_coefficients(
             self.mtx, n, nnz, &data[0], NULL))
-    
+
     def destroy(self):
         """
         M.destroy()
