@@ -44,7 +44,7 @@ either by visiting https://github.com/shwina/pyamgx and clicking
 
 .. code-block:: bash
 
-   https://github.com/shwina/pyamgx
+   $ git clone https://github.com/shwina/pyamgx
 
 Install pyamgx
 ^^^^^^^^^^^^^^
