@@ -54,7 +54,8 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon']
+    'sphinx.ext.napoleon',
+    'sphinx.ext.extlinks']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -200,6 +201,10 @@ intersphinx_mapping = {'https://docs.python.org/': None,
     'numba': ('http://numba.pydata.org/numba-doc/latest/', None)
 }
 
+extlinks = {
+    'AMGX_URL': ('https://github.com/NVIDIA/AMGX', None),
+}
+
 # -- Hack for copying manually built pages to _build
 # https://groups.google.com/forum/#!topic/cython-users/OF4TnbrsnNo
 html_extra_path = []
@@ -207,3 +212,5 @@ if on_rtd:
     # on RTD, we just overwrite the built documentation with the content of local:)
     print("RTD: configuring html_extra_path")
     html_extra_path.append('local/html')
+
+

@@ -2,7 +2,7 @@
 pyamgx - GPU accelerated multigrid library for Python
 =====================================================
 
-pyamgx is a Python interface to the NVIDIA AMGX_ library.
+pyamgx is a Python interface to the NVIDIA `AMGX_` library.
 pyamgx can be used to construct complex solvers and preconditioners
 to solve sparse sparse linear systems on the GPU.
 

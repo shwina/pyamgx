@@ -90,6 +90,7 @@
             
             
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo.html">Demo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">pyamgx Reference</a></li>
@@ -167,7 +168,7 @@
 <dl class="class">
 <dt id="pyamgx.Config">
 <em class="property">class </em><code class="descclassname">pyamgx.</code><code class="descname">Config</code><a class="headerlink" href="#pyamgx.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Config: Class for creating and handling AMGX Config objects</p>
+<dd><p>Config: Class for creating and handling AMGX Config objects.</p>
 <dl class="method">
 <dt id="pyamgx.Config.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Config.create" title="Permalink to this definition">¶</a></dt>
@@ -620,18 +621,24 @@ block size.</p>
 <code class="descname">set_zero</code><span class="sig-paren">(</span><em>n=None</em>, <em>block_dim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.Vector.set_zero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocate storage if needed and set all
 the values in the vector to zero.</p>
-<dl class="docutils">
-<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
-<dd>Number of entries in the vector, in block units.
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of entries in the vector, in block units.
 If not provided or <cite>None</cite>, then the values <em>must</em>
 have been previously initialized using e.g.,
-<cite>v.upload()</cite>.</dd>
-<dt>block_dim <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
-<dd><p class="first">Number of values per block. If not provided
+<cite>v.upload()</cite>.</li>
+<li><strong>block_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – <p>Number of values per block. If not provided
 or <cite>None</cite>, then the values <em>must</em> have been previously</p>
-<p class="last">initialized using e.g., <cite>v.upload()</cite>.</p>
-</dd>
-</dl>
+<p>initialized using e.g., <cite>v.upload()</cite>.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -696,6 +703,12 @@ points to the array containing data</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyamgx.finalize">
+<code class="descclassname">pyamgx.</code><code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize AMGX.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyamgx.get_api_version">
 <code class="descclassname">pyamgx.</code><code class="descname">get_api_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.get_api_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the API version of AMGX as a string.</p>
@@ -730,6 +743,12 @@ points to the array containing data</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyamgx.initialize">
+<code class="descclassname">pyamgx.</code><code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize AMGX.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyamgx.install_signal_handler">
 <code class="descclassname">pyamgx.</code><code class="descname">install_signal_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.install_signal_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cause AMGX to install its default signal handlers.</p>
@@ -746,6 +765,26 @@ pinned to reside in physical memory.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be pinned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyamgx.read_system">
+<code class="descclassname">pyamgx.</code><code class="descname">read_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.read_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read linear system from a MatrixMarket file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>A</strong> (<a class="reference internal" href="#pyamgx.Matrix" title="pyamgx.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a>) – </li>
+<li><strong>rhs</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
+<li><strong>sol</strong> (<a class="reference internal" href="#pyamgx.Vector" title="pyamgx.Vector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code></a>) – </li>
+<li><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path/name of MatrixMarket file.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
