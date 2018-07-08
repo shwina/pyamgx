@@ -7,7 +7,7 @@ though it should be possible to install on Windows as well.
 Requirements
 ------------
 
-Before install pyamgx, you need to ensure the following
+Before installing pyamgx, you should ensure the following
 software packages are installed:
 
 1. The `AMGX <https://github.com/NVIDIA/AMGX>`_ library.
