@@ -3,4 +3,4 @@
 [![Documentation Status](http://readthedocs.org/projects/pyamgx/badge/?version=latest)](http://pyamgx.readthedocs.io/en/latest/?badge=latest)
 
 For installation instructions, overview and examples, see the
-[documentation](pyamgx.readthedocs.io).
+[documentation](https://pyamgx.readthedocs.io).
