@@ -95,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-and-installing-pyamgx">Building and installing pyamgx</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-the-source-code">Get the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-environment-variables">Set environment variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-pyamgx">Install pyamgx</a></li>
 </ul>
 </li>
@@ -205,6 +206,22 @@ distribution, these packages should already be installed.</p>
 either by visiting <a class="reference external" href="https://github.com/shwina/pyamgx">https://github.com/shwina/pyamgx</a> and clicking
 “Clone or Download”, or if you have Git, running the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/shwina/pyamgx
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-environment-variables">
+<h3>Set environment variables<a class="headerlink" href="#set-environment-variables" title="Permalink to this headline">¶</a></h3>
+<p>Before installing pyamgx,
+you should export the following environment variables:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">AMGX_DIR</span></code>: Path to the AMGX project root directory</li>
+<li><code class="docutils literal notranslate"><span class="pre">AMGX_BUILD_DIR</span></code>: If AMGX was built in a directory other than <code class="docutils literal notranslate"><span class="pre">$AMGX_DIR/build</span></code>,
+set <code class="docutils literal notranslate"><span class="pre">AMGX_BUILD_DIR</span></code> to that directory. Otherwise, you don’t need to set
+this variable</li>
+</ol>
+<p>On bash, the commands to set the above environment variables are:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">AMGX_DIR</span><span class="o">=</span>/path/to/.../AMGX
+$ <span class="nb">export</span> <span class="nv">AMGX_BUILD_DIR</span><span class="o">=</span>/path/to/.../build
 </pre></div>
 </div>
 </div>

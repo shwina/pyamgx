@@ -46,6 +46,24 @@ either by visiting https://github.com/shwina/pyamgx and clicking
 
    $ git clone https://github.com/shwina/pyamgx
 
+Set environment variables
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Before installing pyamgx,
+you should export the following environment variables:
+
+1. ``AMGX_DIR``: Path to the AMGX project root directory
+2. ``AMGX_BUILD_DIR``: If AMGX was built in a directory other than ``$AMGX_DIR/build``,
+   set ``AMGX_BUILD_DIR`` to that directory. Otherwise, you don't need to set
+   this variable
+
+On bash, the commands to set the above environment variables are:
+
+.. code-block:: bash
+
+   $ export AMGX_DIR=/path/to/.../AMGX
+   $ export AMGX_BUILD_DIR=/path/to/.../build
+
 Install pyamgx
 ^^^^^^^^^^^^^^
 
