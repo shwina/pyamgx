@@ -1,6 +1,7 @@
 import numpy as np
 cimport numpy as np
 
+
 def pin_memory(double[:] data):
     """
     Notify the operating system that the
@@ -14,6 +15,7 @@ def pin_memory(double[:] data):
     """
     check_error(AMGX_pin_memory(
         &data[0], data.nbytes))
+
 
 def unpin_memory(double[:] data):
     """
@@ -29,11 +31,13 @@ def unpin_memory(double[:] data):
     check_error(AMGX_unpin_memory(
         &data[0]))
 
+
 def install_signal_handler():
     """
     Cause AMGX to install its default signal handlers.
     """
     check_error(AMGX_install_signal_handler())
+
 
 def reset_signal_handler():
     """
