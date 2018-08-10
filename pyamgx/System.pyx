@@ -72,12 +72,12 @@ def register_print_callback(f):
     >>> import time
     >>> import pyamgx
     >>> pyamgx.initialize()
-    AMGX version 2.0.0.130-opensource
-    Built on Jul  9 2018, 10:44:05
-    Compiled with CUDA Runtime 9.0, using CUDA driver 9.2
     >>> pyamgx.register_print_callback(lambda msg: print('{}: {}'.format(time.asctime(), msg)))
     >>> cfg = pyamgx.Config().create("")
     Fri Aug 10 07:23:25 2018: Cannot read file as JSON object, trying as AMGX config
+    >>> cfg.destroy()
+    >>> pyamgx.finalize()
+
 
     """
     # print_callback is defined globally as
