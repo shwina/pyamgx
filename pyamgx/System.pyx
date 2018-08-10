@@ -44,3 +44,49 @@ def reset_signal_handler():
     Cause AMGX to restore previous signal handlers.
     """
     check_error(AMGX_reset_signal_handler())
+
+
+cdef void c_register_print_callback(AMGX_print_callback function):
+    AMGX_register_print_callback(function)
+
+cdef void c_print_callback(char *msg, int length):
+    global print_callback
+    print_callback(msg.decode('utf-8'))
+
+def register_print_callback(f):
+    """
+    Register a user-provided callback function
+    for handling text output from calls to AMGX functions.
+    The callback function should accept
+    a single argument (a string containing the text output).
+
+    Parameters
+    ----------
+    f : function
+        Python function that accepts a string as input
+
+    Examples
+    --------
+
+    >>> import pyamgx
+    >>> import time
+    >>> import pyamgx
+    >>> pyamgx.initialize()
+    AMGX version 2.0.0.130-opensource
+    Built on Jul  9 2018, 10:44:05
+    Compiled with CUDA Runtime 9.0, using CUDA driver 9.2
+    >>> pyamgx.register_print_callback(lambda msg: print('{}: {}'.format(time.asctime(), msg)))
+    >>> cfg = pyamgx.Config().create("")
+    Fri Aug 10 07:23:25 2018: Cannot read file as JSON object, trying as AMGX config
+
+    """
+    # print_callback is defined globally as
+    # there is no other way to access it from
+    # c_print_callback.
+    # If c_print_callback could accept an additional void* argument
+    # as a user-provided context,
+    # print_callback can be passed as that argument without
+    # defining it globally.
+    global print_callback
+    print_callback = f
+    c_register_print_callback(c_print_callback)

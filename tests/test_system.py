@@ -14,3 +14,9 @@ class TestSystem:
 
     def teardown(self):
         pyamgx.finalize()
+
+    def test_register_print_callback(self, capfd):
+        pyamgx.register_print_callback(lambda msg: print("test"))
+        pyamgx.Config().create("")
+        out, err = capfd.readouterr()
+        assert out == "test\n"

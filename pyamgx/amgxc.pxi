@@ -20,6 +20,8 @@ cdef extern from "amgx_c.h":
         AMGX_RC_INTERNAL = 15
 
     # Forward (opaque) handle declaration:
+    ctypedef void (*AMGX_print_callback)(const char *msg, int length)
+
     ctypedef struct AMGX_config_handle_struct:
         char AMGX_config_handle_dummy
     ctypedef AMGX_config_handle_struct *AMGX_config_handle
@@ -68,6 +70,8 @@ cdef extern from "amgx_c.h":
     AMGX_RC AMGX_install_signal_handler()
 
     AMGX_RC AMGX_reset_signal_handler()
+
+    AMGX_RC AMGX_register_print_callback(AMGX_print_callback func)
 
     # Config:
     AMGX_RC AMGX_config_create(AMGX_config_handle *cfg, const char *options)
