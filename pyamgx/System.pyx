@@ -55,6 +55,8 @@ cdef void c_print_callback(char *msg, int length):
 
 def register_print_callback(f):
     """
+    register_print_callback(f)
+
     Register a user-provided callback function
     for handling text output from calls to AMGX functions.
     The callback function should accept
