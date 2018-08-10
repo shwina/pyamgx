@@ -764,7 +764,7 @@ pinned to reside in physical memory.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be pinned.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be pinned.</td>
 </tr>
 </tbody>
 </table>
@@ -791,6 +791,29 @@ pinned to reside in physical memory.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyamgx.register_print_callback">
+<code class="descclassname">pyamgx.</code><code class="descname">register_print_callback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.register_print_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a user-provided callback function
+for handling text output from calls to AMGX functions.
+The callback function should accept
+a single argument (a string containing the text output).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> (<em>function</em>) – Python function that accepts a string as input</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyamgx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyamgx</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyamgx.reset_signal_handler">
 <code class="descclassname">pyamgx.</code><code class="descname">reset_signal_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyamgx.reset_signal_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cause AMGX to restore previous signal handlers.</p>
@@ -806,7 +829,7 @@ unpinned</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be unpinned.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a><em>, </em><em>double</em>) – The array containing data to be unpinned.</td>
 </tr>
 </tbody>
 </table>
