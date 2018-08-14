@@ -2,19 +2,27 @@ import  os
 from os.path import join as pjoin
 from setuptools import setup, Extension
 import subprocess
+import sys
 import numpy
 
-try:
-    AMGX_DIR = os.environ['AMGX_DIR']
-except KeyError:
-    raise EnvironmentError("AMGX_DIR environment variable not set."
-            "Set AMGX_DIR to the "
-            "root directory of your AMGX installation.")
+AMGX_DIR = os.environ.get('AMGX_DIR')
+AMGX_BUILD_DIR = os.environ.get('AMGX_BUILD_DIR')
 
-try:
-    AMGX_BUILD_DIR = os.environ['AMGX_BUILD_DIR']
-except KeyError:
+if not AMGX_DIR:
+    # look in PREFIX:
+    if os.path.isfile(os.path.join(PREFIX, 'lib/libamgxsh.so')):
+        AMGX_lib_dirs = [os.path.join(PREFIX, 'lib')]
+        AMGX_include_dirs = [os.path.join(PREFIX, 'include')]
+    else:
+        raise EnvironmentError('AMGX_DIR not set and libamgxsh.so not found')
+
+if not AMGX_BUILD_DIR:
     AMGX_BUILD_DIR = os.path.join(AMGX_DIR, 'build')
+    AMGX_lib_dirs = [AMGX_BUILD_DIR]
+    AMGX_include_dirs = [
+        os.path.join(AMGX_DIR, 'base/include'),
+        os.path.join(AMGX_DIR, 'core/include')
+    ]
 
 from Cython.Build import cythonize
 ext = cythonize([
@@ -26,16 +34,15 @@ ext = cythonize([
         language='c',
         include_dirs = [
             numpy.get_include(),
-            os.path.join(AMGX_DIR, 'base/include'),
-            os.path.join(AMGX_DIR, 'core/include')
+            *AMGX_include_dirs
         ],
         library_dirs = [
             numpy.get_include(),
-            AMGX_BUILD_DIR
+            *AMGX_lib_dirs
         ],
         runtime_library_dirs = [
             numpy.get_include(),
-            AMGX_BUILD_DIR
+            *AMGX_lib_dirs
         ],
 )])
 
