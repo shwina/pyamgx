@@ -16,9 +16,9 @@ if not AMGX_DIR:
         AMGX_include_dirs = [os.path.join(PREFIX, 'include')]
     else:
         raise EnvironmentError('AMGX_DIR not set and libamgxsh.so not found')
-
-if not AMGX_BUILD_DIR:
-    AMGX_BUILD_DIR = os.path.join(AMGX_DIR, 'build')
+else:
+    if not AMGX_BUILD_DIR:
+        AMGX_BUILD_DIR = os.path.join(AMGX_DIR, 'build')
     AMGX_lib_dirs = [AMGX_BUILD_DIR]
     AMGX_include_dirs = [
         os.path.join(AMGX_DIR, 'base/include'),
