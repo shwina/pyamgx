@@ -10,6 +10,7 @@ AMGX_BUILD_DIR = os.environ.get('AMGX_BUILD_DIR')
 
 if not AMGX_DIR:
     # look in PREFIX:
+    PREFIX = sys.prefix
     if os.path.isfile(os.path.join(PREFIX, 'lib/libamgxsh.so')):
         AMGX_lib_dirs = [os.path.join(PREFIX, 'lib')]
         AMGX_include_dirs = [os.path.join(PREFIX, 'include')]

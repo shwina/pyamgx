@@ -3,7 +3,7 @@ package:
     version: 0.1
 
 source:
-    git_rev: be9cc3bbedd08d527a915a774b534fd50e4771bf
+    git_rev: bfd3b45e29f3ad43c966c6a56a081e2db4d12518
     git_url: https://github.com/shwina/pyamgx
 
 requirements:
