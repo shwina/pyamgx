@@ -35,16 +35,13 @@ ext = cythonize([
         language='c',
         include_dirs = [
             numpy.get_include(),
-            *AMGX_include_dirs
-        ],
+        ] + AMGX_include_dirs,
         library_dirs = [
             numpy.get_include(),
-            *AMGX_lib_dirs
-        ],
+        ] + AMGX_lib_dirs,
         runtime_library_dirs = [
             numpy.get_include(),
-            *AMGX_lib_dirs
-        ],
+        ] + AMGX_lib_dirs,
 )])
 
 setup(name='pyamgx',
