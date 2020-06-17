@@ -1,21 +1,28 @@
 package:
-    name: pyamgx
-    version: 0.1
+  name: pyamgx
+  version: 0.1dev0
+
+build:
+  script_env:
+    - CC
+    - CXX
+    - LD_LIBRARY_PATH
 
 source:
-    git_rev: 78cb277ba83f9a98b0e7633549c9df03f1392d38
-    git_url: https://github.com/shwina/pyamgx
+  git_rev: ef7758d40ea177bc3f14e2bf87348a6f30825521
+  git_url: https://github.com/shwina/pyamgx
 
 requirements:
-    build:
-        - python {{ python }}
-        - setuptools
-        - numpy
-        - cython
-        - amgx
-    run:
-        - python
-        - numpy
-        - scipy
-        - cudatoolkit=8.0
-        - amgx
+  build:
+    - python {{ python }}
+    - setuptools
+    - numpy
+    - cython
+    - amgx
+  run:
+    - python
+    - numpy
+    - scipy
+    - cudatoolkit
+    - amgx
+    - {{ pin_compatible('cudatoolkit', max_pin='x.x') }}
