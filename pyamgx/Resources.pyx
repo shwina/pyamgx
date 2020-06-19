@@ -3,8 +3,9 @@ cdef class Resources:
     Resources: Class for creating and freeing AMGX Resources objects.
     """
     cdef AMGX_resources_handle rsrc
+    cdef dict __dict__
 
-    def create_simple(self, Config cfg):
+    def __cinit__(self, Config cfg):
         """
         rsc.create_simple(cfg)
 
@@ -20,12 +21,7 @@ cdef class Resources:
         self : Resources
         """
         check_error(AMGX_resources_create_simple(&self.rsrc, cfg.cfg))
-        return self
+        self._cfg = cfg
 
-    def destroy(self):
-        """
-        rsc.destroy()
-
-        Destroy the underlying AMGX Resources object.
-        """
+    def __dealloc__(self):
         check_error(AMGX_resources_destroy(self.rsrc))

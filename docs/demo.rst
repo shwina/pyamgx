@@ -31,7 +31,7 @@ using pyamgx, and compares the result with
         }
     })
 
-    rsc = pyamgx.Resources().create_simple(cfg)
+    rsc = pyamgx.Resources(cfg)
 
     # Create matrices and vectors:
     A = pyamgx.Matrix().create(rsc)

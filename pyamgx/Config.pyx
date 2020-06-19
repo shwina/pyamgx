@@ -2,19 +2,15 @@ import json
 import tempfile
 import os
 
+
 cdef class Config:
     """
     Config: Class for creating and handling AMGX Config objects.
     """
     cdef AMGX_config_handle cfg
 
-    def __init__(self):
-        pass
-
-    def create(self, options):
+    def __cinit__(self, config_string=None, params=None, config_file=None):
         """
-        cfg.create(options)
-
         Create the underlying AMGX Config object from a configuration string.
 
         Parameters
@@ -26,10 +22,16 @@ cdef class Config:
         -------
         self : Config
         """
-        if not isinstance(options, bytes):
-            options = options.encode()
-        check_error(AMGX_config_create(&self.cfg, options))
-        return self
+        if params is not None:
+            self.create_from_dict(params)
+        elif config_file is not None:
+            self.create_from_file(config_file)
+        elif config_string is not None:
+            if not isinstance(config_string, bytes):
+                options = config_string.encode()
+            check_error(AMGX_config_create(&self.cfg, options))
+        else:
+            raise TypeError("One of params, config_file or config_string must be provided")
 
     def create_from_file(self, param_file):
         """
@@ -66,10 +68,5 @@ cdef class Config:
             self.create_from_file(fp.name.encode())
         return self
 
-    def destroy(self):
-        """
-        cfg.destroy()
-
-        Destroy the underlying AMGX Config object.
-        """
+    def __dealloc__(self):
         check_error(AMGX_config_destroy(self.cfg))

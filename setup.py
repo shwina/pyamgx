@@ -28,8 +28,8 @@ else:
 from Cython.Build import cythonize
 ext = cythonize([
     Extension(
-        'pyamgx',
-        sources=['pyamgx/pyamgx.pyx'],
+        'pyamgx.lib',
+        sources=['pyamgx/lib.pyx'],
         depends=['pyamgx/*.pyx, pyamgx/*.pxi'],
         libraries=['amgxsh'],
         language='c',

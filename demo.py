@@ -4,32 +4,29 @@ import scipy.sparse.linalg as splinalg
 
 import pyamgx
 
-pyamgx.initialize()
-
 # Initialize config and resources:
-cfg = pyamgx.Config().create_from_dict({
-   "config_version": 2,
+cfg = pyamgx.Config(
+    params={
+        "config_version": 2,
         "determinism_flag": 1,
-        "exception_handling" : 1,
+        "exception_handling": 1,
         "solver": {
             "monitor_residual": 1,
             "solver": "BICGSTAB",
             "convergence": "RELATIVE_INI_CORE",
-            "preconditioner": {
-                "solver": "NOSOLVER"
-        }
+            "preconditioner": {"solver": "NOSOLVER"},
+        },
     }
-})
-
-rsc = pyamgx.Resources().create_simple(cfg)
+)
+rsc = pyamgx.Resources(cfg)
 
 # Create matrices and vectors:
-A = pyamgx.Matrix().create(rsc)
-b = pyamgx.Vector().create(rsc)
-x = pyamgx.Vector().create(rsc)
+A = pyamgx.Matrix(rsc)
+b = pyamgx.Vector(rsc)
+x = pyamgx.Vector(rsc)
 
 # Create solver:
-solver = pyamgx.Solver().create(rsc, cfg)
+solver = pyamgx.Solver(rsc, cfg)
 
 # Upload system:
 M = sparse.csr_matrix(np.random.rand(5, 5))
@@ -48,13 +45,3 @@ solver.solve(b, x)
 x.download(sol)
 print("pyamgx solution: ", sol)
 print("scipy solution: ", splinalg.spsolve(M, rhs))
-
-# Clean up:
-A.destroy()
-x.destroy()
-b.destroy()
-solver.destroy()
-rsc.destroy()
-cfg.destroy()
-
-pyamgx.finalize()

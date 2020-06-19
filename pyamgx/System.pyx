@@ -73,9 +73,8 @@ def register_print_callback(f):
     >>> import pyamgx
     >>> import time
     >>> import pyamgx
-    >>> pyamgx.initialize()
     >>> pyamgx.register_print_callback(lambda msg: print('{}: {}'.format(time.asctime(), msg)))
-    >>> cfg = pyamgx.Config().create("")
+    >>> cfg = pyamgx.Config("")
     Fri Aug 10 07:23:25 2018: Cannot read file as JSON object, trying as AMGX config
     >>> cfg.destroy()
     >>> pyamgx.finalize()

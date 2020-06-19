@@ -11,10 +11,11 @@ cdef class Solver:
     """
     cdef AMGX_solver_handle slv
     cdef Matrix A
+    cdef dict __dict__
 
-    def create(self, Resources rsrc, Config cfg, mode='dDDI'):
+    def __cinit__(self, Resources rsrc, Config cfg, mode='dDDI'):
         """
-        solver.create(Resources rsrc, Config cfg, mode='dDDI')
+        Solver(Resources rsrc, Config cfg, mode='dDDI')
 
         Create the underlying AMGX Solver object
 
@@ -28,7 +29,8 @@ cdef class Solver:
         check_error(AMGX_solver_create(
             &self.slv, rsrc.rsrc, asMode(mode),
             cfg.cfg))
-        return self
+        self._rsrc = rsrc
+        self._cfg = cfg
 
     def setup(self, Matrix A):
         """
@@ -147,10 +149,5 @@ cdef class Solver:
             iteration, block_idx, &res))
         return res
 
-    def destroy(self):
-        """
-        solver.destroy()
-
-        Destroy the underlying AMGX Solver object.
-        """
+    def __dealloc__(self):
         check_error(AMGX_solver_destroy(self.slv))

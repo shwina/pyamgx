@@ -10,6 +10,9 @@ include "Vector.pyx"
 include "Solver.pyx"
 
 
+cdef extern from "stdlib.h":
+    int atexit(void (*func)())
+
 def initialize():
     """
     pyamgx.initialize()
@@ -18,7 +21,7 @@ def initialize():
     """
     check_error(AMGX_initialize())
     check_error(AMGX_initialize_plugins())
-
+    register_atexit_finalize()
 
 def get_api_version():
     """
@@ -59,11 +62,14 @@ def read_system(Matrix A, Vector rhs, Vector sol, fname):
         fname.encode())
 
 
-def finalize():
+cdef void _finalize() nogil:
+    AMGX_finalize_plugins()
+    AMGX_finalize()
+
+def register_atexit_finalize():
     """
     pyamgx.finalize()
 
     Finalize AMGX.
     """
-    check_error(AMGX_finalize_plugins())
-    check_error(AMGX_finalize())
+    atexit(&_finalize)

@@ -8,25 +8,22 @@ cdef class Matrix:
     Uploading the matrix ``[[1, 2], [3, 4]]`` using the `upload` method:
 
     >>> import pyamgx, numpy as np
-    >>> pyamgx.initialize()
-    >>> cfg = pyamgx.Config().create("")
-    >>> rsrc = pyamgx.Resources().create_simple(cfg)
-    >>> M = pyamgx.Matrix().create(rsrc)
+    >>> cfg = pyamgx.Config("")
+    >>> rsrc = pyamgx.Resources(cfg)
+    >>> M = pyamgx.Matrix(rsrc)
     >>> M.upload(
     ...     row_ptrs=np.array([0, 2, 4], dtype=np.int32),
     ...     col_indices=np.array([0, 1, 0, 1], dtype=np.int32),
     ...     data=np.array([1., 2., 3., 4.], dtype=np.float64))
-    >>> M.destroy()
-    >>> rsrc.destroy()
-    >>> cfg.destroy()
     >>> pyamgx.finalize()
 
     """
     cdef AMGX_matrix_handle mtx
+    cdef dict __dict__
 
-    def create(self, Resources rsrc, mode='dDDI'):
+    def __cinit__(self, Resources rsrc, mode='dDDI'):
         """
-        M.create(Resources rsrc, mode='dDDI')
+        Matrix(Resources rsrc, mode='dDDI')
 
         Create the underlying AMGX Matrix object.
 
@@ -42,7 +39,7 @@ cdef class Matrix:
         self : Matrix
         """
         check_error(AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode)))
-        return self
+        self._rsrc = rsrc
 
     def upload(self, int[:] row_ptrs, int[:] col_indices,
                double[:] data, block_dims=[1, 1]):
@@ -177,10 +174,5 @@ cdef class Matrix:
         check_error(AMGX_matrix_replace_coefficients(
             self.mtx, n, nnz, &data[0], NULL))
 
-    def destroy(self):
-        """
-        M.destroy()
-
-        Destroy the underlying AMGX Matrix object.
-        """
+    def __dealloc__(self):
         check_error(AMGX_matrix_destroy(self.mtx))

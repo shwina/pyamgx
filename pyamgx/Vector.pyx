@@ -1,4 +1,5 @@
 from libc.stdint cimport uintptr_t
+
 cdef class Vector:
     """
     Vector: Class for creating and handling AMGX Vector objects.
@@ -10,10 +11,9 @@ cdef class Vector:
     and downloading values back to a numpy array:
 
     >>> import pyamgx, numpy as np
-    >>> pyamgx.initialize()
-    >>> cfg = pyamgx.Config().create("")
-    >>> rsrc = pyamgx.Resources().create_simple(cfg)
-    >>> v = pyamgx.Vector().create(rsrc)
+    >>> cfg = pyamgx.Config("")
+    >>> rsrc = pyamgx.Resources(cfg)
+    >>> v = pyamgx.Vector(rsrc)
     >>> v.upload(np.array([1., 2., 3.,], dtype=np.float64))
     >>> v.download()
     array([ 1.,  1.,  1.])
@@ -25,10 +25,11 @@ cdef class Vector:
 
     """
     cdef AMGX_vector_handle vec
+    cdef dict __dict__
 
-    def create(self, Resources rsrc, mode='dDDI'):
+    def __cinit__(self, Resources rsrc, mode='dDDI'):
         """
-        v.create(Resources rsrc, mode='dDDI')
+        Vector(Resources rsrc, mode='dDDI')
 
         Create the underlying AMGX Vector object.
 
@@ -43,7 +44,7 @@ cdef class Vector:
         self : Vector
         """
         check_error(AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode)))
-        return self
+        self._rsrc = rsrc
 
     def upload(self, double[:] data, block_dim=1):
         """
@@ -185,10 +186,6 @@ cdef class Vector:
             &n, &block_dim))
         return n, block_dim
 
-    def destroy(self):
-        """
-        v.destroy()
-
-        Destroy the underlying AMGX Vector object.
-        """
+    def __dealloc__(self):
+        print("delloc")
         check_error(AMGX_vector_destroy(self.vec))

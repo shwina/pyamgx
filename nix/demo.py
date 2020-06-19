@@ -5,7 +5,7 @@ pyamgx.initialize()
 
 # Initialize config and resources:
 cfg = pyamgx.Config().create_from_file(os.environ['AMGX_DIR']+'/lib/configs/core/FGMRES_NOPREC.json')
-rsc = pyamgx.Resources().create_simple(cfg)
+rsc = pyamgx.Resources(cfg)
 
 # Create matrices and vectors:
 A = pyamgx.Matrix().create(rsc)

@@ -54,12 +54,11 @@ cdef extern from "amgx_c.h":
         char *buf,
         int buf_len)
 
-
     # Init & Shutdown:
     AMGX_RC AMGX_initialize()
     AMGX_RC AMGX_initialize_plugins()
-    AMGX_RC AMGX_finalize()
-    AMGX_RC AMGX_finalize_plugins()
+    AMGX_RC AMGX_finalize() nogil
+    AMGX_RC AMGX_finalize_plugins() nogil
 
     # System:
     AMGX_RC AMGX_pin_memory(void *ptr,

@@ -24,7 +24,7 @@ class PyAMGXSolver(Solver):
 
     def create(self):
         self.cfg = pyamgx.Config().create_from_dict(self.config_dict)
-        self.resources = pyamgx.Resources().create_simple(self.cfg)
+        self.resources = pyamgx.Resources(self.cfg)
         self.x_gpu = pyamgx.Vector().create(self.resources)
         self.b_gpu = pyamgx.Vector().create(self.resources)
         self.A_gpu = pyamgx.Matrix().create(self.resources)
