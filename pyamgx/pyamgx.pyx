@@ -1,6 +1,7 @@
 include "amgxc.pxi"
 include "amgxconfig.pxi"
 
+include "utils.pyx"
 include "Errors.pyx"
 include "System.pyx"
 include "Config.pyx"

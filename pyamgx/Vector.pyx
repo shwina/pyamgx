@@ -70,19 +70,7 @@ cdef class Vector:
         else:
             n = data.size/block_dim
 
-        if hasattr(data, "__array_interface__"):
-            desc = data.__array_interface__
-        elif hasattr(data, "__cuda_array_interface__"):
-            desc = data.__cuda_array_interface__
-        else:
-            raise TypeError("Must pass array-like for data")
-
-        cdef uintptr_t ptr = desc["data"][0]
-        dtype = np.dtype(desc["typestr"])
-
-        if dtype != "float64":
-            raise ValueError("Invalid dtype for Vector: {}".format(dtype))
-        
+        cdef uintptr_t ptr = ptr_from_array_interface(data, "float64")
         self.upload_raw(ptr, n, block_dim)
 
         return self

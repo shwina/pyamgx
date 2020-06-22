@@ -1,4 +1,5 @@
 import numpy as np
+import cupy as cp
 import scipy.sparse
 import pytest
 import pyamgx
@@ -26,8 +27,8 @@ class TestMatrix:
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         M.upload(
-            np.array([0, 1, 3], dtype=np.intc),
-            np.array([1, 0, 1], dtype=np.intc),
+            np.array([0, 1, 3], dtype=np.int32),
+            np.array([1, 0, 1], dtype=np.int32),
             np.array([1, 2, 3], dtype=np.float64))
         M.destroy()
 
@@ -36,11 +37,21 @@ class TestMatrix:
         M.create(self.rsrc)
         with pytest.raises(ValueError):
             M.upload(
-                np.array([0, 1, 3], dtype=np.intc),
-                np.array([1, 0, 2], dtype=np.intc),
+                np.array([0, 1, 3], dtype=np.int32),
+                np.array([1, 0, 2], dtype=np.int32),
                 np.array([1, 2, 3], dtype=np.float64))
         M.destroy()
-    
+
+    def test_upload_rectangular_device(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        with pytest.raises(ValueError):
+            M.upload(
+                cp.array([0, 1, 3], dtype=np.int32),
+                cp.array([1, 0, 2], dtype=np.int32),
+                cp.array([1, 2, 3], dtype=np.float64))
+        M.destroy()
+        
     def test_upload_CSR(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
@@ -68,8 +79,8 @@ class TestMatrix:
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         M.upload(
-            np.array([0, 1, 3], dtype=np.intc),
-            np.array([1, 0, 1], dtype=np.intc),
+            np.array([0, 1, 3], dtype=np.int32),
+            np.array([1, 0, 1], dtype=np.int32),
             np.array([1, 2, 3], dtype=np.float64))
         n, block_dims = M.get_size()
         assert(n == 2)

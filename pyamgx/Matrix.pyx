@@ -44,8 +44,7 @@ cdef class Matrix:
         check_error(AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode)))
         return self
 
-    def upload(self, int[:] row_ptrs, int[:] col_indices,
-               double[:] data, block_dims=[1, 1]):
+    def upload(self, row_ptrs, col_indices, data, block_dims=[1, 1]):
         """
         M.upload(row_ptrs, col_indices, data, block_dims=[1, 1])
 
@@ -83,11 +82,20 @@ cdef class Matrix:
         if nrows != ncols:
             raise ValueError, "Matrix is not square, has shape ({}, {})".format(nrows, ncols)
 
+        cdef uintptr_t row_ptrs_ptr = ptr_from_array_interface(
+            row_ptrs, "int32"
+        )
+        cdef uintptr_t col_indices_ptr = ptr_from_array_interface(
+            col_indices, "int32"
+        )
+        cdef uintptr_t data_ptr = ptr_from_array_interface(data, "float64")
+
         check_error(AMGX_matrix_upload_all(
             self.mtx,
             nrows, nnz, block_dimx, block_dimy,
-            &row_ptrs[0], &col_indices[0],
-            &data[0], NULL))
+            <const int*> row_ptrs_ptr, <const int*> col_indices_ptr,
+            <void*> data_ptr, NULL)
+        )
 
         return self
 
