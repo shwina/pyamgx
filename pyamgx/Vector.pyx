@@ -1,4 +1,5 @@
 from libc.stdint cimport uintptr_t
+
 cdef class Vector:
     """
     Vector: Class for creating and handling AMGX Vector objects.
@@ -45,7 +46,7 @@ cdef class Vector:
         check_error(AMGX_vector_create(&self.vec, rsrc.rsrc, asMode(mode)))
         return self
 
-    def upload(self, double[:] data, block_dim=1):
+    def upload(self, data, block_dim=1):
         """
         v.upload(data, block_dim=1)
 
@@ -69,11 +70,24 @@ cdef class Vector:
         else:
             n = data.size/block_dim
 
-        self.upload_raw(<size_t> &data[0], n, block_dim)
+        if hasattr(data, "__array_interface__"):
+            desc = data.__array_interface__
+        elif hasattr(data, "__cuda_array_interface__"):
+            desc = data.__cuda_array_interface__
+        else:
+            raise TypeError("Must pass array-like for data")
+
+        cdef uintptr_t ptr = desc["data"][0]
+        dtype = np.dtype(desc["typestr"])
+
+        if dtype != "float64":
+            raise ValueError("Invalid dtype for Vector: {}".format(dtype))
+        
+        self.upload_raw(ptr, n, block_dim)
 
         return self
 
-    def upload_raw(self, size_t ptr, int n, block_dim=1):
+    def upload_raw(self, uintptr_t ptr, int n, block_dim=1):
         """
         v.upload_raw(ptr, n, block_dim=1)
 
@@ -112,10 +126,10 @@ cdef class Vector:
             n = self.get_size()[0]
             data = np.zeros(n, dtype=np.float64)
 
-        self.download_raw(<size_t> &data[0])
+        self.download_raw(<uintptr_t> &data[0])
         return np.asarray(data)
 
-    def download_raw(self, size_t ptr):
+    def download_raw(self, uintptr_t ptr):
         """
         v.download_raw(ptr)
 

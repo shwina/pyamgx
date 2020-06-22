@@ -1,6 +1,7 @@
 import pytest
 
 import numpy as np
+import cupy as cp
 from numpy.testing import assert_equal
 
 import pyamgx
@@ -27,6 +28,19 @@ class TestVector:
         v = pyamgx.Vector().create(self.rsrc)
 
         v.upload(np.array([1, 2, 3.], dtype=np.float64))
+
+        a = np.zeros(3, dtype=np.float64)
+        v.download(a)
+        assert_equal(a, np.array([1, 2, 3], dtype=np.float64))
+
+        assert_equal(v.download(), np.array([1, 2, 3], dtype=np.float64))
+
+        v.destroy()
+
+    def test_upload_download_device(self):
+        v = pyamgx.Vector().create(self.rsrc)
+
+        v.upload(cp.array([1, 2, 3.], dtype=np.float64))
 
         a = np.zeros(3, dtype=np.float64)
         v.download(a)
