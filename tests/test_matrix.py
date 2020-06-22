@@ -32,6 +32,15 @@ class TestMatrix:
             np.array([1, 2, 3], dtype=np.float64))
         M.destroy()
 
+    def test_upload_device(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        M.upload(
+            cp.array([0, 1, 3], dtype=np.int32),
+            cp.array([1, 0, 1], dtype=np.int32),
+            cp.array([1, 2, 3], dtype=np.float64))
+        M.destroy()
+
     def test_upload_rectangular(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
@@ -51,7 +60,7 @@ class TestMatrix:
                 cp.array([1, 0, 2], dtype=np.int32),
                 cp.array([1, 2, 3], dtype=np.float64))
         M.destroy()
-        
+
     def test_upload_CSR(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
@@ -103,4 +112,3 @@ class TestMatrix:
         M.replace_coefficients(
             np.array([1., 0., 3.]))
         M.destroy()
-
