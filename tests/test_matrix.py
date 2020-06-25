@@ -68,6 +68,16 @@ class TestMatrix:
             np.array([[1., 2.], [3., 4]])))
         M.destroy()
 
+    def test_upload_CSR_device(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        M.upload_CSR(cp.sparse.csr_matrix(
+            scipy.sparse.csr_matrix(
+                np.array([[1., 2.], [3., 4]])
+            )
+        ))
+        M.destroy()
+
     def test_upload_CSR_rectangular(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)

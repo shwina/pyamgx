@@ -103,7 +103,8 @@ cdef class Matrix:
         """
         M.upload_CSR(csr)
 
-        Copy data from a :class:`scipy.sparse.csr_matrix` to the Matrix object.
+        Copy data from a :class:`scipy.sparse.csr_matrix` or CuPy sparse matrix
+        to the Matrix object.
 
         Parameters
         ----------
