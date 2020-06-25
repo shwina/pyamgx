@@ -125,8 +125,10 @@ cdef class Matrix:
 
         if len(col_indices) == 0:
             # assume matrix of zeros
-            col_indices = np.array([ncols-1], dtype=np.int32)
-            data = np.array([0], dtype=np.float64)
+            col_indices = col_indices.__class__((1,), dtype=np.int32)
+            col_indices.fill(ncols-1)
+            data = data.__class__((1,), dtype=np.float64)
+            data.fill(0)
 
         self.upload(row_ptrs, col_indices, data)
         return self
