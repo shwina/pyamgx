@@ -77,7 +77,7 @@ cdef class Matrix:
 
         nnz = len(data)
         nrows = len(row_ptrs) - 1
-        ncols = max(col_indices) + 1
+        ncols = col_indices.max() + 1
 
         if nrows != ncols:
             raise ValueError, "Matrix is not square, has shape ({}, {})".format(nrows, ncols)
