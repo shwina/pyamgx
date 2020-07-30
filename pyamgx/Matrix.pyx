@@ -171,7 +171,7 @@ cdef class Matrix:
             &nnz))
         return nnz
 
-    def replace_coefficients(self, double[:] data):
+    def replace_coefficients(self, data):
         """
         M.replace_coefficients(data)
         Replace matrix coefficients without changing the nonzero structure.
@@ -182,12 +182,15 @@ cdef class Matrix:
             Array of matrix data.
         """
         cdef int n, nnz
+        cdef uintptr_t data_ptr = ptr_from_array_interface(data, check_for_dtype="float64")
+        
         size, (bx, by) = self.get_size()
         n = self.get_size()[0]
         nnz = self.get_nnz()
         check_error(AMGX_matrix_replace_coefficients(
-            self.mtx, n, nnz, &data[0], NULL))
+            self.mtx, n, nnz, <void *> data_ptr, NULL))
 
+        
     def destroy(self):
         """
         M.destroy()
