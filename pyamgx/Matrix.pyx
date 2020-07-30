@@ -171,7 +171,7 @@ cdef class Matrix:
             &nnz))
         return nnz
 
-    def replace_coefficients(self, double[:] data):
+    def replace_coefficients(self, data):
         """
         M.replace_coefficients(data)
         Replace matrix coefficients without changing the nonzero structure.
@@ -182,12 +182,23 @@ cdef class Matrix:
             Array of matrix data.
         """
         cdef int n, nnz
+        
+        if hasattr(data, "__array_interface__"):
+            desc = data.__array_interface__
+        elif hasattr(data, "__cuda_array_interface__"):
+            desc = data.__cuda_array_interface__
+        else:
+            raise TypeError("Must pass array-like for data")
+            
+        cdef uintptr_t ptr = desc["data"][0]
+        
         size, (bx, by) = self.get_size()
         n = self.get_size()[0]
         nnz = self.get_nnz()
         check_error(AMGX_matrix_replace_coefficients(
-            self.mtx, n, nnz, &data[0], NULL))
+            self.mtx, n, nnz, <void *> ptr, NULL))
 
+        
     def destroy(self):
         """
         M.destroy()

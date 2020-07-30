@@ -122,3 +122,12 @@ class TestMatrix:
         M.replace_coefficients(
             np.array([1., 0., 3.]))
         M.destroy()
+
+    def test_replace_coefficients_device(self):
+        import scipy.sparse
+        M = pyamgx.Matrix().create(self.rsrc)
+        M.upload_CSR(scipy.sparse.csr_matrix(
+            np.array([[0., 1.], [2., 3.]])))
+        M.replace_coefficients(
+            cp.array([1., 0., 3.]))
+        M.destroy()
