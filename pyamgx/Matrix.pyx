@@ -182,21 +182,13 @@ cdef class Matrix:
             Array of matrix data.
         """
         cdef int n, nnz
-        
-        if hasattr(data, "__array_interface__"):
-            desc = data.__array_interface__
-        elif hasattr(data, "__cuda_array_interface__"):
-            desc = data.__cuda_array_interface__
-        else:
-            raise TypeError("Must pass array-like for data")
-            
-        cdef uintptr_t ptr = desc["data"][0]
+        cdef uintptr_t data_ptr = ptr_from_array_interface(data, check_for_dtype="float64")
         
         size, (bx, by) = self.get_size()
         n = self.get_size()[0]
         nnz = self.get_nnz()
         check_error(AMGX_matrix_replace_coefficients(
-            self.mtx, n, nnz, <void *> ptr, NULL))
+            self.mtx, n, nnz, <void *> data_ptr, NULL))
 
         
     def destroy(self):
