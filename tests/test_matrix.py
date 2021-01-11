@@ -44,21 +44,19 @@ class TestMatrix:
     def test_upload_rectangular(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
-        with pytest.raises(ValueError):
-            M.upload(
-                np.array([0, 1, 3], dtype=np.int32),
-                np.array([1, 0, 2], dtype=np.int32),
-                np.array([1, 2, 3], dtype=np.float64))
+        M.upload(
+            np.array([0, 1, 3], dtype=np.int32),
+            np.array([1, 0, 2], dtype=np.int32),
+            np.array([1, 2, 3], dtype=np.float64))
         M.destroy()
 
     def test_upload_rectangular_device(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
-        with pytest.raises(ValueError):
-            M.upload(
-                cp.array([0, 1, 3], dtype=np.int32),
-                cp.array([1, 0, 2], dtype=np.int32),
-                cp.array([1, 2, 3], dtype=np.float64))
+        M.upload(
+            cp.array([0, 1, 3], dtype=np.int32),
+            cp.array([1, 0, 2], dtype=np.int32),
+            cp.array([1, 2, 3], dtype=np.float64))
         M.destroy()
 
     def test_upload_CSR(self):
@@ -81,13 +79,29 @@ class TestMatrix:
     def test_upload_CSR_rectangular(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
-        with pytest.raises(ValueError):
-            M.upload_CSR(scipy.sparse.csr_matrix(
-                np.array([[1., 2., 3.], [4., 5., 6.]])))
+        M.upload_CSR(scipy.sparse.csr_matrix(
+            np.array([[1., 2., 3.], [4., 5., 6.]])))
 
         M.destroy()
+    
+    def test_upload_zero_rows(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        matrix = cp.sparse.csr_matrix(scipy.sparse.csr_matrix(np.array([[1., 2., 0.], [3., 4., 0.], [0., 0., 0.]])))
+        M.upload(matrix.indptr, matrix.indices, matrix.data)
+        M.destroy()
 
-    def test_upload_CSR_zeros(self):
+    def test_upload_CSR_zero_rows(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        M.upload_CSR(cp.sparse.csr_matrix(
+            scipy.sparse.csr_matrix(
+                np.array([[1., 2., 0.], [3., 4., 0.], [0., 0., 0.]])
+            )
+        ))
+        M.destroy()
+        
+    def test_upload_CSR_singular(self):
         M = pyamgx.Matrix()
         M.create(self.rsrc)
         M.upload_CSR(scipy.sparse.csr_matrix(
