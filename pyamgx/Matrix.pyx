@@ -84,7 +84,6 @@ cdef class Matrix:
         else:
             nrows = shape[0]
             ncols = shape[1]
-        print(nrows, ncols)
         self.shape = nrows, ncols
 
         cdef uintptr_t row_ptrs_ptr = ptr_from_array_interface(
