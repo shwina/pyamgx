@@ -100,6 +100,16 @@ class TestMatrix:
             )
         ))
         M.destroy()
+    
+    def test_upload_CSR_zero_rows(self):
+        M = pyamgx.Matrix()
+        M.create(self.rsrc)
+        M.upload_CSR(cp.sparse.csr_matrix(
+            scipy.sparse.csr_matrix(
+                np.array([[1., 2., 0.], [3., 4., 0.], [0., 0., 0.]])
+            )
+        ))
+        M.destroy()
         
     def test_upload_CSR_singular(self):
         M = pyamgx.Matrix()

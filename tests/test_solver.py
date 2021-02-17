@@ -88,6 +88,33 @@ class TestSolver:
         M.destroy()
         x.destroy()
         b.destroy()
+        
+    def test_solve_matrix_rectangular(self):
+        M = pyamgx.Matrix().create(self.rsrc)
+        x = pyamgx.Vector().create(self.rsrc)
+        b = pyamgx.Vector().create(self.rsrc)
+        
+        ''' Matrix:
+            1, 2, 0
+            2, 1, 0
+        '''
+        M.upload(
+            np.array([0, 2, 4], dtype=np.int32), 
+            np.array([0, 1, 0, 1], dtype=np.int32), 
+            np.array([1., 2., 2., 1.], dtype=np.float64)
+        )
+        
+        x.upload(np.zeros(3, dtype=np.float64))
+        b.upload(np.array([1, 2], dtype=np.float64))
+        solver = pyamgx.Solver().create(self.rsrc, self.cfg)
+        solver.setup(M)
+        with pytest.raises(ValueError):
+            solver.solve(b, x)
+
+        solver.destroy()
+        M.destroy()
+        x.destroy()
+        b.destroy()
 
     def test_solve_no_setup(self):
         x = pyamgx.Vector().create(self.rsrc)
