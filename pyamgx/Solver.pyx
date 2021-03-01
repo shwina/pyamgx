@@ -74,6 +74,8 @@ cdef class Solver:
         b_size, _ = b.get_size()
         x_size, _ = x.get_size()
 
+        if self.A.shape[0] != self.A.shape[1]:
+            raise ValueError, "Matrix is not square: {} != {}".format(self.A.shape[0], self.A.shape[1])
         if A_size != b_size:
             raise ValueError, "Matrix - RHS dimension mismatch: {} != {}".format(
                 A_size, b_size)

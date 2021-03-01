@@ -23,6 +23,7 @@ cdef class Matrix:
 
     """
     cdef AMGX_matrix_handle mtx
+    cdef int shape[2]
 
     def create(self, Resources rsrc, mode='dDDI'):
         """
@@ -44,7 +45,7 @@ cdef class Matrix:
         check_error(AMGX_matrix_create(&self.mtx, rsrc.rsrc, asMode(mode)))
         return self
 
-    def upload(self, row_ptrs, col_indices, data, block_dims=[1, 1]):
+    def upload(self, row_ptrs, col_indices, data, block_dims=[1, 1], shape=None):
         """
         M.upload(row_ptrs, col_indices, data, block_dims=[1, 1])
 
@@ -71,12 +72,19 @@ cdef class Matrix:
         self : Matrix
         """
         cdef int block_dimx, block_dimy
+        cdef int nrows, ncols
 
         block_dimx = block_dims[0]
         block_dimy = block_dims[1]
 
         nnz = len(data)
-        nrows = len(row_ptrs) - 1
+        if shape is None:
+            nrows = len(row_ptrs) - 1
+            ncols = col_indices.max() + 1
+        else:
+            nrows = shape[0]
+            ncols = shape[1]
+        self.shape = nrows, ncols
 
         cdef uintptr_t row_ptrs_ptr = ptr_from_array_interface(
             row_ptrs, "int32"
@@ -124,7 +132,7 @@ cdef class Matrix:
             data = data.__class__((1,), dtype=np.float64)
             data.fill(0)
 
-        self.upload(row_ptrs, col_indices, data)
+        self.upload(row_ptrs, col_indices, data, shape=[nrows, ncols])
         return self
 
     def get_size(self):
