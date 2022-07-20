@@ -21,8 +21,7 @@ else:
         AMGX_BUILD_DIR = os.path.join(AMGX_DIR, 'build')
     AMGX_lib_dirs = [AMGX_BUILD_DIR]
     AMGX_include_dirs = [
-        os.path.join(AMGX_DIR, 'base/include'),
-        os.path.join(AMGX_DIR, 'core/include')
+        os.path.join(AMGX_DIR, 'include')
     ]
 
 from Cython.Build import cythonize
