@@ -30,6 +30,8 @@ ext = cythonize([
     Extension(
         'pyamgx',
         sources=['pyamgx/pyamgx.pyx'],
+        extra_compile_args=['-fopenmp'],
+        extra_link_args=['-lgomp'],
         depends=['pyamgx/*.pyx, pyamgx/*.pxi'],
         libraries=['amgxsh'],
         language='c',
