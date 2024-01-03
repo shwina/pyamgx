@@ -1,4 +1,5 @@
 import  os
+import warnings
 from os.path import join as pjoin
 from setuptools import setup, Extension
 import subprocess
@@ -48,6 +49,12 @@ data_files = []
 if sys.platform == "win32":
     if 'install' in sys.argv[1:]:
         data_files = [('', [lib_file_path])]
+    else:
+        warnings.warn(
+            f'Running commands other than `python setup.py install` on Windows'
+            f' will not package AMGX library, which may lead to ImportError.'
+            f'\nTry adding directory to {lib_name} (which is "{lib_path}") into PATH to avoid this.'
+        )
 else:
     runtime_lib_dirs = [numpy.get_include(), ] + AMGX_lib_dirs
 
