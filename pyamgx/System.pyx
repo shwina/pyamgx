@@ -46,10 +46,10 @@ def reset_signal_handler():
     check_error(AMGX_reset_signal_handler())
 
 
-cdef void c_register_print_callback(AMGX_print_callback function):
+cdef void c_register_print_callback(AMGX_print_callback function)noexcept:
     AMGX_register_print_callback(function)
 
-cdef void c_print_callback(char *msg, int length):
+cdef void c_print_callback(char *msg, int length)noexcept:
     global print_callback
     print_callback(msg.decode('utf-8'))
 

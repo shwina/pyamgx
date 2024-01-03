@@ -38,7 +38,8 @@ import os
 pyamgx.initialize()
 
 from pyamgx_solver import PyAMGXSolver
-with open (os.environ['AMGX_DIR']+'/core/configs/AMG_CLASSICAL_PMIS.json') as f:
+#with open (os.environ['AMGX_DIR']+'/core/configs/AMG_CLASSICAL_PMIS.json') as f:
+with open (os.environ['AMGX_DIR']+'/src/configs/AMG_CLASSICAL_PMIS.json') as f:
     cfg = json.load(f)
 
 cfg['solver']['max_iters'] = 1000
