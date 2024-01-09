@@ -6,8 +6,12 @@ import subprocess
 import sys
 import numpy
 
-AMGX_DIR = os.environ.get('AMGX_DIR')
-AMGX_BUILD_DIR = os.environ.get('AMGX_BUILD_DIR')
+#AMGX_DIR = os.environ.get('AMGX_DIR')
+#AMGX_BUILD_DIR = os.environ.get('AMGX_BUILD_DIR')
+key = 'AMGX_DIR'
+AMGX_DIR = os.getenv(key)
+key2 = 'AMGX_BUILD_DIR'
+AMGX_BUILD_DIR = os.getenv(key2) 
 
 
 if sys.platform == "win32":
@@ -73,8 +77,14 @@ ext = cythonize([
         library_dirs = [
             numpy.get_include(),
         ] + AMGX_lib_dirs,
+<<<<<<< HEAD
         runtime_library_dirs = runtime_lib_dirs
 )])
+=======
+        runtime_library_dirs = [
+            numpy.get_include(),
+        ] + AMGX_lib_dirs,)], compiler_directives={"language_level": "3"})
+>>>>>>> c3d8943 (Modified setup.py and pyamgx/System.pyx.)
 
 setup(name='pyamgx',
       author='Ashwin Srinath',
@@ -82,3 +92,4 @@ setup(name='pyamgx',
       ext_modules = ext,
       data_files=data_files,
       zip_safe=False)
+
