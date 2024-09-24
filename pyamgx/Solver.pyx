@@ -104,6 +104,8 @@ cdef class Solver:
             return 'failed'
         elif stat == AMGX_SOLVE_DIVERGED:
             return 'diverged'
+        elif stat == AMGX_SOLVE_NOT_CONVERGED:
+            return 'not_converged'
         else:
             raise ValueError, 'Invalid solver status returned.'
 
@@ -117,8 +119,7 @@ cdef class Solver:
         """
         cdef int niter
         check_error(AMGX_solver_get_iterations_number(self.slv, &niter))
-        # for some reason AMGX returns 1+(number of iterations).
-        return niter-1
+        return niter
 
     def get_residual(self, int iteration=-1, int block_idx=0):
         """

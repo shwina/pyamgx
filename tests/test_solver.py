@@ -166,6 +166,7 @@ class TestSolver:
         x.upload(np.zeros(3, dtype=np.float64))
         b.upload(np.array([1., 2., 4.], dtype=np.float64))
 
+        self.cfg.create_from_dict({'monitor_residual': 1, 'max_iters': 10})
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
@@ -176,7 +177,7 @@ class TestSolver:
         solver = pyamgx.Solver().create(self.rsrc, self.cfg)
         solver.setup(M)
         solver.solve(b, x, zero_initial_guess=True)
-        assert(solver.status == 'diverged')
+        assert(solver.status == 'not_converged')
         solver.destroy()
 
         M.destroy()

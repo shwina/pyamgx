@@ -19,6 +19,13 @@ class TestSystem:
 
     def test_register_print_callback(self, capfd):
         pyamgx.register_print_callback(lambda msg: print("test"))
-        pyamgx.Config().create("")
+        try:
+            # this will result in a message from AMGX,
+            # and raise a Python exception.
+            pyamgx.Config().create("blah")
+        except Exception:
+            pass
+        # the message from AMGX should have been intercepted
+        # by the callback:
         out, err = capfd.readouterr()
         assert out == "test\n"
