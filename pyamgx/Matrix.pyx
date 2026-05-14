@@ -103,6 +103,80 @@ cdef class Matrix:
 
         return self
 
+    def upload_raw(self, row_ptrs_addr, col_indices_addr, data_addr,
+                   nrows, nnz, block_dims=[1, 1], shape=None):
+        """
+        M.upload_raw(row_ptrs_addr, col_indices_addr, data_addr,
+                     nrows, nnz, block_dims=[1, 1], shape=None)
+
+        Copy data into the Matrix object directly from raw pointers
+        (host or device, matching the Matrix mode). Useful for
+        interoperating with frameworks (e.g. JAX) that do not expose
+        ``__array_interface__`` / ``__cuda_array_interface__``.
+
+        Parameters
+        ----------
+        row_ptrs_addr : int
+            Address of the row pointer buffer (int32, length ``nrows + 1``).
+        col_indices_addr : int
+            Address of the column indices buffer (int32, length ``nnz``).
+        data_addr : int
+            Address of the values buffer (float64, length ``nnz * bx * by``).
+        nrows : int
+            Number of rows (in block units).
+        nnz : int
+            Number of non-zero blocks.
+        block_dims : tuple_like, optional
+        shape : tuple_like, optional
+            ``(nrows, ncols)``. If omitted, ``ncols`` is set to ``nrows``.
+
+        Returns
+        -------
+        self : Matrix
+        """
+        cdef int block_dimx = block_dims[0]
+        cdef int block_dimy = block_dims[1]
+        cdef int c_nrows = nrows
+        cdef int c_nnz = nnz
+        cdef uintptr_t row_ptrs_ptr = <uintptr_t> row_ptrs_addr
+        cdef uintptr_t col_indices_ptr = <uintptr_t> col_indices_addr
+        cdef uintptr_t data_ptr = <uintptr_t> data_addr
+
+        if shape is None:
+            self.shape = nrows, nrows
+        else:
+            self.shape = shape[0], shape[1]
+
+        check_error(AMGX_matrix_upload_all(
+            self.mtx,
+            c_nrows, c_nnz, block_dimx, block_dimy,
+            <const int*> row_ptrs_ptr, <const int*> col_indices_ptr,
+            <void*> data_ptr, NULL)
+        )
+
+        return self
+
+    def replace_coefficients_raw(self, data_addr):
+        """
+        M.replace_coefficients_raw(data_addr)
+
+        Replace matrix coefficients in-place from a raw pointer
+        (host or device, matching the Matrix mode), without changing
+        the nonzero structure.
+
+        Parameters
+        ----------
+        data_addr : int
+            Address of the values buffer (float64).
+        """
+        cdef int n, nnz
+        cdef uintptr_t data_ptr = <uintptr_t> data_addr
+
+        n = self.get_size()[0]
+        nnz = self.get_nnz()
+        check_error(AMGX_matrix_replace_coefficients(
+            self.mtx, n, nnz, <void *> data_ptr, NULL))
+
     def upload_CSR(self, csr):
         """
         M.upload_CSR(csr)

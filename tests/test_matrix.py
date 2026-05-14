@@ -155,3 +155,50 @@ class TestMatrix:
         M.replace_coefficients(
             cp.array([1., 0., 3.]))
         M.destroy()
+
+    def test_upload_raw_device(self):
+        row_ptrs = cp.array([0, 1, 3], dtype=np.int32)
+        col_indices = cp.array([1, 0, 1], dtype=np.int32)
+        data = cp.array([1., 2., 3.], dtype=np.float64)
+
+        M = pyamgx.Matrix().create(self.rsrc)
+        M.upload_raw(
+            int(row_ptrs.data.ptr),
+            int(col_indices.data.ptr),
+            int(data.data.ptr),
+            nrows=2,
+            nnz=3,
+        )
+        n, block_dims = M.get_size()
+        assert n == 2
+        assert block_dims == (1, 1)
+        assert M.get_nnz() == 3
+        M.destroy()
+
+    def test_upload_raw_rectangular_shape(self):
+        row_ptrs = cp.array([0, 1, 3], dtype=np.int32)
+        col_indices = cp.array([1, 0, 2], dtype=np.int32)
+        data = cp.array([1., 2., 3.], dtype=np.float64)
+
+        M = pyamgx.Matrix().create(self.rsrc)
+        M.upload_raw(
+            int(row_ptrs.data.ptr),
+            int(col_indices.data.ptr),
+            int(data.data.ptr),
+            nrows=2,
+            nnz=3,
+            shape=(2, 3),
+        )
+        n, _ = M.get_size()
+        assert n == 2
+        assert M.get_nnz() == 3
+        M.destroy()
+
+    def test_replace_coefficients_raw_device(self):
+        import scipy.sparse
+        M = pyamgx.Matrix().create(self.rsrc)
+        M.upload_CSR(scipy.sparse.csr_matrix(
+            np.array([[0., 1.], [2., 3.]])))
+        new_data = cp.array([1., 0., 3.], dtype=np.float64)
+        M.replace_coefficients_raw(int(new_data.data.ptr))
+        M.destroy()
